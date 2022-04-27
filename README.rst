@@ -1,5 +1,4 @@
 ..
-
     .. image:: https://readthedocs.org/projects/boto_session_manager/badge/?version=latest
         :target: https://boto_session_manager.readthedocs.io/index.html
         :alt: Documentation Status
@@ -25,8 +24,6 @@
 ------
 
 ..
-
-
     .. image:: https://img.shields.io/badge/Link-Document-blue.svg
         :target: https://boto_session_manager.readthedocs.io/index.html
 
