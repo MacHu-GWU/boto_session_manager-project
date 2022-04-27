@@ -52,7 +52,44 @@
 Welcome to ``boto_session_manager`` Documentation
 ==============================================================================
 
-Documentation for ``boto_session_manager``.
+
+Feature
+------------------------------------------------------------------------------
+**Boto Client Enum**
+
+Provide an Enum class to access the aws service name to create boto client.
+
+.. code-block:: python
+
+    from boto_session_manager import BotoSesManager, AwsServiceEnum
+
+    bsm = BotoSesManager()
+    s3_client = bsm.get_client(AwsServiceEnum.S3)
+
+**Cached Client**
+
+Once an boto session is defined, each AWS Service client should be created only once in most of the case. ``boto_session_manager.BotoSesManager.get_client(service_name)`` allow you to fetch the client object from cache if possible.
+
+.. code-block:: python
+
+    from boto_session_manager import BotoSesManager, AwsServiceEnum
+
+    bsm = BotoSesManager()
+    s3_client1 = bsm.get_client(AwsServiceEnum.S3)
+    s3_client2 = bsm.get_client(AwsServiceEnum.S3)
+    assert id(s3_client1) = id(s3_client2)
+
+**Assume Role**
+
+Create another boto session manager based on an assumed IAM role. Allow you to check if it is expired and maybe renew later.
+
+.. code-block:: python
+
+    bsm_assumed = bsm.assume_role("arn:aws:iam::669508176277:role/sanhe-assume-role-for-iam-test")
+    sts_client = bsm_assumed.get_client(AwsServiceEnum.sts)
+    print(sts_client.get_caller_identity())
+
+    print(bsm_assumed.is_expired())
 
 
 .. _install:
