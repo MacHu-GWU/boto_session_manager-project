@@ -1,13 +1,14 @@
+..
 
-.. image:: https://readthedocs.org/projects/boto_session_manager/badge/?version=latest
-    :target: https://boto_session_manager.readthedocs.io/index.html
-    :alt: Documentation Status
+    .. image:: https://readthedocs.org/projects/boto_session_manager/badge/?version=latest
+        :target: https://boto_session_manager.readthedocs.io/index.html
+        :alt: Documentation Status
 
-.. image:: https://github.com/MacHu-GWU/boto_session_manager-project/workflows/CI/badge.svg
-    :target: https://github.com/MacHu-GWU/boto_session_manager-project/actions?query=workflow:CI
+    .. image:: https://github.com/MacHu-GWU/boto_session_manager-project/workflows/CI/badge.svg
+        :target: https://github.com/MacHu-GWU/boto_session_manager-project/actions?query=workflow:CI
 
-.. image:: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project/branch/master/graph/badge.svg
-    :target: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project
+    .. image:: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project/branch/master/graph/badge.svg
+        :target: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project
 
 .. image:: https://img.shields.io/pypi/v/boto_session_manager.svg
     :target: https://pypi.python.org/pypi/boto_session_manager
@@ -23,15 +24,17 @@
 
 ------
 
+..
 
-.. image:: https://img.shields.io/badge/Link-Document-blue.svg
-    :target: https://boto_session_manager.readthedocs.io/index.html
 
-.. image:: https://img.shields.io/badge/Link-API-blue.svg
-    :target: https://boto_session_manager.readthedocs.io/py-modindex.html
+    .. image:: https://img.shields.io/badge/Link-Document-blue.svg
+        :target: https://boto_session_manager.readthedocs.io/index.html
 
-.. image:: https://img.shields.io/badge/Link-Source_Code-blue.svg
-    :target: https://boto_session_manager.readthedocs.io/py-modindex.html
+    .. image:: https://img.shields.io/badge/Link-API-blue.svg
+        :target: https://boto_session_manager.readthedocs.io/py-modindex.html
+
+    .. image:: https://img.shields.io/badge/Link-Source_Code-blue.svg
+        :target: https://boto_session_manager.readthedocs.io/py-modindex.html
 
 .. image:: https://img.shields.io/badge/Link-Install-blue.svg
     :target: `install`_
