@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class ServiceEnum:
+class AwsServiceEnum:
     AccessAnalyzer = "accessanalyzer"
     Account = "account"
     ACM = "acm"

@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from pytest import raises, approx
-from boto_session_manager.manager import BotoSesManager
+from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
 bsm = BotoSesManager()
 
 
 class TestBotoSesManager:
+    def test_get_client(self):
+        s3_client1 = bsm.get_client(AwsServiceEnum.S3)
+        s3_client2 = bsm.get_client(AwsServiceEnum.S3)
+        assert id(s3_client1) == id(s3_client2)
+
     def test_is_expired(self):
         assert bsm.is_expired() is False
 

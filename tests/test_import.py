@@ -6,7 +6,9 @@ from pytest import raises, approx
 
 def test():
     import boto_session_manager
-    pass
+
+    _ = boto_session_manager.BotoSesManager
+    _ = boto_session_manager.AwsServiceEnum
 
 
 if __name__ == "__main__":

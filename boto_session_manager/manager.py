@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from typing import Optional
 
 import boto3
-from .services import ServiceEnum
+from .services import AwsServiceEnum
 
 
 class BotoSesManager:
@@ -47,7 +47,7 @@ class BotoSesManager:
         .. versionadded:: 1.0.1
         """
         if self._aws_account_id is None:
-            sts_client = self.get_client(ServiceEnum.STS)
+            sts_client = self.get_client(AwsServiceEnum.STS)
             self._aws_account_id = sts_client.get_caller_identity()["Account"]
         return self._aws_account_id
 
@@ -88,6 +88,9 @@ class BotoSesManager:
         source_identity: str = None,
     ) -> 'BotoSesManager':
         """
+        Assume an IAM role, create another :class`BotoSessionManager` and return.
+
+        .. versionadded:: 0.0.1
         """
         if role_session_name is None:
             role_session_name = uuid.uuid4().hex
@@ -106,7 +109,7 @@ class BotoSesManager:
             ).items()
             if v is not None
         }
-        sts_client = self.get_client(ServiceEnum.STS)
+        sts_client = self.get_client(AwsServiceEnum.STS)
         res = sts_client.assume_role(**kwargs)
         boto_ses = boto3.session.Session(
             aws_access_key_id=res["Credentials"]["AccessKeyId"],
@@ -120,5 +123,10 @@ class BotoSesManager:
         )
         return bsm
 
-    def is_expired(self):
+    def is_expired(self) -> bool:
+        """
+        Check if this boto session is expired.
+
+        .. versionadded:: 0.0.1
+        """
         return datetime.utcnow().replace(tzinfo=timezone.utc) >= self.expiration_time
