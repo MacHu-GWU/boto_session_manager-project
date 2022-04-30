@@ -6,9 +6,15 @@ Manage the underlying boto3 session and client.
 
 import uuid
 from datetime import datetime, timezone
-from typing import Optional
+from typing import Optional, Dict, TYPE_CHECKING
 
 import boto3
+
+if TYPE_CHECKING:
+    import botocore.session
+    from botocore.client import BaseClient
+    from boto3.resources.base import ServiceResource
+
 from .services import AwsServiceEnum
 
 
@@ -27,17 +33,45 @@ class BotoSesManager:
 
     def __init__(
         self,
-        boto_ses: Optional['boto3.session.Session'] = None,
+        aws_access_key_id: str = None,
+        aws_secret_access_key: str = None,
+        aws_session_token: str = None,
+        region_name: str = None,
+        botocore_session: 'botocore.session.Session' = None,
+        profile_name: str = None,
         expiration_time: datetime = datetime(2100, 1, 1, tzinfo=timezone.utc),
     ):
-        if boto_ses is None:  # pragma: no cover
-            boto_ses = boto3.session.Session()
-        self.boto_ses = boto_ses
+        self.aws_access_key_id = aws_access_key_id
+        self.aws_secret_access_key = aws_secret_access_key
+        self.aws_session_token = aws_session_token
+        self.region_name = region_name
+        self.botocore_session = botocore_session
+        self.profile_name = profile_name
         self.expiration_time: datetime = expiration_time
 
-        self._client_cache = dict()
-        self._aws_account_id = None
-        self._aws_region = None
+        self._boto_ses_cache: Optional[boto3.session.Session] = None
+        self._client_cache: Dict[str, 'BaseClient'] = dict()
+        self._resource_cache: Dict[str, 'ServiceResource'] = dict()
+        self._aws_account_id_cache: Optional[str] = None
+        self._aws_region_cache: Optional[str] = None
+
+    @property
+    def boto_ses(self) -> boto3.session.Session:
+        """
+        Get boto3 session from metadata.
+
+        .. versionadded:: 1.0.2
+        """
+        if self._boto_ses_cache is None:
+            self._boto_ses_cache = boto3.session.Session(
+                aws_access_key_id=self.aws_access_key_id,
+                aws_secret_access_key=self.aws_secret_access_key,
+                aws_session_token=self.aws_session_token,
+                region_name=self.region_name,
+                botocore_session=self.botocore_session,
+                profile_name=self.profile_name,
+            )
+        return self._boto_ses_cache
 
     @property
     def aws_account_id(self) -> str:
@@ -46,10 +80,10 @@ class BotoSesManager:
 
         .. versionadded:: 1.0.1
         """
-        if self._aws_account_id is None:
+        if self._aws_account_id_cache is None:
             sts_client = self.get_client(AwsServiceEnum.STS)
-            self._aws_account_id = sts_client.get_caller_identity()["Account"]
-        return self._aws_account_id
+            self._aws_account_id_cache = sts_client.get_caller_identity()["Account"]
+        return self._aws_account_id_cache
 
     @property
     def aws_region(self) -> str:
@@ -58,11 +92,11 @@ class BotoSesManager:
 
         .. versionadded:: 0.0.1
         """
-        if self._aws_region is None:
-            self._aws_region = self.boto_ses.region_name
-        return self._aws_region
+        if self._aws_region_cache is None:
+            self._aws_region_cache = self.boto_ses.region_name
+        return self._aws_region_cache
 
-    def get_client(self, service_name: str):
+    def get_client(self, service_name: str) -> 'BaseClient':
         """
         Get aws boto client using cache
 
@@ -74,6 +108,19 @@ class BotoSesManager:
             client = self.boto_ses.client(service_name)
             self._client_cache[service_name] = client
             return client
+
+    def get_resource(self, service_name: str) -> 'ServiceResource':
+        """
+        Get aws boto service resource using cache
+
+        .. versionadded:: 0.0.2
+        """
+        try:
+            return self._resource_cache[service_name]
+        except KeyError:
+            resource = self.boto_ses.resource(service_name)
+            self._resource_cache[service_name] = resource
+            return resource
 
     def assume_role(
         self,
@@ -111,14 +158,11 @@ class BotoSesManager:
         }
         sts_client = self.get_client(AwsServiceEnum.STS)
         res = sts_client.assume_role(**kwargs)
-        boto_ses = boto3.session.Session(
+        expiration_time = res["Credentials"]["Expiration"]
+        bsm = self.__class__(
             aws_access_key_id=res["Credentials"]["AccessKeyId"],
             aws_secret_access_key=res["Credentials"]["SecretAccessKey"],
             aws_session_token=res["Credentials"]["SessionToken"],
-        )
-        expiration_time = res["Credentials"]["Expiration"]
-        bsm = self.__class__(
-            boto_ses=boto_ses,
             expiration_time=expiration_time,
         )
         return bsm

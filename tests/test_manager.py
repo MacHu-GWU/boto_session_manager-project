@@ -12,6 +12,11 @@ class TestBotoSesManager:
         s3_client2 = bsm.get_client(AwsServiceEnum.S3)
         assert id(s3_client1) == id(s3_client2)
 
+    def test_get_resource(self):
+        s3_resource1 = bsm.get_resource(AwsServiceEnum.S3)
+        s3_resource2 = bsm.get_resource(AwsServiceEnum.S3)
+        assert id(s3_resource1) == id(s3_resource2)
+
     def test_is_expired(self):
         assert bsm.is_expired() is False
 
