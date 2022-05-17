@@ -4,9 +4,11 @@ Release and Version History
 ==============================================================================
 
 
-0.0.4 (TODO)
+0.0.4 (Planned)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
+
+- add refreshable session support
 
 **Minor Improvements**
 
@@ -19,7 +21,7 @@ Release and Version History
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
-- add refreshable session support
+- add additional keyword arguments for :class:`boto_session_manager.manager.BotoSesManager.get_client` method
 
 **Minor Improvements**
 
@@ -34,12 +36,6 @@ Release and Version History
 
 - now :class:`boto_session_manager.manager.BotoSesManager`
 - add :meth:`boto_session_manager.manager.BotoSesManager.get_resource` method
-
-**Minor Improvements**
-
-**Bugfixes**
-
-**Miscellaneous**
 
 
 0.0.1 (2022-04-26)

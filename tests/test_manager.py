@@ -7,6 +7,10 @@ bsm = BotoSesManager()
 
 
 class TestBotoSesManager:
+    def test_aws_account_id_and_region(self):
+        _ = bsm.aws_account_id
+        _ = bsm.aws_region
+
     def test_get_client(self):
         s3_client1 = bsm.get_client(AwsServiceEnum.S3)
         s3_client2 = bsm.get_client(AwsServiceEnum.S3)

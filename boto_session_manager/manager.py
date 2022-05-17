@@ -6,11 +6,11 @@ Manage the underlying boto3 session and client.
 
 import uuid
 from datetime import datetime, timezone
-from typing import Optional, Dict, TYPE_CHECKING
+from typing import Optional, Dict, Union, TYPE_CHECKING
 
 import boto3
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: no cover
     import botocore.session
     from botocore.client import BaseClient
     from boto3.resources.base import ServiceResource
@@ -96,29 +96,85 @@ class BotoSesManager:
             self._aws_region_cache = self.boto_ses.region_name
         return self._aws_region_cache
 
-    def get_client(self, service_name: str) -> 'BaseClient':
+    def get_client(
+        self,
+        service_name: str,
+        region_name: str = None,
+        api_version: str = None,
+        use_ssl: bool = True,
+        verify: Union[bool, str] = None,
+        endpoint_url: str = None,
+        aws_access_key_id: str = None,
+        aws_secret_access_key: str = None,
+        aws_session_token: str = None,
+        config=None,
+    ) -> 'BaseClient':
         """
-        Get aws boto client using cache
+        Get aws boto client using cache.
 
         .. versionadded:: 0.0.1
+        
+        .. versionchanged:: 0.0.3
+        
+            add additional keyword arguments pass to
+            ``boto3.session.Session.client()`` method.
         """
         try:
             return self._client_cache[service_name]
         except KeyError:
-            client = self.boto_ses.client(service_name)
+            client = self.boto_ses.client(
+                service_name,
+                region_name=region_name,
+                api_version=api_version,
+                use_ssl=use_ssl,
+                verify=verify,
+                endpoint_url=endpoint_url,
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
+                aws_session_token=aws_session_token,
+                config=config,
+            )
             self._client_cache[service_name] = client
             return client
 
-    def get_resource(self, service_name: str) -> 'ServiceResource':
+    def get_resource(
+        self,
+        service_name: str,
+        region_name: str = None,
+        api_version: str = None,
+        use_ssl: bool = True,
+        verify: Union[bool, str] = None,
+        endpoint_url: str = None,
+        aws_access_key_id: str = None,
+        aws_secret_access_key: str = None,
+        aws_session_token: str = None,
+        config=None,
+    ) -> 'ServiceResource':
         """
         Get aws boto service resource using cache
 
         .. versionadded:: 0.0.2
+
+        .. versionchanged:: 0.0.3
+
+            add additional keyword arguments pass to
+            ``boto3.session.Session.resource()`` method.
         """
         try:
             return self._resource_cache[service_name]
         except KeyError:
-            resource = self.boto_ses.resource(service_name)
+            resource = self.boto_ses.resource(
+                service_name,
+                region_name=region_name,
+                api_version=api_version,
+                use_ssl=use_ssl,
+                verify=verify,
+                endpoint_url=endpoint_url,
+                aws_access_key_id=aws_access_key_id,
+                aws_secret_access_key=aws_secret_access_key,
+                aws_session_token=aws_session_token,
+                config=config,
+            )
             self._resource_cache[service_name] = resource
             return resource
 
