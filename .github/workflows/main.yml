@@ -5,15 +5,30 @@ name: CI
 
 on:
   push: # any push event to master will trigger this
-    branches: ["dont_run"]
+    branches: ["main"]
   pull_request: # any pull request to master will trigger this
-    branches: ["dont_run"]
+    branches: ["main"]
   workflow_dispatch: # allows you to manually trigger run
 
 jobs:
   tests:
     name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
     runs-on: "${{ matrix.os }}" # for all available VM runtime, see this: https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners
+    services:
+      aws_local:
+        image: localstack/localstack
+        ports:
+          - "4566:4566"
+        env:
+          DEFAULT_REGION: us-east-1
+          FORCE_NONINTERACTIVE: 1
+          AWS_ACCESS_KEY_ID: ABCD
+          AWS_SECRET_ACCESS_KEY: ABCD
+        options: >-
+          --health-cmd "awslocal s3 mb s3://uploads"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     env: # define environment variables
       USING_COVERAGE: "3.6,3.7,3.8,3.9"
     strategy:
@@ -50,7 +65,6 @@ jobs:
           pip install -r requirements-test.txt
           pip install .
       - name: "Run pytest"
-
         run: "python -m pytest tests --cov=boto_session_manager"
       - name: "Upload coverage to Codecov"
         if: "contains(env.USING_COVERAGE, matrix.python-version)"
