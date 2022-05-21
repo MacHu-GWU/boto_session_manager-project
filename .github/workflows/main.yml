@@ -27,10 +27,6 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
       - name: Start LocalStack # https://docs.localstack.cloud/ci/github-actions/
-        env:
-          AWS_ACCESS_KEY_ID: ABCD
-          AWS_SECRET_ACCESS_KEY: ABCD
-          AWS_DEFAULT_REGION: us-east-1
         run: |
           # install LocalStack cli and awslocal
           pip install localstack awscli-local[ver1]
@@ -43,6 +39,10 @@ jobs:
           localstack wait -t 30
           echo "Startup complete"
       - name: "Install dependencies on MacOS or Linux"
+        env:
+          AWS_ACCESS_KEY_ID: localstack
+          AWS_SECRET_ACCESS_KEY: localstack
+          AWS_DEFAULT_REGION: us-east-1
         run: |
           set -xe
           python -VV
