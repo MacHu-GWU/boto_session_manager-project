@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-0.0.4 (Planned)
+0.0.5 (Planned)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -17,11 +17,22 @@ Release and Version History
 **Miscellaneous**
 
 
-0.0.3 (Planned)
+0.0.4 (2022-05-20)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
-- add additional keyword arguments for :class:`boto_session_manager.manager.BotoSesManager.get_client` method
+- add ``default_client_kwargs`` argument for :class:`boto_session_manager.manager.BotoSesManager`.
+
+**Miscellaneous**
+
+- use `localstack <https://localstack.cloud/>`_ for unit test.
+
+
+0.0.3 (2022-05-16)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add additional keyword arguments for :meth:`boto_session_manager.manager.BotoSesManager.get_client` method
 
 **Minor Improvements**
 
