@@ -14,21 +14,6 @@ jobs:
   tests:
     name: "${{ matrix.os }} Python ${{ matrix.python-version }}"
     runs-on: "${{ matrix.os }}" # for all available VM runtime, see this: https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners
-    services:
-      aws_local:
-        image: localstack/localstack
-        ports:
-          - "4566:4566"
-        env:
-          DEFAULT_REGION: us-east-1
-          FORCE_NONINTERACTIVE: 1
-          AWS_ACCESS_KEY_ID: ABCD
-          AWS_SECRET_ACCESS_KEY: ABCD
-        options: >-
-          --health-cmd "awslocal s3 mb s3://uploads"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     env: # define environment variables
       USING_COVERAGE: "3.6,3.7,3.8,3.9"
     strategy:
@@ -41,24 +26,26 @@ jobs:
           - os: windows-latest # this is a useless exclude rules for demonstration use only
             python-version: 2.7
     steps:
-      - uses: "actions/checkout@v2" # https://github.com/marketplace/actions/checkout
-      - uses: "actions/setup-python@v2" # https://github.com/marketplace/actions/setup-python
+      - uses: "actions/checkout@v3" # https://github.com/marketplace/actions/checkout
+      - uses: "actions/setup-python@v3" # https://github.com/marketplace/actions/setup-python
         with:
           python-version: "${{ matrix.python-version }}"
-
-      - if: matrix.os == 'ubuntu-latest' # for condition steps, you should put if at begin, and use single quote for logical expression
-        name: "Install dependencies on MacOS or Linux"
+      - name: Start LocalStack
+        run: |
+          # install LocalStack cli and awslocal
+          pip install localstack awscli-local[ver1]
+          # Make sure to pull the latest version of the image
+          docker pull localstack/localstack
+          # Start LocalStack in the background
+          localstack start -d
+          # Wait 30 seconds for the LocalStack container to become ready before timing out
+          echo "Waiting for LocalStack startup..."
+          localstack wait -t 30
+          echo "Startup complete"
+      - name: "Install dependencies on MacOS or Linux"
         run: |
           set -xe
           python -VV
-          python -m site
-          python -m pip install --upgrade pip setuptools wheel virtualenv codecov
-          pip install -r requirements.txt
-          pip install -r requirements-test.txt
-          pip install .
-      - if: matrix.os == 'windows-latest'
-        name: "Install dependencies on Windows"
-        run: |
           python -m site
           python -m pip install --upgrade pip setuptools wheel virtualenv codecov
           pip install -r requirements.txt
@@ -68,6 +55,6 @@ jobs:
         run: "python -m pytest tests --cov=boto_session_manager"
       - name: "Upload coverage to Codecov"
         if: "contains(env.USING_COVERAGE, matrix.python-version)"
-        uses: "codecov/codecov-action@v1" # https://github.com/marketplace/actions/codecov-action
+        uses: "codecov/codecov-action@v2" # https://github.com/marketplace/actions/codecov-action
         with:
           fail_ci_if_error: true
