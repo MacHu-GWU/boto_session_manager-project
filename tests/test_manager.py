@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pytest
+
+import json
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
 bsm = BotoSesManager()
@@ -24,9 +26,68 @@ class TestBotoSesManager:
     def test_is_expired(self):
         assert bsm.is_expired() is False
 
-    def test_assume_role(self):
-        bsm1 = bsm.assume_role("arn:aws:iam::669508176277:role/sanhe-assume-role-for-iam-test")
-        assert bsm1.expiration_time < bsm.expiration_time
+    def test_with_localstack(self):
+        # Create boto session with localstack
+        bsm = BotoSesManager(
+            default_client_kwargs=dict(
+                endpoint_url="http://localhost.localstack.cloud:4566",
+            )
+        )
+        s3_client = bsm.get_client(AwsServiceEnum.S3)
+        res = s3_client.list_buckets()
+        assert len(res["Buckets"]) == 0
+
+        localstack_account_id = "000000000000"
+
+        sts_client = bsm.get_client((AwsServiceEnum.STS))
+        res = sts_client.get_caller_identity()
+        assert res["Account"] == localstack_account_id
+
+        # Test IAM role and Assumed IAM Role
+        role_name = "external_account_assume_role"
+        iam_client = bsm.get_client(AwsServiceEnum.IAM)
+        res = iam_client.list_roles()
+
+        if len(res["Roles"]) == 0:
+            iam_client.create_role(
+                RoleName=role_name,
+                AssumeRolePolicyDocument=json.dumps(
+                    {
+                        "Version": "2012-10-17",
+                        "Statement": [
+                            {
+                                "Effect": "Allow",
+                                "Principal": {
+                                    "AWS": f"arn:aws:iam::{localstack_account_id}:root"
+                                },
+                                "Action": "sts:AssumeRole",
+                                "Condition": {},
+                            }
+                        ],
+                    }
+                ),
+            )
+
+        iam_client.put_role_policy(
+            RoleName=role_name,
+            PolicyName="policy",
+            PolicyDocument=json.dumps(
+                {
+                    "Version": "2012-10-17",
+                    "Statement": [{"Effect": "Allow", "Action": "*", "Resource": "*"}],
+                }
+            ),
+        )
+
+        bsm_assumed = bsm.assume_role(
+            role_arn=f"arn:aws:iam::{localstack_account_id}:role/{role_name}"
+        )
+        sts_client_assumed = bsm_assumed.get_client(AwsServiceEnum.STS)
+        res = sts_client_assumed.get_caller_identity()
+        assert res["Arn"].startswith(
+            f"arn:aws:sts::{localstack_account_id}:assumed-role/{role_name}"
+        )
+        assert bsm_assumed.expiration_time <= bsm.expiration_time
 
 
 if __name__ == "__main__":

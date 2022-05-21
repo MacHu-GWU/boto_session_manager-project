@@ -28,7 +28,12 @@ class BotoSesManager:
         also session.client("s3") won't talk to AWS endpoint right away. The
         authentication only happen when a concrete API request called.
 
-    .. versionadded:: 1.0.1
+    .. versionadded:: 0.0.1
+
+    .. versionadded:: 0.0.4
+
+        add ``default_client_kwargs`` arguments that set default keyword
+        arguments for ``boto3.session.Session.client`` method.
     """
 
     def __init__(
@@ -37,8 +42,9 @@ class BotoSesManager:
         aws_secret_access_key: str = None,
         aws_session_token: str = None,
         region_name: str = None,
-        botocore_session: 'botocore.session.Session' = None,
+        botocore_session: "botocore.session.Session" = None,
         profile_name: str = None,
+        default_client_kwargs: dict = None,
         expiration_time: datetime = datetime(2100, 1, 1, tzinfo=timezone.utc),
     ):
         self.aws_access_key_id = aws_access_key_id
@@ -48,10 +54,13 @@ class BotoSesManager:
         self.botocore_session = botocore_session
         self.profile_name = profile_name
         self.expiration_time: datetime = expiration_time
+        if default_client_kwargs is None:
+            default_client_kwargs = dict()
+        self.default_client_kwargs = default_client_kwargs
 
         self._boto_ses_cache: Optional[boto3.session.Session] = None
-        self._client_cache: Dict[str, 'BaseClient'] = dict()
-        self._resource_cache: Dict[str, 'ServiceResource'] = dict()
+        self._client_cache: Dict[str, "BaseClient"] = dict()
+        self._resource_cache: Dict[str, "ServiceResource"] = dict()
         self._aws_account_id_cache: Optional[str] = None
         self._aws_region_cache: Optional[str] = None
 
@@ -108,22 +117,21 @@ class BotoSesManager:
         aws_secret_access_key: str = None,
         aws_session_token: str = None,
         config=None,
-    ) -> 'BaseClient':
+    ) -> "BaseClient":
         """
         Get aws boto client using cache.
 
         .. versionadded:: 0.0.1
-        
+
         .. versionchanged:: 0.0.3
-        
+
             add additional keyword arguments pass to
             ``boto3.session.Session.client()`` method.
         """
         try:
             return self._client_cache[service_name]
         except KeyError:
-            client = self.boto_ses.client(
-                service_name,
+            client_kwargs = dict(
                 region_name=region_name,
                 api_version=api_version,
                 use_ssl=use_ssl,
@@ -134,6 +142,11 @@ class BotoSesManager:
                 aws_session_token=aws_session_token,
                 config=config,
             )
+            client_kwargs = {k: v for k, v in client_kwargs.items() if v is not None}
+            kwargs = dict(self.default_client_kwargs)
+            if self.default_client_kwargs:
+                kwargs.update(client_kwargs)
+            client = self.boto_ses.client(service_name, **kwargs)
             self._client_cache[service_name] = client
             return client
 
@@ -149,7 +162,7 @@ class BotoSesManager:
         aws_secret_access_key: str = None,
         aws_session_token: str = None,
         config=None,
-    ) -> 'ServiceResource':
+    ) -> "ServiceResource":
         """
         Get aws boto service resource using cache
 
@@ -163,8 +176,7 @@ class BotoSesManager:
         try:
             return self._resource_cache[service_name]
         except KeyError:
-            resource = self.boto_ses.resource(
-                service_name,
+            resource_kwargs = dict(
                 region_name=region_name,
                 api_version=api_version,
                 use_ssl=use_ssl,
@@ -175,6 +187,13 @@ class BotoSesManager:
                 aws_session_token=aws_session_token,
                 config=config,
             )
+            resource_kwargs = {
+                k: v for k, v in resource_kwargs.items() if v is not None
+            }
+            kwargs = dict(self.default_client_kwargs)
+            if self.default_client_kwargs:
+                kwargs.update(resource_kwargs)
+            resource = self.boto_ses.resource(service_name, **kwargs)
             self._resource_cache[service_name] = resource
             return resource
 
@@ -189,7 +208,7 @@ class BotoSesManager:
         mfa_serial_number: str = None,
         mfa_token: str = None,
         source_identity: str = None,
-    ) -> 'BotoSesManager':
+    ) -> "BotoSesManager":
         """
         Assume an IAM role, create another :class`BotoSessionManager` and return.
 
@@ -220,6 +239,7 @@ class BotoSesManager:
             aws_secret_access_key=res["Credentials"]["SecretAccessKey"],
             aws_session_token=res["Credentials"]["SessionToken"],
             expiration_time=expiration_time,
+            default_client_kwargs=self.default_client_kwargs,
         )
         return bsm
 
