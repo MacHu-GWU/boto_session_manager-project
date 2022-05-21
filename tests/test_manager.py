@@ -6,7 +6,6 @@ import json
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
 bsm = BotoSesManager(
-    region_name="us-east-1",
     default_client_kwargs=dict(
         endpoint_url="http://localhost.localstack.cloud:4566",
     )

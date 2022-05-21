@@ -29,6 +29,9 @@ jobs:
       - name: Start LocalStack # https://docs.localstack.cloud/ci/github-actions/
         env:
           LOCALSTACK_API_KEY: foobar
+          AWS_ACCESS_KEY_ID: ABCD
+          AWS_SECRET_ACCESS_KEY: ABCD
+          AWS_DEFAULT_REGION: us-east-1
         run: |
           # install LocalStack cli and awslocal
           pip install localstack awscli-local[ver1]
