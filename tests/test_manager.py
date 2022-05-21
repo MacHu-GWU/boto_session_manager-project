@@ -5,7 +5,11 @@ import pytest
 import json
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
-bsm = BotoSesManager()
+bsm = BotoSesManager(
+    default_client_kwargs=dict(
+        endpoint_url="http://localhost.localstack.cloud:4566",
+    )
+)
 
 
 class TestBotoSesManager:
@@ -26,13 +30,7 @@ class TestBotoSesManager:
     def test_is_expired(self):
         assert bsm.is_expired() is False
 
-    def test_with_localstack(self):
-        # Create boto session with localstack
-        bsm = BotoSesManager(
-            default_client_kwargs=dict(
-                endpoint_url="http://localhost.localstack.cloud:4566",
-            )
-        )
+    def test_assume_role(self):
         s3_client = bsm.get_client(AwsServiceEnum.S3)
         res = s3_client.list_buckets()
         assert len(res["Buckets"]) == 0
