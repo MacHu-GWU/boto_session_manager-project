@@ -3,11 +3,11 @@
         :target: https://boto_session_manager.readthedocs.io/index.html
         :alt: Documentation Status
 
-    .. image:: https://github.com/MacHu-GWU/boto_session_manager-project/workflows/CI/badge.svg
-        :target: https://github.com/MacHu-GWU/boto_session_manager-project/actions?query=workflow:CI
+.. image:: https://github.com/MacHu-GWU/boto_session_manager-project/workflows/CI/badge.svg
+    :target: https://github.com/MacHu-GWU/boto_session_manager-project/actions?query=workflow:CI
 
-    .. image:: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project/branch/master/graph/badge.svg
-        :target: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project
+.. image:: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project/branch/main/graph/badge.svg
+    :target: https://codecov.io/gh/MacHu-GWU/boto_session_manager-project
 
 .. image:: https://img.shields.io/pypi/v/boto_session_manager.svg
     :target: https://pypi.python.org/pypi/boto_session_manager
