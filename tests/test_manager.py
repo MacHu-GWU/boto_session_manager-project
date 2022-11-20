@@ -7,8 +7,8 @@ from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
 if "CI" in os.environ:  # pragma: no cover
     bsm = BotoSesManager(
-        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
-        aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID_FOR_GITHUB_CI"],
+        aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI"],
     )
 else:  # pragma: no cover
     bsm = BotoSesManager(profile_name="aws_data_lab_open_source_boto_session_manager")

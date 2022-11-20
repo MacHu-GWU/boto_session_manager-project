@@ -26,10 +26,23 @@ jobs:
       - uses: "actions/setup-python@v3" # https://github.com/marketplace/actions/setup-python
         with:
           python-version: "${{ matrix.python-version }}"
+      - name: Start LocalStack # https://docs.localstack.cloud/ci/github-actions/
+        run: |
+          # install LocalStack cli and awslocal
+          pip install localstack awscli-local[ver1]
+          # Make sure to pull the latest version of the image
+          docker pull localstack/localstack
+          # Start LocalStack in the background
+          localstack start -d
+          # Wait 30 seconds for the LocalStack container to become ready before timing out
+          echo "Waiting for LocalStack startup..."
+          localstack wait -t 30
+          echo "Startup complete"
       - name: "Install dependencies on MacOS or Linux"
         env:
-          AWS_ACCESS_KEY_ID_FOR_GITHUB_CI: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_GITHUB_CI }}
-          AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI }}
+          AWS_ACCESS_KEY_ID: localstack
+          AWS_SECRET_ACCESS_KEY: localstack
+          AWS_DEFAULT_REGION: us-east-1
         run: |
           set -xe
           python -VV
