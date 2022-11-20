@@ -27,7 +27,7 @@ jobs:
       - uses: "actions/setup-python@v3" # https://github.com/marketplace/actions/setup-python
         with:
           python-version: "${{ matrix.python-version }}"
-- name: "Install dependencies on MacOS or Linux"
+      - name: "Install dependencies on MacOS or Linux"
         if: matrix.os == 'ubuntu-latest' # for condition steps, you should put if at begin, and use single quote for logical expression
         run: |
           set -xe
