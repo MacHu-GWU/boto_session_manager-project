@@ -7,7 +7,7 @@ import json
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
 if "CI" in os.environ:  # pragma: no cover
-    endpoint_url = "http://localhost.localstack.cloud"
+    endpoint_url = "http://localstack:4566"
 else:  # pragma: no cover
     endpoint_url = "http://localhost.localstack.cloud:4566"
 
