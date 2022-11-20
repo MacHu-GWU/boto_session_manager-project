@@ -27,9 +27,6 @@ jobs:
         with:
           python-version: "${{ matrix.python-version }}"
       - name: "Install dependencies on MacOS or Linux"
-        env:
-          AWS_ACCESS_KEY_ID_FOR_GITHUB_CI: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_GITHUB_CI }}
-          AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI }}
         run: |
           set -xe
           python -VV
@@ -39,6 +36,9 @@ jobs:
           pip install -r requirements-test.txt
           pip install .
       - name: "Run pytest"
+        env:
+          AWS_ACCESS_KEY_ID_FOR_GITHUB_CI: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_GITHUB_CI }}
+          AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI }}
         run: "python -m pytest tests --cov=boto_session_manager"
       - name: "Upload coverage to Codecov"
         if: "contains(env.USING_COVERAGE, matrix.python-version)"
