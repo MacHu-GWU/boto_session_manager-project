@@ -2,12 +2,18 @@
 
 import pytest
 
+import os
 import json
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
+if "CI" in os.environ:  # pragma: no cover
+    endpoint_url = "http://localhost.localstack.cloud"
+else:  # pragma: no cover
+    endpoint_url = "http://localhost.localstack.cloud:4566"
+
 bsm = BotoSesManager(
     default_client_kwargs=dict(
-        endpoint_url="http://localhost.localstack.cloud:4566",
+        endpoint_url=endpoint_url,
     )
 )
 
