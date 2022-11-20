@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-0.0.5 (Planned)
+1.1.2 (Planned)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -15,6 +15,17 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+1.1.1 (2022-11-20)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- the first API stable version
+
+**Minor Improvements**
+
+- add ``delta`` arguments for :meth:`~boto_session_manager.manager.BotoSesManager.is_expired` method. allow to check if the session will expire in X seconds.
 
 
 0.0.4 (2022-05-20)

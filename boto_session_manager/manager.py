@@ -5,10 +5,11 @@ Manage the underlying boto3 session and client.
 """
 
 import uuid
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from typing import Optional, Dict, Union, TYPE_CHECKING
 
 import boto3
+
 
 if TYPE_CHECKING:  # pragma: no cover
     import botocore.session
@@ -30,7 +31,7 @@ class BotoSesManager:
 
     .. versionadded:: 0.0.1
 
-    .. versionadded:: 0.0.4
+    .. versionchanged:: 0.0.4
 
         add ``default_client_kwargs`` arguments that set default keyword
         arguments for ``boto3.session.Session.client`` method.
@@ -45,7 +46,7 @@ class BotoSesManager:
         botocore_session: "botocore.session.Session" = None,
         profile_name: str = None,
         default_client_kwargs: dict = None,
-        expiration_time: datetime = datetime(2100, 1, 1, tzinfo=timezone.utc),
+        expiration_time: datetime = None,
     ):
         self.aws_access_key_id = aws_access_key_id
         self.aws_secret_access_key = aws_secret_access_key
@@ -53,7 +54,13 @@ class BotoSesManager:
         self.region_name = region_name
         self.botocore_session = botocore_session
         self.profile_name = profile_name
-        self.expiration_time: datetime = expiration_time
+        self.expiration_time: datetime
+        if expiration_time is None:
+            self.expiration_time = datetime.utcnow().replace(
+                tzinfo=timezone.utc
+            ) + timedelta(days=365)
+        else:
+            self.expiration_time = expiration_time
         if default_client_kwargs is None:
             default_client_kwargs = dict()
         self.default_client_kwargs = default_client_kwargs
@@ -243,10 +250,12 @@ class BotoSesManager:
         )
         return bsm
 
-    def is_expired(self) -> bool:
+    def is_expired(self, delta: int = 0) -> bool:
         """
         Check if this boto session is expired.
 
         .. versionadded:: 0.0.1
         """
-        return datetime.utcnow().replace(tzinfo=timezone.utc) >= self.expiration_time
+        return (
+            datetime.utcnow().replace(tzinfo=timezone.utc) + timedelta(seconds=delta)
+        ) >= self.expiration_time
