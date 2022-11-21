@@ -61,7 +61,10 @@ class TestBotoSesManager:
         )
         assert bsm_assumed.expiration_time <= bsm.expiration_time
 
-    @pytest.mark.skipif(sys.platform.startswith("win"))
+    @pytest.mark.skipif(
+        sys.platform.startswith("win"),
+        reason="windows CLI system is different",
+    )
     def test_cli_context_manager_with_arguments(self):
         # iam user
         with bsm.awscli():
@@ -103,7 +106,10 @@ class TestBotoSesManager:
 
         assert f"assumed-role/{iam_role_name}" in arn
 
-    @pytest.mark.skipif(sys.platform.startswith("win"))
+    @pytest.mark.skipif(
+        sys.platform.startswith("win"),
+        reason="windows CLI system is different",
+    )
     def test_cli_context_manager_with_botocore_session(self):
         # iam user
         bsm_new = BotoSesManager(botocore_session=bsm.boto_ses._session)
