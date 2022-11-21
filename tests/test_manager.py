@@ -3,6 +3,7 @@
 import pytest
 
 import os
+import sys
 import json
 import subprocess
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
@@ -60,6 +61,7 @@ class TestBotoSesManager:
         )
         assert bsm_assumed.expiration_time <= bsm.expiration_time
 
+    @pytest.mark.skipif(sys.platform.startswith("win"))
     def test_cli_context_manager_with_arguments(self):
         # iam user
         with bsm.awscli():
@@ -101,6 +103,7 @@ class TestBotoSesManager:
 
         assert f"assumed-role/{iam_role_name}" in arn
 
+    @pytest.mark.skipif(sys.platform.startswith("win"))
     def test_cli_context_manager_with_botocore_session(self):
         # iam user
         bsm_new = BotoSesManager(botocore_session=bsm.boto_ses._session)
