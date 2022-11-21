@@ -18,6 +18,7 @@ else:  # pragma: no cover
     profile_name = "aws_data_lab_open_source_boto_session_manager"
     bsm = BotoSesManager(profile_name=profile_name)
 
+
 iam_user_name = "project-boto_session_manager"
 iam_role_name = "project-boto_session_manager"
 
@@ -77,9 +78,9 @@ class TestBotoSesManager:
         assert "AWS_PROFILE" not in os.environ
 
         assert arn.endswith(f"user/{iam_user_name}")
-
         if "CI" in os.environ:
             # ensure don't expose value to log
+            print(response)
             print(aws_access_key_id[:6], user_id[:6])
             flag = aws_access_key_id == user_id
             assert flag
