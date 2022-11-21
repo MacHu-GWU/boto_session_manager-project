@@ -3,15 +3,23 @@
 import pytest
 
 import os
+import json
+import subprocess
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
 
 if "CI" in os.environ:  # pragma: no cover
+    aws_access_ket_id = os.environ["AWS_ACCESS_KEY_ID_FOR_GITHUB_CI"]
+    aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI"]
     bsm = BotoSesManager(
-        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID_FOR_GITHUB_CI"],
-        aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI"],
+        aws_access_key_id=aws_access_ket_id,
+        aws_secret_access_key=aws_secret_access_key,
     )
 else:  # pragma: no cover
-    bsm = BotoSesManager(profile_name="aws_data_lab_open_source_boto_session_manager")
+    profile_name = "aws_data_lab_open_source_boto_session_manager"
+    bsm = BotoSesManager(profile_name=profile_name)
+
+iam_user_name = "project-boto_session_manager"
+iam_role_name = "project-boto_session_manager"
 
 
 class TestBotoSesManager:
@@ -50,6 +58,96 @@ class TestBotoSesManager:
             f"arn:aws:sts::{aws_account_id}:assumed-role/{role_name}"
         )
         assert bsm_assumed.expiration_time <= bsm.expiration_time
+
+    def test_cli_context_manager_with_arguments(self):
+        # iam user
+        with bsm.awscli():
+            args = ["aws", "sts", "get-caller-identity"]
+            response = json.loads(
+                subprocess.run(args, capture_output=True).stdout.decode("utf-8")
+            )
+            user_id, aws_account_id, arn = (
+                response["UserId"],
+                response["Account"],
+                response["Arn"],
+            )
+
+        assert "AWS_ACCESS_KEY_ID" not in os.environ
+        assert "AWS_SECRET_ACCESS_KEY" not in os.environ
+        assert "AWS_PROFILE" not in os.environ
+
+        assert arn.endswith(f"user/{iam_user_name}")
+
+        if "CI" in os.environ:
+            assert aws_access_ket_id == user_id
+
+        # assume role
+        bsm_assumed = bsm.assume_role(
+            role_arn=f"arn:aws:iam::{aws_account_id}:role/{iam_role_name}"
+        )
+        with bsm_assumed.awscli():
+            args = ["aws", "sts", "get-caller-identity"]
+            response = json.loads(
+                subprocess.run(args, capture_output=True).stdout.decode("utf-8")
+            )
+            user_id, aws_account_id, arn = (
+                response["UserId"],
+                response["Account"],
+                response["Arn"],
+            )
+
+        assert "AWS_ACCESS_KEY_ID" not in os.environ
+        assert "AWS_SECRET_ACCESS_KEY" not in os.environ
+        assert "AWS_SESSION_TOKEN" not in os.environ
+        assert "AWS_PROFILE" not in os.environ
+
+        assert f"assumed-role/{iam_role_name}" in arn
+
+    def test_cli_context_manager_with_botocore_session(self):
+        # iam user
+        bsm_new = BotoSesManager(botocore_session=bsm.boto_ses._session)
+
+        with bsm_new.awscli():
+            args = ["aws", "sts", "get-caller-identity"]
+            response = json.loads(
+                subprocess.run(args, capture_output=True).stdout.decode("utf-8")
+            )
+            user_id, aws_account_id, arn = (
+                response["UserId"],
+                response["Account"],
+                response["Arn"],
+            )
+
+        assert "AWS_ACCESS_KEY_ID" not in os.environ
+        assert "AWS_SECRET_ACCESS_KEY" not in os.environ
+        assert "AWS_PROFILE" not in os.environ
+
+        assert arn.endswith(f"user/{iam_user_name}")
+
+        if "CI" in os.environ:
+            assert aws_access_ket_id == user_id
+
+        # assume role
+        bsm_assumed = bsm_new.assume_role(
+            role_arn=f"arn:aws:iam::{aws_account_id}:role/{iam_role_name}"
+        )
+        with bsm_assumed.awscli():
+            args = ["aws", "sts", "get-caller-identity"]
+            response = json.loads(
+                subprocess.run(args, capture_output=True).stdout.decode("utf-8")
+            )
+            user_id, aws_account_id, arn = (
+                response["UserId"],
+                response["Account"],
+                response["Arn"],
+            )
+
+        assert "AWS_ACCESS_KEY_ID" not in os.environ
+        assert "AWS_SECRET_ACCESS_KEY" not in os.environ
+        assert "AWS_SESSION_TOKEN" not in os.environ
+        assert "AWS_PROFILE" not in os.environ
+
+        assert f"assumed-role/{iam_role_name}" in arn
 
 
 if __name__ == "__main__":

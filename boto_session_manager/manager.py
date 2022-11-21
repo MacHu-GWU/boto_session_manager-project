@@ -4,16 +4,20 @@
 Manage the underlying boto3 session and client.
 """
 
+import typing as T
+import os
 import uuid
+import contextlib
 from datetime import datetime, timezone, timedelta
 from typing import Optional, Dict, Union, TYPE_CHECKING
 
 import boto3
-
+import boto3.session
+import botocore.session
 
 if TYPE_CHECKING:  # pragma: no cover
-    import botocore.session
     from botocore.client import BaseClient
+    from botocore.credentials import Credentials
     from boto3.resources.base import ServiceResource
 
 from .services import AwsServiceEnum
@@ -43,7 +47,7 @@ class BotoSesManager:
         aws_secret_access_key: str = None,
         aws_session_token: str = None,
         region_name: str = None,
-        botocore_session: "botocore.session.Session" = None,
+        botocore_session: T.Optional["botocore.session.Session"] = None,
         profile_name: str = None,
         default_client_kwargs: dict = None,
         expiration_time: datetime = None,
@@ -52,7 +56,10 @@ class BotoSesManager:
         self.aws_secret_access_key = aws_secret_access_key
         self.aws_session_token = aws_session_token
         self.region_name = region_name
-        self.botocore_session = botocore_session
+        if botocore_session is not None:
+            if not isinstance(botocore_session, botocore.session.Session):
+                raise TypeError
+        self.botocore_session: "botocore.session.Session" = botocore_session
         self.profile_name = profile_name
         self.expiration_time: datetime
         if expiration_time is None:
@@ -259,3 +266,78 @@ class BotoSesManager:
         return (
             datetime.utcnow().replace(tzinfo=timezone.utc) + timedelta(seconds=delta)
         ) >= self.expiration_time
+
+    @contextlib.contextmanager
+    def awscli(self) -> "BotoSesManager":
+        """
+        Temporarily set up environment variable to pass the boto session
+        credential to AWS CLI.
+
+        Example::
+
+            import subprocess
+
+            bsm = BotoSesManager(...)
+
+            with bsm.awscli():
+                subprocess.run(["aws", "sts", "get-caller-identity"])
+
+        Reference:
+
+        - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
+
+        .. versionadded:: 1.2.1
+        """
+        # record the existing env var state
+        env_names = [
+            "AWS_ACCESS_KEY_ID",
+            "AWS_SECRET_ACCESS_KEY",
+            "AWS_SESSION_TOKEN",
+            "AWS_REGION",
+            "AWS_PROFILE",
+        ]
+        env_var = dict()
+        for env_name in env_names:
+            if env_name in os.environ:
+                env_var[env_name] = os.environ[env_name]
+            else:
+                env_var[env_name] = None
+
+        # set environment variable for aws cli
+        if self.botocore_session is None:
+            if self.aws_access_key_id:
+                os.environ["AWS_ACCESS_KEY_ID"] = self.aws_access_key_id
+            if self.aws_secret_access_key:
+                os.environ["AWS_SECRET_ACCESS_KEY"] = self.aws_secret_access_key
+            if self.aws_session_token:
+                os.environ["AWS_SESSION_TOKEN"] = self.aws_session_token
+            if self.region_name:
+                os.environ["AWS_REGION"] = self.region_name
+            if self.profile_name:
+                os.environ["AWS_PROFILE"] = self.profile_name
+        else:
+            credential: Credentials = self.botocore_session.get_credentials()
+            aws_access_key_id = credential.access_key
+            aws_secret_access_key = credential.secret_key
+            aws_session_token = credential.token
+            profile_name = self.botocore_session.profile
+
+            if aws_access_key_id:
+                os.environ["AWS_ACCESS_KEY_ID"] = aws_access_key_id
+            if aws_secret_access_key:
+                os.environ["AWS_SECRET_ACCESS_KEY"] = aws_secret_access_key
+            if aws_session_token:
+                os.environ["AWS_SESSION_TOKEN"] = aws_session_token
+            if profile_name:
+                os.environ["AWS_PROFILE"] = profile_name
+
+        try:
+            yield None
+        finally:
+            # recover previous existing env var
+            for env_name, env_value in env_var.items():
+                if env_value is None:
+                    if env_name in os.environ:
+                        os.environ.pop(env_name)
+                else:
+                    os.environ[env_name] = env_value

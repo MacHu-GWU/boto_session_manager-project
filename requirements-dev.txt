@@ -5,3 +5,4 @@ wheel                                   # make pre-compiled distribution package
 diskcache
 requests
 beautifulsoup4
+awscli

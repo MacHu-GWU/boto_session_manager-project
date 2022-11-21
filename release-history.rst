@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-1.1.2 (Planned)
+1.3.1 (Planned)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -15,6 +15,13 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+1.2.1 (2022-11-20)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add :meth:`~boto_session_manager.manager.BotoSesManager.awscli` context manager to pass boto session credential to AWS CLI.
 
 
 1.1.1 (2022-11-20)

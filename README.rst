@@ -91,6 +91,19 @@ Create another boto session manager based on an assumed IAM role. Allow you to c
 
     print(bsm_assumed.is_expired())
 
+**AWS CLI context manager**
+
+Suppose you have a boto session manager defined in python, sometime you want to run aws cli from Python using `subprocess <https://docs.python.org/3/library/subprocess.html>`_ library. You can use ``boto_session_manager.BotoSesManager.awscli()`` context manager to setup temp credential for AWS CLI.
+
+.. code-block:: python
+
+    import subprocess
+
+    bsm = BotoSesManager(...)
+
+    with bsm.awscli():
+        subprocess.run(["aws", "sts", "get-caller-identity"])
+
 
 .. _install:
 
