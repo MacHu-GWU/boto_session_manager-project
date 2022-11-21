@@ -72,6 +72,8 @@ class TestBotoSesManager:
                 response["Account"],
                 response["Arn"],
             )
+            print(response)
+            print(user_id[:6])
 
         assert "AWS_ACCESS_KEY_ID" not in os.environ
         assert "AWS_SECRET_ACCESS_KEY" not in os.environ
@@ -80,7 +82,7 @@ class TestBotoSesManager:
         assert arn.endswith(f"user/{iam_user_name}")
         if "CI" in os.environ:
             # ensure don't expose value to log
-            print(response)
+
             print(aws_access_key_id[:6], user_id[:6])
             flag = aws_access_key_id == user_id
             assert flag
