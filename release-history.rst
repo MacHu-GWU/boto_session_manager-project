@@ -4,7 +4,7 @@ Release and Version History
 ==============================================================================
 
 
-1.3.1 (Planned)
+Backlog
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
@@ -15,6 +15,13 @@ Release and Version History
 **Bugfixes**
 
 **Miscellaneous**
+
+
+1.2.2 (2022-12-10)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Miscellaneous**
+
+- now ``boto_session_manager`` doesn't force to install ``boto3`` when installing itself. You have to manage your ``boto3`` installation separately.
 
 
 1.2.1 (2022-11-20)

@@ -9,13 +9,15 @@ import os
 import uuid
 import contextlib
 from datetime import datetime, timezone, timedelta
-from typing import Optional, Dict, Union, TYPE_CHECKING
 
-import boto3
-import boto3.session
-import botocore.session
+try:
+    import boto3
+    import boto3.session
+    import botocore.session
+except ImportError as e:
+    print("You probably need to install 'boto3' first.")
 
-if TYPE_CHECKING:  # pragma: no cover
+if T.TYPE_CHECKING:  # pragma: no cover
     from botocore.client import BaseClient
     from botocore.credentials import Credentials
     from boto3.resources.base import ServiceResource
@@ -72,11 +74,11 @@ class BotoSesManager:
             default_client_kwargs = dict()
         self.default_client_kwargs = default_client_kwargs
 
-        self._boto_ses_cache: Optional[boto3.session.Session] = None
-        self._client_cache: Dict[str, "BaseClient"] = dict()
-        self._resource_cache: Dict[str, "ServiceResource"] = dict()
-        self._aws_account_id_cache: Optional[str] = None
-        self._aws_region_cache: Optional[str] = None
+        self._boto_ses_cache: T.Optional[boto3.session.Session] = None
+        self._client_cache: T.Dict[str, "BaseClient"] = dict()
+        self._resource_cache: T.Dict[str, "ServiceResource"] = dict()
+        self._aws_account_id_cache: T.Optional[str] = None
+        self._aws_region_cache: T.Optional[str] = None
 
     @property
     def boto_ses(self) -> boto3.session.Session:
@@ -125,7 +127,7 @@ class BotoSesManager:
         region_name: str = None,
         api_version: str = None,
         use_ssl: bool = True,
-        verify: Union[bool, str] = None,
+        verify: T.Union[bool, str] = None,
         endpoint_url: str = None,
         aws_access_key_id: str = None,
         aws_secret_access_key: str = None,
@@ -170,7 +172,7 @@ class BotoSesManager:
         region_name: str = None,
         api_version: str = None,
         use_ssl: bool = True,
-        verify: Union[bool, str] = None,
+        verify: T.Union[bool, str] = None,
         endpoint_url: str = None,
         aws_access_key_id: str = None,
         aws_secret_access_key: str = None,
