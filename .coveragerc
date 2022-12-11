@@ -4,10 +4,9 @@
 omit =
     boto_session_manager/_version.py
     boto_session_manager/cli.py
-    boto_session_manager/pkg/*
+    boto_session_manager/clients.py
     boto_session_manager/docs/*
     boto_session_manager/tests/*
-    boto_session_manager/handlers/*
 
 [report]
 # Regexes for lines to exclude from consideration

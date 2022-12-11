@@ -44,9 +44,7 @@ class TestBotoSesManager:
 
     def test_assume_role(self):
         # Test STS get caller identity
-        sts_client = bsm.get_client(AwsServiceEnum.STS)
-
-        aws_account_id = sts_client.get_caller_identity()["Account"]
+        aws_account_id = bsm.sts_client.get_caller_identity()["Account"]
         assert aws_account_id == bsm.aws_account_id
 
         # Test IAM role and Assumed IAM Role

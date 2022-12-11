@@ -2,8 +2,8 @@
 pathlib_mate                            # autopep8 your code
 twine                                   # make distribution archive
 wheel                                   # make pre-compiled distribution package
+awscli
 boto3
 diskcache
 requests
 beautifulsoup4
-awscli

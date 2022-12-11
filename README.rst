@@ -78,6 +78,13 @@ Once an boto session is defined, each AWS Service client should be created only 
     s3_client1 = bsm.get_client(AwsServiceEnum.S3)
     s3_client2 = bsm.get_client(AwsServiceEnum.S3)
     assert id(s3_client1) = id(s3_client2)
+    
+Or you can just do:
+
+.. code-block:: python
+
+    bsm.s3_client.list_buckets() # it cache the client when needed
+
 
 **Assume Role**
 
