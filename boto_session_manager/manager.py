@@ -23,9 +23,10 @@ if T.TYPE_CHECKING:  # pragma: no cover
     from boto3.resources.base import ServiceResource
 
 from .services import AwsServiceEnum
+from .clients import ClientMixin
 
 
-class BotoSesManager:
+class BotoSesManager(ClientMixin):
     """
     Boto3 session and client manager that use cache to create low level client.
 
@@ -74,14 +75,14 @@ class BotoSesManager:
             default_client_kwargs = dict()
         self.default_client_kwargs = default_client_kwargs
 
-        self._boto_ses_cache: T.Optional[boto3.session.Session] = None
+        self._boto_ses_cache: T.Optional["boto3.session.Session"] = None
         self._client_cache: T.Dict[str, "BaseClient"] = dict()
         self._resource_cache: T.Dict[str, "ServiceResource"] = dict()
         self._aws_account_id_cache: T.Optional[str] = None
         self._aws_region_cache: T.Optional[str] = None
 
     @property
-    def boto_ses(self) -> boto3.session.Session:
+    def boto_ses(self) -> "boto3.session.Session":
         """
         Get boto3 session from metadata.
 
@@ -343,3 +344,13 @@ class BotoSesManager:
                         os.environ.pop(env_name)
                 else:
                     os.environ[env_name] = env_value
+
+    def clear_cache(self):
+        """
+        Clear all the boto session and boto client cache.
+        """
+        self._boto_ses_cache = None
+        self._client_cache.clear()
+        self._resource_cache.clear()
+        self._aws_account_id_cache = None
+        self._aws_region_cache = None
