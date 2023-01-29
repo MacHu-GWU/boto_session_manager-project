@@ -148,7 +148,7 @@ def step1_crawl_spec_file_data():
         print(f"  service_id = {aws_service.service_id!r}")
     path_spec_file_json.write_text(json.dumps(spec_file_data, indent=4))
 
-import mypy_boto3_s3
+# import mypy_boto3_s3
 # python -m pip install 'boto3-stubs-lite[essential]'`
 import boto3
 
@@ -179,6 +179,7 @@ def step2_generate_code():
     for dct in spec_file_data:
         name = dct["name"]
         service_id = dct["service_id"]
+        doc_url = dct["doc_url"]
         name_snake_case = service_id.lower().replace("-", "_")
 
         # Generate services.py
@@ -188,6 +189,9 @@ def step2_generate_code():
         clients_py_lines.extend([
             f"    @property",
             f"    def {name_snake_case}_client(self: \"BotoSesManager\"):",
+            f"        \"\"\"",
+            f"        Ref: {doc_url}",
+            f"        \"\"\"",
             f"        return self.get_client(AwsServiceEnum.{name})",
             f"",
         ])
