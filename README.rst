@@ -64,7 +64,14 @@ Provide an Enum class to access the aws service name to create boto client.
     from boto_session_manager import BotoSesManager, AwsServiceEnum
 
     bsm = BotoSesManager()
-    s3_client = bsm.get_client(AwsServiceEnum.S3)
+    s3_client = bsm.s3_client
+
+.. image:: https://user-images.githubusercontent.com/6800411/215315251-162886ee-067e-4441-882e-f2641b0997ca.gif
+
+One click to jump to the documentation:
+
+.. image:: https://user-images.githubusercontent.com/6800411/215315252-52d89d6a-d234-4635-b412-044894a46442.gif
+
 
 **Cached Client**
 
