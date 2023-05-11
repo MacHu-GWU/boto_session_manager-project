@@ -232,6 +232,7 @@ class BotoSesManager(ClientMixin):
         mfa_serial_number: str = NOTHING,
         mfa_token: str = NOTHING,
         source_identity: str = NOTHING,
+        region_name: str = NOTHING,
         auto_refresh: bool = False,
     ) -> "BotoSesManager":
         """
@@ -249,7 +250,9 @@ class BotoSesManager(ClientMixin):
         """
         if role_session_name is NOTHING:
             role_session_name = uuid.uuid4().hex
-
+        # if region_name is not specified, use the same region as the current session
+        if region_name is NOTHING:
+            region_name = self.aws_region
         # this branch cannot be tested regularly
         # it is tested in a separate integration test environment.
         if auto_refresh: # pragma: no cover
@@ -284,9 +287,7 @@ class BotoSesManager(ClientMixin):
             assumed_role_botocore_session._credentials = assumed_role_credentials
             return BotoSesManager(
                 botocore_session=assumed_role_botocore_session,
-                # ensure that the new boto session manager with assumed role
-                # is using the same AWS region as this one
-                region_name=self.aws_region,
+                region_name=region_name,
                 expiration_time=datetime(2099, 12, 31, 23, 59, 59, tzinfo=timezone.utc),
                 default_client_kwargs=self.default_client_kwargs,
             )
@@ -309,6 +310,7 @@ class BotoSesManager(ClientMixin):
                 aws_access_key_id=res["Credentials"]["AccessKeyId"],
                 aws_secret_access_key=res["Credentials"]["SecretAccessKey"],
                 aws_session_token=res["Credentials"]["SessionToken"],
+                region_name=region_name,
                 expiration_time=expiration_time,
                 default_client_kwargs=self.default_client_kwargs,
             )
