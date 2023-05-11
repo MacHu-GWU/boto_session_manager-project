@@ -63,19 +63,19 @@ Provide an Enum class to access the aws service name to create boto client.
     bsm = BotoSesManager()
     s3_client = bsm.s3_client
 
-.. image:: https://user-images.githubusercontent.com/6800411/227536578-839191b7-e1b3-4f92-92b3-9dd5309ea307.gif
+.. image:: https://github.com/MacHu-GWU/boto_session_manager-project/assets/6800411/c9f7f9bd-7b1d-4a3a-bacc-6296fd0c241a
 
 One click to jump to the documentation:
 
-.. image:: https://user-images.githubusercontent.com/6800411/227536582-8e743936-95a8-4697-b382-72007ff72198.gif
+.. image:: https://github.com/MacHu-GWU/boto_session_manager-project/assets/6800411/3d44c189-5900-4598-b493-47de97131793
 
 Client method auto complete:
 
-.. image:: https://user-images.githubusercontent.com/6800411/227536584-bdbc10d0-bb1a-458d-9248-5d5646a910de.gif
+.. image:: https://github.com/MacHu-GWU/boto_session_manager-project/assets/6800411/c88ee956-b1ab-4d6c-aa3c-9df737ccd476
 
 Arguments type hint:
 
-.. image:: https://user-images.githubusercontent.com/6800411/227537394-9a494249-1899-4a76-98a7-41ff7a3ac4a6.gif
+.. image:: https://github.com/MacHu-GWU/boto_session_manager-project/assets/6800411/1978a8ed-ba21-4354-bde1-83e7652b4177
 
 Note: you have to do ``pip install "boto3-stubs[all]"`` to enable "Client method auto complete" and "Arguments type hint" features.
 
