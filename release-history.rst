@@ -15,6 +15,13 @@ Backlog
 **Miscellaneous**
 
 
+1.5.2 (2023-05-11)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Minor Improvements**
+
+- add ``region_name`` argument for :meth:`~boto_session_manager.manager.BotoSesManager.assume_role` method. If it is not given, then reuse the AWS region of the base session.
+
+
 1.5.1 (2023-04-14)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
