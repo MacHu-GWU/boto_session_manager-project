@@ -2,11 +2,12 @@
 
 import pytest
 
+import typing as T
 import os
-import sys
 import json
 import subprocess
 from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
+
 
 if "CI" in os.environ:  # pragma: no cover
     is_ci = True
@@ -74,12 +75,6 @@ class TestBotoSesManager:
         assert "AWS_SESSION_TOKEN" in os.environ
         assert "AWS_REGION" in os.environ
 
-    def _assert_aws_cli_env_var_not_exists(self):
-        assert "AWS_ACCESS_KEY_ID" not in os.environ
-        assert "AWS_SECRET_ACCESS_KEY" not in os.environ
-        assert "AWS_SESSION_TOKEN" not in os.environ
-        assert "AWS_REGION" not in os.environ
-
     def _assert_default_aws_cli_credential_is_different(self, bsm: BotoSesManager):
         args = ["aws", "sts", "get-caller-identity"]
         response = json.loads(
@@ -92,7 +87,11 @@ class TestBotoSesManager:
         )
         assert aws_account_id != bsm.aws_account_id
         assert not arn.endswith(iam_user_name)
-        self._assert_aws_cli_env_var_not_exists()
+
+        assert "AWS_ACCESS_KEY_ID" not in os.environ
+        assert "AWS_SECRET_ACCESS_KEY" not in os.environ
+        assert "AWS_SESSION_TOKEN" not in os.environ
+        assert "AWS_REGION" not in os.environ
 
     @pytest.mark.skipif(
         is_ci,
@@ -104,8 +103,7 @@ class TestBotoSesManager:
         # however, the aws cli uses different AWS profile
         self._assert_default_aws_cli_credential_is_different(bsm)
 
-        # iam user
-        with bsm.awscli():
+        def get_caller_identity() -> T.Tuple[str, str, str]:
             args = ["aws", "sts", "get-caller-identity"]
             response = json.loads(
                 subprocess.run(args, capture_output=True).stdout.decode("utf-8")
@@ -115,9 +113,18 @@ class TestBotoSesManager:
                 response["Account"],
                 response["Arn"],
             )
+            return user_id, aws_account_id, arn
+
+        # iam user
+        # the aws cli uses the same AWS profile as the bsm object
+        with bsm.awscli():
+            user_id, aws_account_id, arn = get_caller_identity()
             assert aws_account_id == bsm.aws_account_id
             assert arn.endswith(f"user/{iam_user_name}")
-            self._assert_aws_cli_env_var_exists()
+            assert "AWS_ACCESS_KEY_ID" not in os.environ
+            assert "AWS_SECRET_ACCESS_KEY" not in os.environ
+            assert "AWS_SESSION_TOKEN" not in os.environ
+            assert "AWS_PROFILE" in os.environ
 
         self._assert_default_aws_cli_credential_is_different(bsm)
 
@@ -125,21 +132,27 @@ class TestBotoSesManager:
         bsm_assumed = bsm.assume_role(
             role_arn=f"arn:aws:iam::{aws_account_id}:role/{iam_role_name}"
         )
+        # the aws cli uses the sts session token as the same as the assumed role
         with bsm_assumed.awscli():
-            args = ["aws", "sts", "get-caller-identity"]
-            response = json.loads(
-                subprocess.run(args, capture_output=True).stdout.decode("utf-8")
-            )
-            user_id, aws_account_id, arn = (
-                response["UserId"],
-                response["Account"],
-                response["Arn"],
-            )
+            user_id, aws_account_id, arn = get_caller_identity()
             assert aws_account_id == bsm_assumed.aws_account_id
             assert f"assumed-role/{iam_role_name}" in arn
-            self._assert_aws_cli_env_var_exists()
+            assert "AWS_ACCESS_KEY_ID" in os.environ
+            assert "AWS_SECRET_ACCESS_KEY" in os.environ
+            assert "AWS_SESSION_TOKEN" in os.environ
+            assert "AWS_PROFILE" not in os.environ
 
         self._assert_default_aws_cli_credential_is_different(bsm)
+
+        bsm_default = BotoSesManager()
+
+        with bsm_default.awscli():
+            user_id, aws_account_id, arn = get_caller_identity()
+            assert bsm_default.aws_account_id == aws_account_id
+            assert "AWS_ACCESS_KEY_ID" in os.environ
+            assert "AWS_SECRET_ACCESS_KEY" in os.environ
+            assert "AWS_SESSION_TOKEN" in os.environ
+            assert "AWS_PROFILE" not in os.environ
 
 
 if __name__ == "__main__":

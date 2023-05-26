@@ -22,7 +22,7 @@ try:
         AssumeRoleCredentialFetcher,
         DeferredRefreshableCredentials,
     )
-except ImportError as e: # pragma: no cover
+except ImportError as e:  # pragma: no cover
     print("The auto refreshable assume role session would not work.")
 
 if T.TYPE_CHECKING:  # pragma: no cover
@@ -255,7 +255,7 @@ class BotoSesManager(ClientMixin):
             region_name = self.aws_region
         # this branch cannot be tested regularly
         # it is tested in a separate integration test environment.
-        if auto_refresh: # pragma: no cover
+        if auto_refresh:  # pragma: no cover
             botocore_session = self.boto_ses._session
             credentials = botocore_session.get_credentials()
             # the get_credentials() method can return None
@@ -283,7 +283,9 @@ class BotoSesManager(ClientMixin):
                 refresh_using=credential_fetcher.fetch_credentials,
                 method="assume-role",
             )
-            assumed_role_botocore_session: "botocore.session.Session" = botocore.session.get_session()
+            assumed_role_botocore_session: "botocore.session.Session" = (
+                botocore.session.get_session()
+            )
             assumed_role_botocore_session._credentials = assumed_role_credentials
             return BotoSesManager(
                 botocore_session=assumed_role_botocore_session,
@@ -352,7 +354,7 @@ class BotoSesManager(ClientMixin):
 
         .. versionadded:: 1.2.1
         """
-        # record the existing env var state
+        # save the existing env var state, and disable the existing env var
         env_names = [
             "AWS_ACCESS_KEY_ID",
             "AWS_SECRET_ACCESS_KEY",
@@ -364,18 +366,29 @@ class BotoSesManager(ClientMixin):
         for env_name in env_names:
             if env_name in os.environ:  # pragma: no cover
                 env_var[env_name] = os.environ[env_name]
+                os.environ.pop(env_name)
             else:
                 env_var[env_name] = None
 
-        # set environment variable for aws cli
+        # set environment variable for aws cli when you create this
+        # boto session manager explicitly with ACCESS KEY and SECRET KEY
         if (
             (self.aws_access_key_id is not NOTHING)
             and (self.aws_secret_access_key is not NOTHING)
-            and (self.aws_access_key_id is not NOTHING)
+            and (self.aws_session_token is not NOTHING)
         ):
             os.environ["AWS_ACCESS_KEY_ID"] = self.aws_access_key_id
             os.environ["AWS_SECRET_ACCESS_KEY"] = self.aws_secret_access_key
             os.environ["AWS_SESSION_TOKEN"] = self.aws_session_token
+            os.environ["AWS_REGION"] = self.aws_region
+        elif (self.aws_access_key_id is not NOTHING) and (
+            self.aws_secret_access_key is not NOTHING
+        ):  # pragma: no cover
+            os.environ["AWS_ACCESS_KEY_ID"] = self.aws_access_key_id
+            os.environ["AWS_SECRET_ACCESS_KEY"] = self.aws_secret_access_key
+            os.environ["AWS_REGION"] = self.aws_region
+        elif self.profile_name is not NOTHING:
+            os.environ["AWS_PROFILE"] = self.profile_name
             os.environ["AWS_REGION"] = self.aws_region
         else:
             kwargs = dict(
@@ -385,19 +398,33 @@ class BotoSesManager(ClientMixin):
                 kwargs["SerialNumber"] = serial_number
             if token_code is not NOTHING:  # pragma: no cover
                 kwargs["TokenCode"] = token_code
-            response = self.sts_client.get_session_token(**kwargs)
-            os.environ["AWS_ACCESS_KEY_ID"] = response["Credentials"]["AccessKeyId"]
-            os.environ["AWS_SECRET_ACCESS_KEY"] = response["Credentials"][
-                "SecretAccessKey"
-            ]
-            os.environ["AWS_SESSION_TOKEN"] = response["Credentials"]["SessionToken"]
-            os.environ["AWS_REGION"] = self.aws_region
+            try:
+                response = self.sts_client.get_session_token(**kwargs)
+                aws_access_key_id = response["Credentials"]["AccessKeyId"]
+                aws_secret_access_key = response["Credentials"]["SecretAccessKey"]
+                aws_session_token = response["Credentials"]["SessionToken"]
+                os.environ["AWS_ACCESS_KEY_ID"] = aws_access_key_id
+                os.environ["AWS_SECRET_ACCESS_KEY"] = aws_secret_access_key
+                os.environ["AWS_SESSION_TOKEN"] = aws_session_token
+                os.environ["AWS_REGION"] = self.aws_region
+            except Exception as e:  # pragma: no cover
+                if "AccessDenied" in str(e):
+                    # try to use the existing env var
+                    # recover previous existing env var
+                    for env_name, env_value in env_var.items():
+                        if env_value is None:  # this env name is not exist before
+                            if env_name in os.environ:
+                                os.environ.pop(env_name)
+                        else:
+                            os.environ[env_name] = env_value
+                else:  # pragma: no cover
+                    raise e
         try:
             yield self
         finally:
             # recover previous existing env var
             for env_name, env_value in env_var.items():
-                if env_value is None:
+                if env_value is None:  # this env name is not exist before
                     if env_name in os.environ:
                         os.environ.pop(env_name)
                 else:
