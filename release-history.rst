@@ -15,6 +15,13 @@ Backlog
 **Miscellaneous**
 
 
+1.5.3 (2023-05-25)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Bugfixes**
+
+- fix bug that the :meth:`~boto_session_manager.manager.BotoSesManager.awscli` method doesn't work properly when using profile name, or using IAM role on EC2, lambda, etc...
+
+
 1.5.2 (2023-05-11)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Minor Improvements**
