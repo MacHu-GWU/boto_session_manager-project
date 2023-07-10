@@ -15,6 +15,14 @@ Backlog
 **Miscellaneous**
 
 
+1.5.4 (2023-07-14)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Miscellaneous**
+
+- AWS occasionally updates the boto3 client name on their website, making some of the old ``bsm.${service_name}_client`` unavailable. We add alias for those old service name to maintain backward compatibility.
+- Add ``sagemaker_a2i_runtime_client`` alias.
+
+
 1.5.3 (2023-05-25)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Bugfixes**
