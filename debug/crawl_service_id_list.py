@@ -241,7 +241,6 @@ def step2_generate_code():
             aws_service_list=aws_service_list,
         )
     )
-    # path_clients_py.write_text("\n".join(clients_py_lines))
 
 
 # step1_crawl_spec_file_data()

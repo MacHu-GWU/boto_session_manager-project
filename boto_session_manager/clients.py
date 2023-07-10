@@ -20,6 +20,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_apigatewayv2
     import mypy_boto3_appconfig
     import mypy_boto3_appconfigdata
+    import mypy_boto3_appfabric
     import mypy_boto3_appflow
     import mypy_boto3_appintegrations
     import mypy_boto3_application_autoscaling
@@ -67,6 +68,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_codecommit
     import mypy_boto3_codedeploy
     import mypy_boto3_codeguru_reviewer
+    import mypy_boto3_codeguru_security
     import mypy_boto3_codeguruprofiler
     import mypy_boto3_codepipeline
     import mypy_boto3_codestar
@@ -172,6 +174,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_iottwinmaker
     import mypy_boto3_iotwireless
     import mypy_boto3_ivs
+    import mypy_boto3_ivs_realtime
     import mypy_boto3_ivschat
     import mypy_boto3_kafka
     import mypy_boto3_kafkaconnect
@@ -215,6 +218,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_medialive
     import mypy_boto3_mediapackage
     import mypy_boto3_mediapackage_vod
+    import mypy_boto3_mediapackagev2
     import mypy_boto3_mediastore
     import mypy_boto3_mediastore_data
     import mypy_boto3_mediatailor
@@ -241,8 +245,11 @@ if T.TYPE_CHECKING:
     import mypy_boto3_opsworks
     import mypy_boto3_opsworkscm
     import mypy_boto3_organizations
+    import mypy_boto3_osis
     import mypy_boto3_outposts
     import mypy_boto3_panorama
+    import mypy_boto3_payment_cryptography
+    import mypy_boto3_payment_cryptography_data
     import mypy_boto3_personalize
     import mypy_boto3_personalize_events
     import mypy_boto3_personalize_runtime
@@ -308,7 +315,6 @@ if T.TYPE_CHECKING:
     import mypy_boto3_signer
     import mypy_boto3_simspaceweaver
     import mypy_boto3_sms
-    import mypy_boto3_sms_voice
     import mypy_boto3_snow_device_management
     import mypy_boto3_snowball
     import mypy_boto3_sns
@@ -334,7 +340,9 @@ if T.TYPE_CHECKING:
     import mypy_boto3_transcribe
     import mypy_boto3_transfer
     import mypy_boto3_translate
+    import mypy_boto3_verifiedpermissions
     import mypy_boto3_voice_id
+    import mypy_boto3_vpc_lattice
     import mypy_boto3_waf
     import mypy_boto3_waf_regional
     import mypy_boto3_wafv2
@@ -447,6 +455,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/appconfigdata.html
         """
         return self.get_client(AwsServiceEnum.AppConfigData)
+    
+    @property
+    def appfabric_client(self: "BotoSesManager") -> "mypy_boto3_appfabric.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/appfabric.html
+        """
+        return self.get_client(AwsServiceEnum.AppFabric)
     
     @property
     def appflow_client(self: "BotoSesManager") -> "mypy_boto3_appflow.Client":
@@ -776,6 +791,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codeguru-reviewer.html
         """
         return self.get_client(AwsServiceEnum.CodeGuruReviewer)
+    
+    @property
+    def codegurusecurity_client(self: "BotoSesManager") -> "mypy_boto3_codeguru_security.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codeguru-security.html
+        """
+        return self.get_client(AwsServiceEnum.CodeGuruSecurity)
     
     @property
     def codeguruprofiler_client(self: "BotoSesManager") -> "mypy_boto3_codeguruprofiler.Client":
@@ -1513,6 +1535,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.IVS)
     
     @property
+    def ivsrealtime_client(self: "BotoSesManager") -> "mypy_boto3_ivs_realtime.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ivs-realtime.html
+        """
+        return self.get_client(AwsServiceEnum.ivsrealtime)
+    
+    @property
     def ivschat_client(self: "BotoSesManager") -> "mypy_boto3_ivschat.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ivschat.html
@@ -1814,6 +1843,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.MediaPackageVod)
     
     @property
+    def mediapackagev2_client(self: "BotoSesManager") -> "mypy_boto3_mediapackagev2.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mediapackagev2.html
+        """
+        return self.get_client(AwsServiceEnum.mediapackagev2)
+    
+    @property
     def mediastore_client(self: "BotoSesManager") -> "mypy_boto3_mediastore.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mediastore.html
@@ -1996,6 +2032,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Organizations)
     
     @property
+    def opensearchingestion_client(self: "BotoSesManager") -> "mypy_boto3_osis.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/osis.html
+        """
+        return self.get_client(AwsServiceEnum.OpenSearchIngestion)
+    
+    @property
     def outposts_client(self: "BotoSesManager") -> "mypy_boto3_outposts.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/outposts.html
@@ -2008,6 +2051,20 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/panorama.html
         """
         return self.get_client(AwsServiceEnum.Panorama)
+    
+    @property
+    def paymentcryptographycontrolplane_client(self: "BotoSesManager") -> "mypy_boto3_payment_cryptography.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography.html
+        """
+        return self.get_client(AwsServiceEnum.PaymentCryptographyControlPlane)
+    
+    @property
+    def paymentcryptographydataplane_client(self: "BotoSesManager") -> "mypy_boto3_payment_cryptography_data.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography-data.html
+        """
+        return self.get_client(AwsServiceEnum.PaymentCryptographyDataPlane)
     
     @property
     def personalize_client(self: "BotoSesManager") -> "mypy_boto3_personalize.Client":
@@ -2465,13 +2522,6 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.SMS)
     
     @property
-    def pinpointsmsvoice_client(self: "BotoSesManager") -> "mypy_boto3_sms_voice.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sms-voice.html
-        """
-        return self.get_client(AwsServiceEnum.PinpointSMSVoice)
-    
-    @property
     def snowdevicemanagement_client(self: "BotoSesManager") -> "mypy_boto3_snow_device_management.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/snow-device-management.html
@@ -2647,11 +2697,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Translate)
     
     @property
+    def verifiedpermissions_client(self: "BotoSesManager") -> "mypy_boto3_verifiedpermissions.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/verifiedpermissions.html
+        """
+        return self.get_client(AwsServiceEnum.VerifiedPermissions)
+    
+    @property
     def voiceid_client(self: "BotoSesManager") -> "mypy_boto3_voice_id.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/voice-id.html
         """
         return self.get_client(AwsServiceEnum.VoiceID)
+    
+    @property
+    def vpclattice_client(self: "BotoSesManager") -> "mypy_boto3_vpc_lattice.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/vpc-lattice.html
+        """
+        return self.get_client(AwsServiceEnum.VPCLattice)
     
     @property
     def waf_client(self: "BotoSesManager") -> "mypy_boto3_waf.Client":
@@ -2736,4 +2800,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/xray.html
         """
         return self.get_client(AwsServiceEnum.XRay)
-    
+
+    # --------------------------------------------------------------------------
+    # for backward compatibility
+    # --------------------------------------------------------------------------
+    @property
+    def sagemaker_a2i_runtime_client(self: "BotoSesManager") -> "mypy_boto3_sagemaker_a2i_runtime.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sagemaker-a2i-runtime.html
+        """
+        return self.augmentedairuntime_client
