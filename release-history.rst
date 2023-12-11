@@ -15,6 +15,19 @@ Backlog
 **Miscellaneous**
 
 
+1.6.1 (2023-12-10)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add ``BotoSesManager.aws_account_user_id`` property method.
+- add ``BotoSesManager.masked_aws_account_user_id`` property method.
+- add ``BotoSesManager.masked_aws_account_id`` property method.
+- add ``BotoSesManager.principal_arn`` property method.
+- add ``BotoSesManager.masked_principal_arn`` property method.
+- add ``BotoSesManager.aws_account_alias`` property method.
+- add ``BotoSesManager.print_who_am_i`` method.
+
+
 1.5.4 (2023-07-14)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Miscellaneous**

@@ -29,8 +29,29 @@ iam_role_name = "project-boto_session_manager"
 
 class TestBotoSesManager:
     def test_aws_account_id_and_region(self):
+        _ = bsm.aws_account_user_id
+        _ = bsm.masked_aws_account_user_id
         _ = bsm.aws_account_id
+        _ = bsm.masked_aws_account_id
+        _ = bsm.principal_arn
+        _ = bsm.masked_principal_arn
         _ = bsm.aws_region
+        _ = bsm.aws_account_alias
+
+        bsm_assumed = bsm.assume_role(
+            role_arn=f"arn:aws:iam::{bsm.aws_account_id}:role/{iam_role_name}"
+        )
+        _ = bsm_assumed.aws_account_user_id
+        _ = bsm_assumed.masked_aws_account_user_id
+        _ = bsm_assumed.aws_account_id
+        _ = bsm_assumed.masked_aws_account_id
+        _ = bsm_assumed.principal_arn
+        _ = bsm_assumed.masked_principal_arn
+        _ = bsm_assumed.aws_region
+        _ = bsm_assumed.aws_account_alias
+
+        # bsm.print_who_am_i()
+        # bsm_assumed.print_who_am_i()
 
     def test_get_client(self):
         s3_client1 = bsm.get_client(AwsServiceEnum.S3)
@@ -58,14 +79,13 @@ class TestBotoSesManager:
         assert aws_account_id == bsm.aws_account_id
 
         # Test IAM role and Assumed IAM Role
-        role_name = "project-boto_session_manager"
         bsm_assumed = bsm.assume_role(
-            role_arn=f"arn:aws:iam::{aws_account_id}:role/{role_name}"
+            role_arn=f"arn:aws:iam::{aws_account_id}:role/{iam_role_name}"
         )
         sts_client_assumed = bsm_assumed.get_client(AwsServiceEnum.STS)
         res = sts_client_assumed.get_caller_identity()
         assert res["Arn"].startswith(
-            f"arn:aws:sts::{aws_account_id}:assumed-role/{role_name}"
+            f"arn:aws:sts::{aws_account_id}:assumed-role/{iam_role_name}"
         )
         assert bsm_assumed.expiration_time <= bsm.expiration_time
 
