@@ -7,6 +7,7 @@ Manage the underlying boto3 session and client.
 import typing as T
 import os
 import uuid
+import warnings
 import contextlib
 from datetime import datetime, timezone, timedelta
 
@@ -353,82 +354,69 @@ class BotoSesManager(ClientMixin):
         - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
 
         .. versionadded:: 1.2.1
+
+        .. versionchanged:: 1.7.1
+
+            duration_seconds, serial_number and token_code argument should not
+            be used in this method, it should set the credential as it is,
+            it should not create a new session, these arguments will be removed
+            in 2024-03-31
         """
+        if serial_number is not NOTHING or token_code is not NOTHING:
+            warnings.warn(
+                "duration_seconds, serial_number and token_code argument "
+                "should not be used in this method, it should set the credential "
+                "as it is, it should not create a new session, "
+                "these arguments will be removed in 2024-03-31",
+                DeprecationWarning,
+            )
+
         # save the existing env var state, and disable the existing env var
-        env_names = [
-            "AWS_ACCESS_KEY_ID",
-            "AWS_SECRET_ACCESS_KEY",
-            "AWS_SESSION_TOKEN",
-            "AWS_REGION",
-            "AWS_PROFILE",
-        ]
-        env_var = dict()
-        for env_name in env_names:
-            if env_name in os.environ:  # pragma: no cover
-                env_var[env_name] = os.environ[env_name]
-                os.environ.pop(env_name)
-            else:
-                env_var[env_name] = None
+        mapper = {
+            "AWS_ACCESS_KEY_ID": None,
+            "AWS_SECRET_ACCESS_KEY": None,
+            "AWS_SESSION_TOKEN": None,
+            "AWS_REGION": self.aws_region,
+            "AWS_PROFILE": None,
+        }
+        cred = self.boto_ses.get_credentials()
 
         # set environment variable for aws cli when you create this
         # boto session manager explicitly with ACCESS KEY and SECRET KEY
-        if (
-            (self.aws_access_key_id is not NOTHING)
-            and (self.aws_secret_access_key is not NOTHING)
-            and (self.aws_session_token is not NOTHING)
-        ):
-            os.environ["AWS_ACCESS_KEY_ID"] = self.aws_access_key_id
-            os.environ["AWS_SECRET_ACCESS_KEY"] = self.aws_secret_access_key
-            os.environ["AWS_SESSION_TOKEN"] = self.aws_session_token
-            os.environ["AWS_REGION"] = self.aws_region
-        elif (self.aws_access_key_id is not NOTHING) and (
-            self.aws_secret_access_key is not NOTHING
-        ):  # pragma: no cover
-            os.environ["AWS_ACCESS_KEY_ID"] = self.aws_access_key_id
-            os.environ["AWS_SECRET_ACCESS_KEY"] = self.aws_secret_access_key
-            os.environ["AWS_REGION"] = self.aws_region
-        elif self.profile_name is not NOTHING:
-            os.environ["AWS_PROFILE"] = self.profile_name
-            os.environ["AWS_REGION"] = self.aws_region
+        if self.profile_name is not NOTHING:
+            mapper["AWS_PROFILE"] = self.profile_name
+        elif cred.token is None:
+            mapper["AWS_ACCESS_KEY_ID"] = cred.access_key
+            mapper["AWS_SECRET_ACCESS_KEY"] = cred.secret_key
         else:
-            kwargs = dict(
-                DurationSeconds=duration_seconds,
-            )
-            if serial_number is not NOTHING:  # pragma: no cover
-                kwargs["SerialNumber"] = serial_number
-            if token_code is not NOTHING:  # pragma: no cover
-                kwargs["TokenCode"] = token_code
-            try:
-                response = self.sts_client.get_session_token(**kwargs)
-                aws_access_key_id = response["Credentials"]["AccessKeyId"]
-                aws_secret_access_key = response["Credentials"]["SecretAccessKey"]
-                aws_session_token = response["Credentials"]["SessionToken"]
-                os.environ["AWS_ACCESS_KEY_ID"] = aws_access_key_id
-                os.environ["AWS_SECRET_ACCESS_KEY"] = aws_secret_access_key
-                os.environ["AWS_SESSION_TOKEN"] = aws_session_token
-                os.environ["AWS_REGION"] = self.aws_region
-            except Exception as e:  # pragma: no cover
-                if "AccessDenied" in str(e):
-                    # try to use the existing env var
-                    # recover previous existing env var
-                    for env_name, env_value in env_var.items():
-                        if env_value is None:  # this env name is not exist before
-                            if env_name in os.environ:
-                                os.environ.pop(env_name)
-                        else:
-                            os.environ[env_name] = env_value
-                else:  # pragma: no cover
-                    raise e
+            mapper["AWS_ACCESS_KEY_ID"] = cred.access_key
+            mapper["AWS_SECRET_ACCESS_KEY"] = cred.secret_key
+            mapper["AWS_SESSION_TOKEN"] = cred.token
+
+        # get existing env var
+        existing = {}
+        for k, v in mapper.items():
+            existing[k] = os.environ.get(k)
+
         try:
+            # set new env var
+            for k, v in mapper.items():
+                # v = None means delete this env var
+                if v is None:
+                    if k in os.environ:
+                        os.environ.pop(k)
+                else:
+                    os.environ[k] = v
             yield self
         finally:
-            # recover previous existing env var
-            for env_name, env_value in env_var.items():
-                if env_value is None:  # this env name is not exist before
-                    if env_name in os.environ:
-                        os.environ.pop(env_name)
+            # recover the original env var
+            for k, v in existing.items():
+                # v = None means this env var not exists at begin
+                if v is None:
+                    if k in os.environ:
+                        os.environ.pop(k)
                 else:
-                    os.environ[env_name] = env_value
+                    os.environ[k] = v
 
     def clear_cache(self):
         """

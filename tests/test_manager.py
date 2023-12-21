@@ -17,6 +17,9 @@ if "CI" in os.environ:  # pragma: no cover
         aws_access_key_id=aws_access_key_id,
         aws_secret_access_key=aws_secret_access_key,
     )
+# to test this on your local, make sure your default AWS profile
+# is NOT project_boto_session_manager
+# and also the aws account is NOT project_boto_session_manager
 else:  # pragma: no cover
     is_ci = False
     profile_name = "project_boto_session_manager"
@@ -151,7 +154,10 @@ class TestBotoSesManager:
             assert bsm_default.aws_account_id == aws_account_id
             assert "AWS_ACCESS_KEY_ID" in os.environ
             assert "AWS_SECRET_ACCESS_KEY" in os.environ
-            assert "AWS_SESSION_TOKEN" in os.environ
+            if bsm_default.boto_ses.get_credentials().token:
+                assert "AWS_SESSION_TOKEN" in os.environ
+            else:
+                assert "AWS_SESSION_TOKEN" not in os.environ
             assert "AWS_PROFILE" not in os.environ
 
 
