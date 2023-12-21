@@ -49,8 +49,10 @@ if T.TYPE_CHECKING:  # pragma: no cover
     from botocore.client import BaseClient
     from boto3.resources.base import ServiceResource
 
-
-PATH_DEFAULT_SNAPSHOT = Path.home().joinpath(".bsm-snapshot.json")
+try:
+    PATH_DEFAULT_SNAPSHOT = Path.home().joinpath(".bsm-snapshot.json")
+except Exception as e:  # pragma: no cover
+    PATH_DEFAULT_SNAPSHOT = None
 
 
 class BotoSesManager(ClientMixin):
@@ -551,8 +553,10 @@ class BotoSesManager(ClientMixin):
     @classmethod
     def from_snapshot_file(
         cls,
-        path: T.Union[str, Path] = str(PATH_DEFAULT_SNAPSHOT),
+        path: T.Union[str, Path] = PATH_DEFAULT_SNAPSHOT,
     ):
+        if path is None:  # pragma: no cover
+            raise EnvironmentError("your system may not support $HOME directory")
         path = Path(path)
         if not path.exists():
             raise FileNotFoundError(f"Snapshot file not found: {path}")
@@ -561,7 +565,7 @@ class BotoSesManager(ClientMixin):
     @contextlib.contextmanager
     def temp_snapshot(
         self,
-        path: T.Union[str, Path] = str(PATH_DEFAULT_SNAPSHOT),
+        path: T.Union[str, Path] = PATH_DEFAULT_SNAPSHOT,
     ) -> "BotoSesManager":
         """
         Temporarily back up the current boto session credentials to a file and
@@ -595,6 +599,8 @@ class BotoSesManager(ClientMixin):
                     # to restore the default profile to account A (acc_a)
                     subprocess.run(["python", "my_script.py"])
         """
+        if path is None:  # pragma: no cover
+            raise EnvironmentError("your system may not support $HOME directory")
         path = Path(path)
         snapshot = self.to_snapshot()
         try:

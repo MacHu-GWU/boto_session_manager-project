@@ -14,7 +14,7 @@ Usage::
 from ._version import __version__
 
 try:
-    from .manager import BotoSesManager
+    from .manager import BotoSesManager, PATH_DEFAULT_SNAPSHOT
     from .services import AwsServiceEnum
 except ImportError:  # pragma: no cover
     pass

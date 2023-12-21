@@ -7,6 +7,7 @@ def test():
     import boto_session_manager
 
     _ = boto_session_manager.BotoSesManager
+    _ = boto_session_manager.PATH_DEFAULT_SNAPSHOT
     _ = boto_session_manager.AwsServiceEnum
 
 
