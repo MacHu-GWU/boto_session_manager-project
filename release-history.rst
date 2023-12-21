@@ -15,17 +15,36 @@ Backlog
 **Miscellaneous**
 
 
+1.7.1 (2023-12-20)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- add :meth:`~boto_session_manager.manager.BotoSesManager.create_boto_ses` method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.to_snapshot` method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.from_snapshot` method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.from_snapshot_file` method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.temp_snapshot` method.
+
+**Minor Improvements**
+
+- add support for some edge case for the :meth:`~boto_session_manager.manager.BotoSesManager.awscli` method. Also identified that ``duration_seconds``, ``serial_number`` and ``token_code`` arguments should not be used in this method. It should set the credential as it is, it should not create a new session, these arguments will be removed in 2024-03-31
+
+**Miscellaneous**
+
+- Improve doc string.
+
+
 1.6.1 (2023-12-10)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
 
-- add ``BotoSesManager.aws_account_user_id`` property method.
-- add ``BotoSesManager.masked_aws_account_user_id`` property method.
-- add ``BotoSesManager.masked_aws_account_id`` property method.
-- add ``BotoSesManager.principal_arn`` property method.
-- add ``BotoSesManager.masked_principal_arn`` property method.
-- add ``BotoSesManager.aws_account_alias`` property method.
-- add ``BotoSesManager.print_who_am_i`` method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.aws_account_user_id` property method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.masked_aws_account_user_id` property method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.masked_aws_account_id` property method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.principal_arn` property method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.masked_principal_arn` property method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.aws_account_alias` property method.
+- add :meth:`~boto_session_manager.manager.BotoSesManager.print_who_am_i` method.
 
 
 1.5.4 (2023-07-14)
