@@ -24,6 +24,8 @@ Backlog
 - add :meth:`~boto_session_manager.manager.BotoSesManager.from_snapshot` method.
 - add :meth:`~boto_session_manager.manager.BotoSesManager.from_snapshot_file` method.
 - add :meth:`~boto_session_manager.manager.BotoSesManager.temp_snapshot` method.
+- add support and test for 3.11, 3.12.
+- drop support for 3.6. test only covers 3.7+, older versions may still work.
 
 **Minor Improvements**
 

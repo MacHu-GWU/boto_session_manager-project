@@ -125,6 +125,8 @@ if __name__ == "__main__":
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
     ]
     """
     Full list can be found at: https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -181,6 +183,7 @@ if __name__ == "__main__":
         classifiers=CLASSIFIERS,
         platforms=PLATFORMS,
         license=LICENSE,
+        python_requires=">=3.7",
         install_requires=REQUIRES,
         extras_require=EXTRA_REQUIRE,
     )
