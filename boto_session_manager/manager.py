@@ -7,9 +7,11 @@ Manage the underlying boto3 session and client.
 # standard library
 import typing as T
 import os
+import json
 import uuid
 import warnings
 import contextlib
+from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
 # third party library
@@ -42,9 +44,13 @@ from .clients import ClientMixin
 from .sentinel import NOTHING, resolve_kwargs
 from .exc import NoBotocoreCredentialError
 
+
 if T.TYPE_CHECKING:  # pragma: no cover
     from botocore.client import BaseClient
     from boto3.resources.base import ServiceResource
+
+
+PATH_DEFAULT_SNAPSHOT = Path.home().joinpath(".bsm-snapshot.json")
 
 
 class BotoSesManager(ClientMixin):
@@ -105,24 +111,32 @@ class BotoSesManager(ClientMixin):
         self._aws_account_alias_cache: T.Optional[str] = NOTHING
         self._aws_region_cache: T.Optional[str] = NOTHING
 
+    def create_boto_ses(self) -> "boto3.session.Session":
+        """
+        Create a new boto3 session object from the :class:`BotoSesManager`.
+
+        .. versionadded:: 1.7.1
+        """
+        return boto3.session.Session(
+            **resolve_kwargs(
+                aws_access_key_id=self.aws_access_key_id,
+                aws_secret_access_key=self.aws_secret_access_key,
+                aws_session_token=self.aws_session_token,
+                region_name=self.region_name,
+                botocore_session=self.botocore_session,
+                profile_name=self.profile_name,
+            )
+        )
+
     @property
     def boto_ses(self) -> "boto3.session.Session":
         """
-        Get boto3 session from metadata.
+        Get boto3 session from metadata. This is a cached property.
 
         .. versionadded:: 1.0.2
         """
         if self._boto_ses_cache is NOTHING:
-            self._boto_ses_cache = boto3.session.Session(
-                **resolve_kwargs(
-                    aws_access_key_id=self.aws_access_key_id,
-                    aws_secret_access_key=self.aws_secret_access_key,
-                    aws_session_token=self.aws_session_token,
-                    region_name=self.region_name,
-                    botocore_session=self.botocore_session,
-                    profile_name=self.profile_name,
-                )
-            )
+            self._boto_ses_cache = self.create_boto_ses()
         return self._boto_ses_cache
 
     def _get_caller_identity(self):
@@ -135,11 +149,11 @@ class BotoSesManager(ClientMixin):
     @property
     def aws_account_user_id(self) -> str:
         """
-        Get current aws account user id of the boto session.
+        Get current aws account user id of the boto session. This is a cached property.
 
         .. versionadded:: 1.6.1
         """
-        if self._aws_user_id_cache is NOTHING:
+        if self._aws_user_id_cache is NOTHING:  # pragma: no cover
             self._get_caller_identity()
         return self._aws_user_id_cache
 
@@ -155,11 +169,11 @@ class BotoSesManager(ClientMixin):
     @property
     def aws_account_id(self) -> str:
         """
-        Get current aws account id of the boto session.
+        Get current aws account id of the boto session. This is a cached property.
 
         .. versionadded:: 1.0.1
         """
-        if self._aws_account_id_cache is NOTHING:
+        if self._aws_account_id_cache is NOTHING:  # pragma: no cover
             self._get_caller_identity()
         return self._aws_account_id_cache
 
@@ -175,11 +189,11 @@ class BotoSesManager(ClientMixin):
     @property
     def principal_arn(self) -> str:
         """
-        Get current principal arn of the boto session.
+        Get current principal arn of the boto session. This is a cached property.
 
         .. versionadded:: 1.0.1
         """
-        if self._principal_arn_cache is NOTHING:
+        if self._principal_arn_cache is NOTHING:  # pragma: no cover
             self._get_caller_identity()
         return self._principal_arn_cache
 
@@ -195,7 +209,7 @@ class BotoSesManager(ClientMixin):
     @property
     def aws_region(self) -> str:
         """
-        Get current aws region of the boto session.
+        Get current aws region of the boto session. This is a cached property.
 
         .. versionadded:: 0.0.1
         """
@@ -206,7 +220,7 @@ class BotoSesManager(ClientMixin):
     @property
     def aws_account_alias(self) -> T.Optional[str]:
         """
-        Get the first aws account alias of the boto session.
+        Get the first aws account alias of the boto session. This is a cached property.
 
         .. versionadded:: 1.6.1
         """
@@ -456,14 +470,16 @@ class BotoSesManager(ClientMixin):
 
         .. versionchanged:: 1.7.1
 
-            duration_seconds, serial_number and token_code argument should not
+            duration_seconds, serial_number and token_code arguments should not
             be used in this method, it should set the credential as it is,
             it should not create a new session, these arguments will be removed
             in 2024-03-31
         """
-        if serial_number is not NOTHING or token_code is not NOTHING:
+        if (
+            serial_number is not NOTHING or token_code is not NOTHING
+        ):  # pragma: no cover
             warnings.warn(
-                "duration_seconds, serial_number and token_code argument "
+                "duration_seconds, serial_number and token_code arguments "
                 "should not be used in this method, it should set the credential "
                 "as it is, it should not create a new session, "
                 "these arguments will be removed in 2024-03-31",
@@ -516,6 +532,77 @@ class BotoSesManager(ClientMixin):
                         os.environ.pop(k)
                 else:
                     os.environ[k] = v
+
+    def to_snapshot(self) -> dict:
+        cred = self.boto_ses.get_credentials()
+        snapshot = dict(
+            region_name=self.aws_region,
+            aws_access_key_id=cred.access_key,
+            aws_secret_access_key=cred.secret_key,
+        )
+        if cred.token:
+            snapshot["aws_session_token"] = cred.token
+        return snapshot
+
+    @classmethod
+    def from_snapshot(cls, snapshot: dict):
+        return cls(**snapshot)
+
+    @classmethod
+    def from_snapshot_file(
+        cls,
+        path: T.Union[str, Path] = str(PATH_DEFAULT_SNAPSHOT),
+    ):
+        path = Path(path)
+        if not path.exists():
+            raise FileNotFoundError(f"Snapshot file not found: {path}")
+        return cls.from_snapshot(json.loads(path.read_text()))
+
+    @contextlib.contextmanager
+    def temp_snapshot(
+        self,
+        path: T.Union[str, Path] = str(PATH_DEFAULT_SNAPSHOT),
+    ) -> "BotoSesManager":
+        """
+        Temporarily back up the current boto session credentials to a file and
+        automatically delete the backup file after the context manager exits.
+
+        This is useful when you need to temporarily override environment variables
+        for the default boto session but still want to access the original default
+        boto session while those environment variables are missing.
+
+        For example, if you use the :meth:`BotoSesManager.awscli` method to set
+        the default boto session to an AWS account other than the default AWS CLI profile,
+        and then you want to run some CLI commands. Now that the default boto session
+        is set to the other AWS account, but you still want to access the original boto session,
+        you can use this method to temporarily back up the original session and
+        use the :meth:`BotoSesManager.from_snapshot_file` method to restore the original session.
+
+        Example:
+
+        .. code-block:: python
+
+            # let's say the default profile is account A (acc_a)
+            import subprocess
+
+            bsm_default = BotoSesManager()
+            bsm_acc_b = BotoSesManager(profile_name="acc_b")
+            with bsm_default.temp_snapshot():
+                with bsm_acc_b.awscli():
+                    # now the default profile is account B (acc_b)
+                    subprocess.run(["aws", "sts", "get-caller-identity"])
+                    # you can use the ``from_snapshot_file`` method in ``my_script.py``
+                    # to restore the default profile to account A (acc_a)
+                    subprocess.run(["python", "my_script.py"])
+        """
+        path = Path(path)
+        snapshot = self.to_snapshot()
+        try:
+            path.write_text(json.dumps(snapshot))
+            yield self
+        finally:
+            if path.exists():
+                path.unlink()
 
     def clear_cache(self):
         """

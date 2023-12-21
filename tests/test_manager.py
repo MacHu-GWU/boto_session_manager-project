@@ -6,7 +6,11 @@ import typing as T
 import os
 import json
 import subprocess
-from boto_session_manager.manager import BotoSesManager, AwsServiceEnum
+from boto_session_manager.manager import (
+    BotoSesManager,
+    AwsServiceEnum,
+    PATH_DEFAULT_SNAPSHOT,
+)
 
 
 if "CI" in os.environ:  # pragma: no cover
@@ -17,9 +21,9 @@ if "CI" in os.environ:  # pragma: no cover
         aws_access_key_id=aws_access_key_id,
         aws_secret_access_key=aws_secret_access_key,
     )
-# to test this on your local, make sure your default AWS profile
+# to test this on your local, make sure your DEFAULT AWS profile
 # is NOT project_boto_session_manager
-# and also the aws account is NOT project_boto_session_manager
+# and also the aws account is NOT the same as project_boto_session_manager
 else:  # pragma: no cover
     is_ci = False
     profile_name = "project_boto_session_manager"
@@ -179,6 +183,24 @@ class TestBotoSesManager:
             else:
                 assert "AWS_SESSION_TOKEN" not in os.environ
             assert "AWS_PROFILE" not in os.environ
+
+    @pytest.mark.skipif(
+        is_ci,
+        reason="we don't want to expose real AWS credentials in CI",
+    )
+    def test_temp_snapshot(self):
+        bsm_default = BotoSesManager()
+        bsm_project = BotoSesManager(profile_name=profile_name)
+        assert bsm_default.aws_account_id != bsm_project.aws_account_id
+
+        with bsm_default.temp_snapshot():
+            with bsm_project.awscli():
+                bsm_new = BotoSesManager()
+                assert bsm_new.aws_account_id == bsm_project.aws_account_id
+                bsm_origin = BotoSesManager.from_snapshot_file()
+                assert bsm_origin.aws_account_id == bsm_default.aws_account_id
+
+        assert PATH_DEFAULT_SNAPSHOT.exists() is False
 
 
 if __name__ == "__main__":
