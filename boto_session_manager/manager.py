@@ -4,6 +4,7 @@
 Manage the underlying boto3 session and client.
 """
 
+# standard library
 import typing as T
 import os
 import uuid
@@ -11,6 +12,7 @@ import warnings
 import contextlib
 from datetime import datetime, timezone, timedelta
 
+# third party library
 try:
     import boto3
     import boto3.session
@@ -26,14 +28,23 @@ try:
 except ImportError as e:  # pragma: no cover
     print("The auto refreshable assume role session would not work.")
 
-if T.TYPE_CHECKING:  # pragma: no cover
-    from botocore.client import BaseClient
-    from boto3.resources.base import ServiceResource
+from .vendor.aws_sts import (
+    mask_user_id,
+    mask_aws_account_id,
+    mask_iam_principal_arn,
+    get_caller_identity,
+    get_account_alias,
+)
 
+# modules from this project
 from .services import AwsServiceEnum
 from .clients import ClientMixin
 from .sentinel import NOTHING, resolve_kwargs
 from .exc import NoBotocoreCredentialError
+
+if T.TYPE_CHECKING:  # pragma: no cover
+    from botocore.client import BaseClient
+    from boto3.resources.base import ServiceResource
 
 
 class BotoSesManager(ClientMixin):
@@ -88,7 +99,10 @@ class BotoSesManager(ClientMixin):
         self._boto_ses_cache: T.Optional["boto3.session.Session"] = NOTHING
         self._client_cache: T.Dict[str, "BaseClient"] = dict()
         self._resource_cache: T.Dict[str, "ServiceResource"] = dict()
+        self._aws_user_id_cache: T.Optional[str] = NOTHING
         self._aws_account_id_cache: T.Optional[str] = NOTHING
+        self._principal_arn_cache: T.Optional[str] = NOTHING
+        self._aws_account_alias_cache: T.Optional[str] = NOTHING
         self._aws_region_cache: T.Optional[str] = NOTHING
 
     @property
@@ -111,6 +125,33 @@ class BotoSesManager(ClientMixin):
             )
         return self._boto_ses_cache
 
+    def _get_caller_identity(self):
+        sts_client = self.get_client(AwsServiceEnum.STS)
+        user_id, aws_account_id, arn = get_caller_identity(sts_client)
+        self._aws_user_id_cache = user_id
+        self._aws_account_id_cache = aws_account_id
+        self._principal_arn_cache = arn
+
+    @property
+    def aws_account_user_id(self) -> str:
+        """
+        Get current aws account user id of the boto session.
+
+        .. versionadded:: 1.6.1
+        """
+        if self._aws_user_id_cache is NOTHING:
+            self._get_caller_identity()
+        return self._aws_user_id_cache
+
+    @property
+    def masked_aws_account_user_id(self) -> str:
+        """
+        Get the masked current aws account user id of the boto session.
+
+        .. versionadded:: 1.6.1
+        """
+        return mask_user_id(self.aws_account_user_id)
+
     @property
     def aws_account_id(self) -> str:
         """
@@ -119,9 +160,37 @@ class BotoSesManager(ClientMixin):
         .. versionadded:: 1.0.1
         """
         if self._aws_account_id_cache is NOTHING:
-            sts_client = self.get_client(AwsServiceEnum.STS)
-            self._aws_account_id_cache = sts_client.get_caller_identity()["Account"]
+            self._get_caller_identity()
         return self._aws_account_id_cache
+
+    @property
+    def masked_aws_account_id(self) -> str:
+        """
+        Get the masked current aws account id of the boto session.
+
+        .. versionadded:: 1.6.1
+        """
+        return mask_aws_account_id(self.aws_account_id)
+
+    @property
+    def principal_arn(self) -> str:
+        """
+        Get current principal arn of the boto session.
+
+        .. versionadded:: 1.0.1
+        """
+        if self._principal_arn_cache is NOTHING:
+            self._get_caller_identity()
+        return self._principal_arn_cache
+
+    @property
+    def masked_principal_arn(self) -> str:
+        """
+        Get the masked principal arn of the boto session.
+
+        .. versionadded:: 1.6.1
+        """
+        return mask_iam_principal_arn(self.principal_arn)
 
     @property
     def aws_region(self) -> str:
@@ -133,6 +202,36 @@ class BotoSesManager(ClientMixin):
         if self._aws_region_cache is NOTHING:
             self._aws_region_cache = self.boto_ses.region_name
         return self._aws_region_cache
+
+    @property
+    def aws_account_alias(self) -> T.Optional[str]:
+        """
+        Get the first aws account alias of the boto session.
+
+        .. versionadded:: 1.6.1
+        """
+        if self._aws_account_alias_cache is NOTHING:
+            self._aws_account_alias_cache = get_account_alias(
+                self.get_client(AwsServiceEnum.IAM)
+            )
+        return self._aws_account_alias_cache
+
+    def print_who_am_i(self, masked: bool = True):  # pragma: no cover
+        """
+        Print the boto session AWS Account and IAM principal information.
+
+        .. versionadded:: 1.6.1
+        """
+        if masked:
+            print(f"User Id = {self.masked_aws_account_user_id}")
+            print(f"AWS Account Id = {self.masked_aws_account_id}")
+            print(f"Principal Arn = {self.masked_principal_arn}")
+        else:
+            print(f"User Id = {self.aws_account_user_id}")
+            print(f"AWS Account Id = {self.aws_account_id}")
+            print(f"Principal Arn = {self.principal_arn}")
+        print(f"AWS Account Alias = {self.aws_account_alias}")
+        print(f"AWS Region = {self.aws_region}")
 
     def get_client(
         self,

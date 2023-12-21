@@ -20,7 +20,8 @@ Name is ``project-boto_session_manager``. Give program access only, Policy is::
                 "Effect": "Allow",
                 "Action": [
                     "sts:GetAccessKeyInfo",
-                    "sts:GetCallerIdentity"
+                    "sts:GetCallerIdentity",
+                    "iam:ListAccountAliases"
                 ],
                 "Resource": "*"
             }
@@ -57,7 +58,8 @@ Policy is::
                 "Effect": "Allow",
                 "Action": [
                     "sts:GetAccessKeyInfo",
-                    "sts:GetCallerIdentity"
+                    "sts:GetCallerIdentity",
+                    "iam:ListAccountAliases"
                 ],
                 "Resource": "*"
             }

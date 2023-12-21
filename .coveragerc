@@ -8,6 +8,7 @@ omit =
     boto_session_manager/sentinel.py
     boto_session_manager/docs/*
     boto_session_manager/tests/*
+    boto_session_manager/vendor/*
 
 [report]
 # Regexes for lines to exclude from consideration

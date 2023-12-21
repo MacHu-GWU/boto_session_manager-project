@@ -84,6 +84,12 @@
         "service_id": "appconfigdata"
     },
     {
+        "name": "AppFabric",
+        "href_name": "appfabric.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/appfabric.html",
+        "service_id": "appfabric"
+    },
+    {
         "name": "Appflow",
         "href_name": "appflow.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/appflow.html",
@@ -364,6 +370,12 @@
         "href_name": "codeguru-reviewer.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codeguru-reviewer.html",
         "service_id": "codeguru-reviewer"
+    },
+    {
+        "name": "CodeGuruSecurity",
+        "href_name": "codeguru-security.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codeguru-security.html",
+        "service_id": "codeguru-security"
     },
     {
         "name": "CodeGuruProfiler",
@@ -996,6 +1008,12 @@
         "service_id": "ivs"
     },
     {
+        "name": "ivsrealtime",
+        "href_name": "ivs-realtime.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ivs-realtime.html",
+        "service_id": "ivs-realtime"
+    },
+    {
         "name": "ivschat",
         "href_name": "ivschat.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ivschat.html",
@@ -1254,6 +1272,12 @@
         "service_id": "mediapackage-vod"
     },
     {
+        "name": "mediapackagev2",
+        "href_name": "mediapackagev2.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mediapackagev2.html",
+        "service_id": "mediapackagev2"
+    },
+    {
         "name": "MediaStore",
         "href_name": "mediastore.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mediastore.html",
@@ -1410,6 +1434,12 @@
         "service_id": "organizations"
     },
     {
+        "name": "OpenSearchIngestion",
+        "href_name": "osis.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/osis.html",
+        "service_id": "osis"
+    },
+    {
         "name": "Outposts",
         "href_name": "outposts.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/outposts.html",
@@ -1420,6 +1450,18 @@
         "href_name": "panorama.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/panorama.html",
         "service_id": "panorama"
+    },
+    {
+        "name": "PaymentCryptographyControlPlane",
+        "href_name": "payment-cryptography.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography.html",
+        "service_id": "payment-cryptography"
+    },
+    {
+        "name": "PaymentCryptographyDataPlane",
+        "href_name": "payment-cryptography-data.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography-data.html",
+        "service_id": "payment-cryptography-data"
     },
     {
         "name": "Personalize",
@@ -1812,12 +1854,6 @@
         "service_id": "sms"
     },
     {
-        "name": "PinpointSMSVoice",
-        "href_name": "sms-voice.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sms-voice.html",
-        "service_id": "sms-voice"
-    },
-    {
         "name": "SnowDeviceManagement",
         "href_name": "snow-device-management.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/snow-device-management.html",
@@ -1968,10 +2004,22 @@
         "service_id": "translate"
     },
     {
+        "name": "VerifiedPermissions",
+        "href_name": "verifiedpermissions.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/verifiedpermissions.html",
+        "service_id": "verifiedpermissions"
+    },
+    {
         "name": "VoiceID",
         "href_name": "voice-id.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/voice-id.html",
         "service_id": "voice-id"
+    },
+    {
+        "name": "VPCLattice",
+        "href_name": "vpc-lattice.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/vpc-lattice.html",
+        "service_id": "vpc-lattice"
     },
     {
         "name": "WAF",
