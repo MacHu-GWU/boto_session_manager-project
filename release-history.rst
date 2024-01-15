@@ -15,6 +15,13 @@ Backlog
 **Miscellaneous**
 
 
+1.7.2 (2024-01-14)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Bugfixes**
+
+- fix a bug that the :meth:`~boto_session_manager.manager.BotoSesManager.clear_cache` method does not work properly.
+
+
 1.7.1 (2023-12-20)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**

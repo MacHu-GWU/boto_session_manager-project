@@ -617,5 +617,8 @@ class BotoSesManager(ClientMixin):
         self._boto_ses_cache = NOTHING
         self._client_cache.clear()
         self._resource_cache.clear()
+        self._aws_user_id_cache = NOTHING
         self._aws_account_id_cache = NOTHING
+        self._principal_arn_cache = NOTHING
+        self._aws_account_alias_cache = NOTHING
         self._aws_region_cache = NOTHING
