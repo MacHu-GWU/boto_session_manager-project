@@ -10,7 +10,6 @@ if T.TYPE_CHECKING:
     import mypy_boto3_account
     import mypy_boto3_acm
     import mypy_boto3_acm_pca
-    import mypy_boto3_alexaforbusiness
     import mypy_boto3_amp
     import mypy_boto3_amplify
     import mypy_boto3_amplifybackend
@@ -25,24 +24,38 @@ if T.TYPE_CHECKING:
     import mypy_boto3_appintegrations
     import mypy_boto3_application_autoscaling
     import mypy_boto3_application_insights
+    import mypy_boto3_application_signals
     import mypy_boto3_applicationcostprofiler
     import mypy_boto3_appmesh
     import mypy_boto3_apprunner
     import mypy_boto3_appstream
     import mypy_boto3_appsync
+    import mypy_boto3_apptest
     import mypy_boto3_arc_zonal_shift
+    import mypy_boto3_artifact
     import mypy_boto3_athena
     import mypy_boto3_auditmanager
     import mypy_boto3_autoscaling
     import mypy_boto3_autoscaling_plans
+    import mypy_boto3_b2bi
     import mypy_boto3_backup
     import mypy_boto3_backup_gateway
-    import mypy_boto3_backupstorage
+    import mypy_boto3_backupsearch
     import mypy_boto3_batch
+    import mypy_boto3_bcm_data_exports
+    import mypy_boto3_bcm_pricing_calculator
+    import mypy_boto3_bedrock
+    import mypy_boto3_bedrock_agent
+    import mypy_boto3_bedrock_agent_runtime
+    import mypy_boto3_bedrock_data_automation
+    import mypy_boto3_bedrock_data_automation_runtime
+    import mypy_boto3_bedrock_runtime
+    import mypy_boto3_billing
     import mypy_boto3_billingconductor
     import mypy_boto3_braket
     import mypy_boto3_budgets
     import mypy_boto3_ce
+    import mypy_boto3_chatbot
     import mypy_boto3_chime
     import mypy_boto3_chime_sdk_identity
     import mypy_boto3_chime_sdk_media_pipelines
@@ -50,11 +63,13 @@ if T.TYPE_CHECKING:
     import mypy_boto3_chime_sdk_messaging
     import mypy_boto3_chime_sdk_voice
     import mypy_boto3_cleanrooms
+    import mypy_boto3_cleanroomsml
     import mypy_boto3_cloud9
     import mypy_boto3_cloudcontrol
     import mypy_boto3_clouddirectory
     import mypy_boto3_cloudformation
     import mypy_boto3_cloudfront
+    import mypy_boto3_cloudfront_keyvaluestore
     import mypy_boto3_cloudhsm
     import mypy_boto3_cloudhsmv2
     import mypy_boto3_cloudsearch
@@ -66,12 +81,12 @@ if T.TYPE_CHECKING:
     import mypy_boto3_codebuild
     import mypy_boto3_codecatalyst
     import mypy_boto3_codecommit
+    import mypy_boto3_codeconnections
     import mypy_boto3_codedeploy
     import mypy_boto3_codeguru_reviewer
     import mypy_boto3_codeguru_security
     import mypy_boto3_codeguruprofiler
     import mypy_boto3_codepipeline
-    import mypy_boto3_codestar
     import mypy_boto3_codestar_connections
     import mypy_boto3_codestar_notifications
     import mypy_boto3_cognito_identity
@@ -84,16 +99,21 @@ if T.TYPE_CHECKING:
     import mypy_boto3_connect
     import mypy_boto3_connect_contact_lens
     import mypy_boto3_connectcampaigns
+    import mypy_boto3_connectcampaignsv2
     import mypy_boto3_connectcases
     import mypy_boto3_connectparticipant
+    import mypy_boto3_controlcatalog
     import mypy_boto3_controltower
+    import mypy_boto3_cost_optimization_hub
     import mypy_boto3_cur
     import mypy_boto3_customer_profiles
     import mypy_boto3_databrew
     import mypy_boto3_dataexchange
     import mypy_boto3_datapipeline
     import mypy_boto3_datasync
+    import mypy_boto3_datazone
     import mypy_boto3_dax
+    import mypy_boto3_deadline
     import mypy_boto3_detective
     import mypy_boto3_devicefarm
     import mypy_boto3_devops_guru
@@ -105,6 +125,8 @@ if T.TYPE_CHECKING:
     import mypy_boto3_docdb_elastic
     import mypy_boto3_drs
     import mypy_boto3_ds
+    import mypy_boto3_ds_data
+    import mypy_boto3_dsql
     import mypy_boto3_dynamodb
     import mypy_boto3_dynamodbstreams
     import mypy_boto3_ebs
@@ -115,7 +137,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_ecs
     import mypy_boto3_efs
     import mypy_boto3_eks
-    import mypy_boto3_elastic_inference
+    import mypy_boto3_eks_auth
     import mypy_boto3_elasticache
     import mypy_boto3_elasticbeanstalk
     import mypy_boto3_elastictranscoder
@@ -124,6 +146,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_emr
     import mypy_boto3_emr_containers
     import mypy_boto3_emr_serverless
+    import mypy_boto3_entityresolution
     import mypy_boto3_es
     import mypy_boto3_events
     import mypy_boto3_evidently
@@ -135,9 +158,13 @@ if T.TYPE_CHECKING:
     import mypy_boto3_forecast
     import mypy_boto3_forecastquery
     import mypy_boto3_frauddetector
+    import mypy_boto3_freetier
     import mypy_boto3_fsx
     import mypy_boto3_gamelift
-    import mypy_boto3_gamesparks
+    import mypy_boto3_gameliftstreams
+    import mypy_boto3_geo_maps
+    import mypy_boto3_geo_places
+    import mypy_boto3_geo_routes
     import mypy_boto3_glacier
     import mypy_boto3_globalaccelerator
     import mypy_boto3_glue
@@ -148,20 +175,19 @@ if T.TYPE_CHECKING:
     import mypy_boto3_guardduty
     import mypy_boto3_health
     import mypy_boto3_healthlake
-    import mypy_boto3_honeycode
     import mypy_boto3_iam
     import mypy_boto3_identitystore
     import mypy_boto3_imagebuilder
     import mypy_boto3_importexport
     import mypy_boto3_inspector
+    import mypy_boto3_inspector_scan
     import mypy_boto3_inspector2
     import mypy_boto3_internetmonitor
+    import mypy_boto3_invoicing
     import mypy_boto3_iot
     import mypy_boto3_iot_data
     import mypy_boto3_iot_jobs_data
-    import mypy_boto3_iot_roborunner
-    import mypy_boto3_iot1click_devices
-    import mypy_boto3_iot1click_projects
+    import mypy_boto3_iot_managed_integrations
     import mypy_boto3_iotanalytics
     import mypy_boto3_iotdeviceadvisor
     import mypy_boto3_iotevents
@@ -192,6 +218,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_kms
     import mypy_boto3_lakeformation
     import mypy_boto3_lambda
+    import mypy_boto3_launch_wizard
     import mypy_boto3_lex_models
     import mypy_boto3_lex_runtime
     import mypy_boto3_lexv2_models
@@ -207,11 +234,15 @@ if T.TYPE_CHECKING:
     import mypy_boto3_lookoutvision
     import mypy_boto3_m2
     import mypy_boto3_machinelearning
-    import mypy_boto3_macie
     import mypy_boto3_macie2
+    import mypy_boto3_mailmanager
     import mypy_boto3_managedblockchain
+    import mypy_boto3_managedblockchain_query
+    import mypy_boto3_marketplace_agreement
     import mypy_boto3_marketplace_catalog
+    import mypy_boto3_marketplace_deployment
     import mypy_boto3_marketplace_entitlement
+    import mypy_boto3_marketplace_reporting
     import mypy_boto3_marketplacecommerceanalytics
     import mypy_boto3_mediaconnect
     import mypy_boto3_mediaconvert
@@ -222,6 +253,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_mediastore
     import mypy_boto3_mediastore_data
     import mypy_boto3_mediatailor
+    import mypy_boto3_medical_imaging
     import mypy_boto3_memorydb
     import mypy_boto3_meteringmarketplace
     import mypy_boto3_mgh
@@ -230,15 +262,20 @@ if T.TYPE_CHECKING:
     import mypy_boto3_migrationhub_config
     import mypy_boto3_migrationhuborchestrator
     import mypy_boto3_migrationhubstrategy
-    import mypy_boto3_mobile
     import mypy_boto3_mq
     import mypy_boto3_mturk
     import mypy_boto3_mwaa
     import mypy_boto3_neptune
+    import mypy_boto3_neptune_graph
+    import mypy_boto3_neptunedata
     import mypy_boto3_network_firewall
+    import mypy_boto3_networkflowmonitor
     import mypy_boto3_networkmanager
-    import mypy_boto3_nimble
+    import mypy_boto3_networkmonitor
+    import mypy_boto3_notifications
+    import mypy_boto3_notificationscontacts
     import mypy_boto3_oam
+    import mypy_boto3_observabilityadmin
     import mypy_boto3_omics
     import mypy_boto3_opensearch
     import mypy_boto3_opensearchserverless
@@ -248,8 +285,12 @@ if T.TYPE_CHECKING:
     import mypy_boto3_osis
     import mypy_boto3_outposts
     import mypy_boto3_panorama
+    import mypy_boto3_partnercentral_selling
     import mypy_boto3_payment_cryptography
     import mypy_boto3_payment_cryptography_data
+    import mypy_boto3_pca_connector_ad
+    import mypy_boto3_pca_connector_scep
+    import mypy_boto3_pcs
     import mypy_boto3_personalize
     import mypy_boto3_personalize_events
     import mypy_boto3_personalize_runtime
@@ -263,6 +304,9 @@ if T.TYPE_CHECKING:
     import mypy_boto3_pricing
     import mypy_boto3_privatenetworks
     import mypy_boto3_proton
+    import mypy_boto3_qapps
+    import mypy_boto3_qbusiness
+    import mypy_boto3_qconnect
     import mypy_boto3_qldb
     import mypy_boto3_qldb_session
     import mypy_boto3_quicksight
@@ -274,6 +318,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_redshift_data
     import mypy_boto3_redshift_serverless
     import mypy_boto3_rekognition
+    import mypy_boto3_repostspace
     import mypy_boto3_resiliencehub
     import mypy_boto3_resource_explorer_2
     import mypy_boto3_resource_groups
@@ -285,11 +330,13 @@ if T.TYPE_CHECKING:
     import mypy_boto3_route53_recovery_control_config
     import mypy_boto3_route53_recovery_readiness
     import mypy_boto3_route53domains
+    import mypy_boto3_route53profiles
     import mypy_boto3_route53resolver
     import mypy_boto3_rum
     import mypy_boto3_s3
     import mypy_boto3_s3control
     import mypy_boto3_s3outposts
+    import mypy_boto3_s3tables
     import mypy_boto3_sagemaker
     import mypy_boto3_sagemaker_a2i_runtime
     import mypy_boto3_sagemaker_edge
@@ -302,6 +349,7 @@ if T.TYPE_CHECKING:
     import mypy_boto3_schemas
     import mypy_boto3_sdb
     import mypy_boto3_secretsmanager
+    import mypy_boto3_security_ir
     import mypy_boto3_securityhub
     import mypy_boto3_securitylake
     import mypy_boto3_serverlessrepo
@@ -318,10 +366,12 @@ if T.TYPE_CHECKING:
     import mypy_boto3_snow_device_management
     import mypy_boto3_snowball
     import mypy_boto3_sns
+    import mypy_boto3_socialmessaging
     import mypy_boto3_sqs
     import mypy_boto3_ssm
     import mypy_boto3_ssm_contacts
     import mypy_boto3_ssm_incidents
+    import mypy_boto3_ssm_quicksetup
     import mypy_boto3_ssm_sap
     import mypy_boto3_sso
     import mypy_boto3_sso_admin
@@ -329,17 +379,21 @@ if T.TYPE_CHECKING:
     import mypy_boto3_stepfunctions
     import mypy_boto3_storagegateway
     import mypy_boto3_sts
+    import mypy_boto3_supplychain
     import mypy_boto3_support
     import mypy_boto3_support_app
     import mypy_boto3_swf
     import mypy_boto3_synthetics
+    import mypy_boto3_taxsettings
     import mypy_boto3_textract
+    import mypy_boto3_timestream_influxdb
     import mypy_boto3_timestream_query
     import mypy_boto3_timestream_write
     import mypy_boto3_tnb
     import mypy_boto3_transcribe
     import mypy_boto3_transfer
     import mypy_boto3_translate
+    import mypy_boto3_trustedadvisor
     import mypy_boto3_verifiedpermissions
     import mypy_boto3_voice_id
     import mypy_boto3_vpc_lattice
@@ -349,10 +403,10 @@ if T.TYPE_CHECKING:
     import mypy_boto3_wellarchitected
     import mypy_boto3_wisdom
     import mypy_boto3_workdocs
-    import mypy_boto3_worklink
     import mypy_boto3_workmail
     import mypy_boto3_workmailmessageflow
     import mypy_boto3_workspaces
+    import mypy_boto3_workspaces_thin_client
     import mypy_boto3_workspaces_web
     import mypy_boto3_xray
 
@@ -385,13 +439,6 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/acm-pca.html
         """
         return self.get_client(AwsServiceEnum.ACMPCA)
-    
-    @property
-    def alexaforbusiness_client(self: "BotoSesManager") -> "mypy_boto3_alexaforbusiness.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/alexaforbusiness.html
-        """
-        return self.get_client(AwsServiceEnum.AlexaForBusiness)
     
     @property
     def prometheusservice_client(self: "BotoSesManager") -> "mypy_boto3_amp.Client":
@@ -492,6 +539,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.ApplicationInsights)
     
     @property
+    def cloudwatchapplicationsignals_client(self: "BotoSesManager") -> "mypy_boto3_application_signals.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/application-signals.html
+        """
+        return self.get_client(AwsServiceEnum.CloudWatchApplicationSignals)
+    
+    @property
     def applicationcostprofiler_client(self: "BotoSesManager") -> "mypy_boto3_applicationcostprofiler.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/applicationcostprofiler.html
@@ -527,11 +581,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.AppSync)
     
     @property
+    def mainframemodernizationapplicationtesting_client(self: "BotoSesManager") -> "mypy_boto3_apptest.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apptest.html
+        """
+        return self.get_client(AwsServiceEnum.MainframeModernizationApplicationTesting)
+    
+    @property
     def arczonalshift_client(self: "BotoSesManager") -> "mypy_boto3_arc_zonal_shift.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/arc-zonal-shift.html
         """
         return self.get_client(AwsServiceEnum.ARCZonalShift)
+    
+    @property
+    def artifact_client(self: "BotoSesManager") -> "mypy_boto3_artifact.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/artifact.html
+        """
+        return self.get_client(AwsServiceEnum.Artifact)
     
     @property
     def athena_client(self: "BotoSesManager") -> "mypy_boto3_athena.Client":
@@ -562,6 +630,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.AutoScalingPlans)
     
     @property
+    def b2bi_client(self: "BotoSesManager") -> "mypy_boto3_b2bi.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/b2bi.html
+        """
+        return self.get_client(AwsServiceEnum.B2BI)
+    
+    @property
     def backup_client(self: "BotoSesManager") -> "mypy_boto3_backup.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/backup.html
@@ -576,11 +651,11 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.BackupGateway)
     
     @property
-    def backupstorage_client(self: "BotoSesManager") -> "mypy_boto3_backupstorage.Client":
+    def backupsearch_client(self: "BotoSesManager") -> "mypy_boto3_backupsearch.Client":
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/backupstorage.html
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/backupsearch.html
         """
-        return self.get_client(AwsServiceEnum.BackupStorage)
+        return self.get_client(AwsServiceEnum.BackupSearch)
     
     @property
     def batch_client(self: "BotoSesManager") -> "mypy_boto3_batch.Client":
@@ -588,6 +663,69 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/batch.html
         """
         return self.get_client(AwsServiceEnum.Batch)
+    
+    @property
+    def billingandcostmanagementdataexports_client(self: "BotoSesManager") -> "mypy_boto3_bcm_data_exports.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-data-exports.html
+        """
+        return self.get_client(AwsServiceEnum.BillingandCostManagementDataExports)
+    
+    @property
+    def billingandcostmanagementpricingcalculator_client(self: "BotoSesManager") -> "mypy_boto3_bcm_pricing_calculator.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-pricing-calculator.html
+        """
+        return self.get_client(AwsServiceEnum.BillingandCostManagementPricingCalculator)
+    
+    @property
+    def bedrock_client(self: "BotoSesManager") -> "mypy_boto3_bedrock.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock.html
+        """
+        return self.get_client(AwsServiceEnum.Bedrock)
+    
+    @property
+    def agentsforbedrock_client(self: "BotoSesManager") -> "mypy_boto3_bedrock_agent.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent.html
+        """
+        return self.get_client(AwsServiceEnum.AgentsforBedrock)
+    
+    @property
+    def agentsforbedrockruntime_client(self: "BotoSesManager") -> "mypy_boto3_bedrock_agent_runtime.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime.html
+        """
+        return self.get_client(AwsServiceEnum.AgentsforBedrockRuntime)
+    
+    @property
+    def dataautomationforbedrock_client(self: "BotoSesManager") -> "mypy_boto3_bedrock_data_automation.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-data-automation.html
+        """
+        return self.get_client(AwsServiceEnum.DataAutomationforBedrock)
+    
+    @property
+    def runtimeforbedrockdataautomation_client(self: "BotoSesManager") -> "mypy_boto3_bedrock_data_automation_runtime.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-data-automation-runtime.html
+        """
+        return self.get_client(AwsServiceEnum.RuntimeforBedrockDataAutomation)
+    
+    @property
+    def bedrockruntime_client(self: "BotoSesManager") -> "mypy_boto3_bedrock_runtime.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-runtime.html
+        """
+        return self.get_client(AwsServiceEnum.BedrockRuntime)
+    
+    @property
+    def billing_client(self: "BotoSesManager") -> "mypy_boto3_billing.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/billing.html
+        """
+        return self.get_client(AwsServiceEnum.Billing)
     
     @property
     def billingconductor_client(self: "BotoSesManager") -> "mypy_boto3_billingconductor.Client":
@@ -616,6 +754,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ce.html
         """
         return self.get_client(AwsServiceEnum.CostExplorer)
+    
+    @property
+    def chatbot_client(self: "BotoSesManager") -> "mypy_boto3_chatbot.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/chatbot.html
+        """
+        return self.get_client(AwsServiceEnum.Chatbot)
     
     @property
     def chime_client(self: "BotoSesManager") -> "mypy_boto3_chime.Client":
@@ -667,6 +812,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.CleanRoomsService)
     
     @property
+    def cleanroomsml_client(self: "BotoSesManager") -> "mypy_boto3_cleanroomsml.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cleanroomsml.html
+        """
+        return self.get_client(AwsServiceEnum.CleanRoomsML)
+    
+    @property
     def cloud9_client(self: "BotoSesManager") -> "mypy_boto3_cloud9.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloud9.html
@@ -700,6 +852,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudfront.html
         """
         return self.get_client(AwsServiceEnum.CloudFront)
+    
+    @property
+    def cloudfrontkeyvaluestore_client(self: "BotoSesManager") -> "mypy_boto3_cloudfront_keyvaluestore.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudfront-keyvaluestore.html
+        """
+        return self.get_client(AwsServiceEnum.CloudFrontKeyValueStore)
     
     @property
     def cloudhsm_client(self: "BotoSesManager") -> "mypy_boto3_cloudhsm.Client":
@@ -779,6 +938,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.CodeCommit)
     
     @property
+    def codeconnections_client(self: "BotoSesManager") -> "mypy_boto3_codeconnections.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codeconnections.html
+        """
+        return self.get_client(AwsServiceEnum.CodeConnections)
+    
+    @property
     def codedeploy_client(self: "BotoSesManager") -> "mypy_boto3_codedeploy.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codedeploy.html
@@ -812,13 +978,6 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codepipeline.html
         """
         return self.get_client(AwsServiceEnum.CodePipeline)
-    
-    @property
-    def codestar_client(self: "BotoSesManager") -> "mypy_boto3_codestar.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codestar.html
-        """
-        return self.get_client(AwsServiceEnum.CodeStar)
     
     @property
     def codestarconnections_client(self: "BotoSesManager") -> "mypy_boto3_codestar_connections.Client":
@@ -905,6 +1064,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.ConnectCampaignService)
     
     @property
+    def connectcampaignservicev2_client(self: "BotoSesManager") -> "mypy_boto3_connectcampaignsv2.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/connectcampaignsv2.html
+        """
+        return self.get_client(AwsServiceEnum.ConnectCampaignServiceV2)
+    
+    @property
     def connectcases_client(self: "BotoSesManager") -> "mypy_boto3_connectcases.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/connectcases.html
@@ -919,11 +1085,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.ConnectParticipant)
     
     @property
+    def controlcatalog_client(self: "BotoSesManager") -> "mypy_boto3_controlcatalog.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/controlcatalog.html
+        """
+        return self.get_client(AwsServiceEnum.ControlCatalog)
+    
+    @property
     def controltower_client(self: "BotoSesManager") -> "mypy_boto3_controltower.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/controltower.html
         """
         return self.get_client(AwsServiceEnum.ControlTower)
+    
+    @property
+    def costoptimizationhub_client(self: "BotoSesManager") -> "mypy_boto3_cost_optimization_hub.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cost-optimization-hub.html
+        """
+        return self.get_client(AwsServiceEnum.CostOptimizationHub)
     
     @property
     def costandusagereportservice_client(self: "BotoSesManager") -> "mypy_boto3_cur.Client":
@@ -968,11 +1148,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.DataSync)
     
     @property
+    def datazone_client(self: "BotoSesManager") -> "mypy_boto3_datazone.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/datazone.html
+        """
+        return self.get_client(AwsServiceEnum.DataZone)
+    
+    @property
     def dax_client(self: "BotoSesManager") -> "mypy_boto3_dax.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dax.html
         """
         return self.get_client(AwsServiceEnum.DAX)
+    
+    @property
+    def deadlinecloud_client(self: "BotoSesManager") -> "mypy_boto3_deadline.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/deadline.html
+        """
+        return self.get_client(AwsServiceEnum.DeadlineCloud)
     
     @property
     def detective_client(self: "BotoSesManager") -> "mypy_boto3_detective.Client":
@@ -1052,6 +1246,20 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.DirectoryService)
     
     @property
+    def directoryservicedata_client(self: "BotoSesManager") -> "mypy_boto3_ds_data.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ds-data.html
+        """
+        return self.get_client(AwsServiceEnum.DirectoryServiceData)
+    
+    @property
+    def auroradsql_client(self: "BotoSesManager") -> "mypy_boto3_dsql.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dsql.html
+        """
+        return self.get_client(AwsServiceEnum.AuroraDSQL)
+    
+    @property
     def dynamodb_client(self: "BotoSesManager") -> "mypy_boto3_dynamodb.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html
@@ -1122,11 +1330,11 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.EKS)
     
     @property
-    def elasticinference_client(self: "BotoSesManager") -> "mypy_boto3_elastic_inference.Client":
+    def eksauth_client(self: "BotoSesManager") -> "mypy_boto3_eks_auth.Client":
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elastic-inference.html
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/eks-auth.html
         """
-        return self.get_client(AwsServiceEnum.ElasticInference)
+        return self.get_client(AwsServiceEnum.EKSAuth)
     
     @property
     def elasticache_client(self: "BotoSesManager") -> "mypy_boto3_elasticache.Client":
@@ -1183,6 +1391,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/emr-serverless.html
         """
         return self.get_client(AwsServiceEnum.EMRServerless)
+    
+    @property
+    def entityresolution_client(self: "BotoSesManager") -> "mypy_boto3_entityresolution.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/entityresolution.html
+        """
+        return self.get_client(AwsServiceEnum.EntityResolution)
     
     @property
     def elasticsearchservice_client(self: "BotoSesManager") -> "mypy_boto3_es.Client":
@@ -1262,6 +1477,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.FraudDetector)
     
     @property
+    def freetier_client(self: "BotoSesManager") -> "mypy_boto3_freetier.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/freetier.html
+        """
+        return self.get_client(AwsServiceEnum.FreeTier)
+    
+    @property
     def fsx_client(self: "BotoSesManager") -> "mypy_boto3_fsx.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/fsx.html
@@ -1276,11 +1498,32 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.GameLift)
     
     @property
-    def gamesparks_client(self: "BotoSesManager") -> "mypy_boto3_gamesparks.Client":
+    def gameliftstreams_client(self: "BotoSesManager") -> "mypy_boto3_gameliftstreams.Client":
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/gamesparks.html
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/gameliftstreams.html
         """
-        return self.get_client(AwsServiceEnum.GameSparks)
+        return self.get_client(AwsServiceEnum.GameLiftStreams)
+    
+    @property
+    def locationservicemapsv2_client(self: "BotoSesManager") -> "mypy_boto3_geo_maps.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/geo-maps.html
+        """
+        return self.get_client(AwsServiceEnum.LocationServiceMapsV2)
+    
+    @property
+    def locationserviceplacesv2_client(self: "BotoSesManager") -> "mypy_boto3_geo_places.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/geo-places.html
+        """
+        return self.get_client(AwsServiceEnum.LocationServicePlacesV2)
+    
+    @property
+    def locationserviceroutesv2_client(self: "BotoSesManager") -> "mypy_boto3_geo_routes.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/geo-routes.html
+        """
+        return self.get_client(AwsServiceEnum.LocationServiceRoutesV2)
     
     @property
     def glacier_client(self: "BotoSesManager") -> "mypy_boto3_glacier.Client":
@@ -1353,13 +1596,6 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.HealthLake)
     
     @property
-    def honeycode_client(self: "BotoSesManager") -> "mypy_boto3_honeycode.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/honeycode.html
-        """
-        return self.get_client(AwsServiceEnum.Honeycode)
-    
-    @property
     def iam_client(self: "BotoSesManager") -> "mypy_boto3_iam.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html
@@ -1395,6 +1631,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Inspector)
     
     @property
+    def inspectorscan_client(self: "BotoSesManager") -> "mypy_boto3_inspector_scan.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/inspector-scan.html
+        """
+        return self.get_client(AwsServiceEnum.inspectorscan)
+    
+    @property
     def inspector2_client(self: "BotoSesManager") -> "mypy_boto3_inspector2.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/inspector2.html
@@ -1407,6 +1650,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/internetmonitor.html
         """
         return self.get_client(AwsServiceEnum.CloudWatchInternetMonitor)
+    
+    @property
+    def invoicing_client(self: "BotoSesManager") -> "mypy_boto3_invoicing.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/invoicing.html
+        """
+        return self.get_client(AwsServiceEnum.Invoicing)
     
     @property
     def iot_client(self: "BotoSesManager") -> "mypy_boto3_iot.Client":
@@ -1430,25 +1680,11 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.IoTJobsDataPlane)
     
     @property
-    def iotroborunner_client(self: "BotoSesManager") -> "mypy_boto3_iot_roborunner.Client":
+    def managedintegrationsforiotdevicemanagement_client(self: "BotoSesManager") -> "mypy_boto3_iot_managed_integrations.Client":
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-roborunner.html
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-managed-integrations.html
         """
-        return self.get_client(AwsServiceEnum.IoTRoboRunner)
-    
-    @property
-    def iot1clickdevicesservice_client(self: "BotoSesManager") -> "mypy_boto3_iot1click_devices.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot1click-devices.html
-        """
-        return self.get_client(AwsServiceEnum.IoT1ClickDevicesService)
-    
-    @property
-    def iot1clickprojects_client(self: "BotoSesManager") -> "mypy_boto3_iot1click_projects.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot1click-projects.html
-        """
-        return self.get_client(AwsServiceEnum.IoT1ClickProjects)
+        return self.get_client(AwsServiceEnum.ManagedintegrationsforIoTDeviceManagement)
     
     @property
     def iotanalytics_client(self: "BotoSesManager") -> "mypy_boto3_iotanalytics.Client":
@@ -1661,6 +1897,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Lambda)
     
     @property
+    def launchwizard_client(self: "BotoSesManager") -> "mypy_boto3_launch_wizard.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/launch-wizard.html
+        """
+        return self.get_client(AwsServiceEnum.LaunchWizard)
+    
+    @property
     def lexmodelbuildingservice_client(self: "BotoSesManager") -> "mypy_boto3_lex_models.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lex-models.html
@@ -1766,18 +2009,18 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.MachineLearning)
     
     @property
-    def macie_client(self: "BotoSesManager") -> "mypy_boto3_macie.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/macie.html
-        """
-        return self.get_client(AwsServiceEnum.Macie)
-    
-    @property
     def macie2_client(self: "BotoSesManager") -> "mypy_boto3_macie2.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/macie2.html
         """
         return self.get_client(AwsServiceEnum.Macie2)
+    
+    @property
+    def mailmanager_client(self: "BotoSesManager") -> "mypy_boto3_mailmanager.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mailmanager.html
+        """
+        return self.get_client(AwsServiceEnum.MailManager)
     
     @property
     def managedblockchain_client(self: "BotoSesManager") -> "mypy_boto3_managedblockchain.Client":
@@ -1787,6 +2030,20 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.ManagedBlockchain)
     
     @property
+    def managedblockchainquery_client(self: "BotoSesManager") -> "mypy_boto3_managedblockchain_query.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/managedblockchain-query.html
+        """
+        return self.get_client(AwsServiceEnum.ManagedBlockchainQuery)
+    
+    @property
+    def agreementservice_client(self: "BotoSesManager") -> "mypy_boto3_marketplace_agreement.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-agreement.html
+        """
+        return self.get_client(AwsServiceEnum.AgreementService)
+    
+    @property
     def marketplacecatalog_client(self: "BotoSesManager") -> "mypy_boto3_marketplace_catalog.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-catalog.html
@@ -1794,11 +2051,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.MarketplaceCatalog)
     
     @property
+    def marketplacedeploymentservice_client(self: "BotoSesManager") -> "mypy_boto3_marketplace_deployment.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-deployment.html
+        """
+        return self.get_client(AwsServiceEnum.MarketplaceDeploymentService)
+    
+    @property
     def marketplaceentitlementservice_client(self: "BotoSesManager") -> "mypy_boto3_marketplace_entitlement.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-entitlement.html
         """
         return self.get_client(AwsServiceEnum.MarketplaceEntitlementService)
+    
+    @property
+    def marketplacereportingservice_client(self: "BotoSesManager") -> "mypy_boto3_marketplace_reporting.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-reporting.html
+        """
+        return self.get_client(AwsServiceEnum.MarketplaceReportingService)
     
     @property
     def marketplacecommerceanalytics_client(self: "BotoSesManager") -> "mypy_boto3_marketplacecommerceanalytics.Client":
@@ -1871,6 +2142,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.MediaTailor)
     
     @property
+    def healthimaging_client(self: "BotoSesManager") -> "mypy_boto3_medical_imaging.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/medical-imaging.html
+        """
+        return self.get_client(AwsServiceEnum.HealthImaging)
+    
+    @property
     def memorydb_client(self: "BotoSesManager") -> "mypy_boto3_memorydb.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/memorydb.html
@@ -1927,13 +2205,6 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.MigrationHubStrategyRecommendations)
     
     @property
-    def mobile_client(self: "BotoSesManager") -> "mypy_boto3_mobile.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mobile.html
-        """
-        return self.get_client(AwsServiceEnum.Mobile)
-    
-    @property
     def mq_client(self: "BotoSesManager") -> "mypy_boto3_mq.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mq.html
@@ -1962,11 +2233,32 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Neptune)
     
     @property
+    def neptunegraph_client(self: "BotoSesManager") -> "mypy_boto3_neptune_graph.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/neptune-graph.html
+        """
+        return self.get_client(AwsServiceEnum.NeptuneGraph)
+    
+    @property
+    def neptunedata_client(self: "BotoSesManager") -> "mypy_boto3_neptunedata.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/neptunedata.html
+        """
+        return self.get_client(AwsServiceEnum.NeptuneData)
+    
+    @property
     def networkfirewall_client(self: "BotoSesManager") -> "mypy_boto3_network_firewall.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/network-firewall.html
         """
         return self.get_client(AwsServiceEnum.NetworkFirewall)
+    
+    @property
+    def networkflowmonitor_client(self: "BotoSesManager") -> "mypy_boto3_networkflowmonitor.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/networkflowmonitor.html
+        """
+        return self.get_client(AwsServiceEnum.NetworkFlowMonitor)
     
     @property
     def networkmanager_client(self: "BotoSesManager") -> "mypy_boto3_networkmanager.Client":
@@ -1976,11 +2268,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.NetworkManager)
     
     @property
-    def nimblestudio_client(self: "BotoSesManager") -> "mypy_boto3_nimble.Client":
+    def cloudwatchnetworkmonitor_client(self: "BotoSesManager") -> "mypy_boto3_networkmonitor.Client":
         """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/nimble.html
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/networkmonitor.html
         """
-        return self.get_client(AwsServiceEnum.NimbleStudio)
+        return self.get_client(AwsServiceEnum.CloudWatchNetworkMonitor)
+    
+    @property
+    def usernotifications_client(self: "BotoSesManager") -> "mypy_boto3_notifications.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/notifications.html
+        """
+        return self.get_client(AwsServiceEnum.UserNotifications)
+    
+    @property
+    def usernotificationscontacts_client(self: "BotoSesManager") -> "mypy_boto3_notificationscontacts.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/notificationscontacts.html
+        """
+        return self.get_client(AwsServiceEnum.UserNotificationsContacts)
     
     @property
     def cloudwatchobservabilityaccessmanager_client(self: "BotoSesManager") -> "mypy_boto3_oam.Client":
@@ -1988,6 +2294,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/oam.html
         """
         return self.get_client(AwsServiceEnum.CloudWatchObservabilityAccessManager)
+    
+    @property
+    def cloudwatchobservabilityadminservice_client(self: "BotoSesManager") -> "mypy_boto3_observabilityadmin.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/observabilityadmin.html
+        """
+        return self.get_client(AwsServiceEnum.CloudWatchObservabilityAdminService)
     
     @property
     def omics_client(self: "BotoSesManager") -> "mypy_boto3_omics.Client":
@@ -2053,6 +2366,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Panorama)
     
     @property
+    def partnercentralsellingapi_client(self: "BotoSesManager") -> "mypy_boto3_partnercentral_selling.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/partnercentral-selling.html
+        """
+        return self.get_client(AwsServiceEnum.PartnerCentralSellingAPI)
+    
+    @property
     def paymentcryptographycontrolplane_client(self: "BotoSesManager") -> "mypy_boto3_payment_cryptography.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography.html
@@ -2065,6 +2385,27 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography-data.html
         """
         return self.get_client(AwsServiceEnum.PaymentCryptographyDataPlane)
+    
+    @property
+    def pcaconnectorad_client(self: "BotoSesManager") -> "mypy_boto3_pca_connector_ad.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pca-connector-ad.html
+        """
+        return self.get_client(AwsServiceEnum.PcaConnectorAd)
+    
+    @property
+    def privatecaconnectorforscep_client(self: "BotoSesManager") -> "mypy_boto3_pca_connector_scep.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pca-connector-scep.html
+        """
+        return self.get_client(AwsServiceEnum.PrivateCAConnectorforSCEP)
+    
+    @property
+    def parallelcomputingservice_client(self: "BotoSesManager") -> "mypy_boto3_pcs.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pcs.html
+        """
+        return self.get_client(AwsServiceEnum.ParallelComputingService)
     
     @property
     def personalize_client(self: "BotoSesManager") -> "mypy_boto3_personalize.Client":
@@ -2158,6 +2499,27 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Proton)
     
     @property
+    def qapps_client(self: "BotoSesManager") -> "mypy_boto3_qapps.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qapps.html
+        """
+        return self.get_client(AwsServiceEnum.QApps)
+    
+    @property
+    def qbusiness_client(self: "BotoSesManager") -> "mypy_boto3_qbusiness.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qbusiness.html
+        """
+        return self.get_client(AwsServiceEnum.QBusiness)
+    
+    @property
+    def qconnect_client(self: "BotoSesManager") -> "mypy_boto3_qconnect.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qconnect.html
+        """
+        return self.get_client(AwsServiceEnum.QConnect)
+    
+    @property
     def qldb_client(self: "BotoSesManager") -> "mypy_boto3_qldb.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qldb.html
@@ -2233,6 +2595,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html
         """
         return self.get_client(AwsServiceEnum.Rekognition)
+    
+    @property
+    def repostprivate_client(self: "BotoSesManager") -> "mypy_boto3_repostspace.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/repostspace.html
+        """
+        return self.get_client(AwsServiceEnum.rePostPrivate)
     
     @property
     def resiliencehub_client(self: "BotoSesManager") -> "mypy_boto3_resiliencehub.Client":
@@ -2312,6 +2681,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Route53Domains)
     
     @property
+    def route53profiles_client(self: "BotoSesManager") -> "mypy_boto3_route53profiles.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53profiles.html
+        """
+        return self.get_client(AwsServiceEnum.Route53Profiles)
+    
+    @property
     def route53resolver_client(self: "BotoSesManager") -> "mypy_boto3_route53resolver.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53resolver.html
@@ -2345,6 +2721,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3outposts.html
         """
         return self.get_client(AwsServiceEnum.S3Outposts)
+    
+    @property
+    def s3tables_client(self: "BotoSesManager") -> "mypy_boto3_s3tables.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3tables.html
+        """
+        return self.get_client(AwsServiceEnum.S3Tables)
     
     @property
     def sagemaker_client(self: "BotoSesManager") -> "mypy_boto3_sagemaker.Client":
@@ -2429,6 +2812,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html
         """
         return self.get_client(AwsServiceEnum.SecretsManager)
+    
+    @property
+    def securityincidentresponse_client(self: "BotoSesManager") -> "mypy_boto3_security_ir.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/security-ir.html
+        """
+        return self.get_client(AwsServiceEnum.SecurityIncidentResponse)
     
     @property
     def securityhub_client(self: "BotoSesManager") -> "mypy_boto3_securityhub.Client":
@@ -2543,6 +2933,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.SNS)
     
     @property
+    def endusermessagingsocial_client(self: "BotoSesManager") -> "mypy_boto3_socialmessaging.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/socialmessaging.html
+        """
+        return self.get_client(AwsServiceEnum.EndUserMessagingSocial)
+    
+    @property
     def sqs_client(self: "BotoSesManager") -> "mypy_boto3_sqs.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html
@@ -2569,6 +2966,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm-incidents.html
         """
         return self.get_client(AwsServiceEnum.SSMIncidents)
+    
+    @property
+    def systemsmanagerquicksetup_client(self: "BotoSesManager") -> "mypy_boto3_ssm_quicksetup.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm-quicksetup.html
+        """
+        return self.get_client(AwsServiceEnum.SystemsManagerQuickSetup)
     
     @property
     def ssmsap_client(self: "BotoSesManager") -> "mypy_boto3_ssm_sap.Client":
@@ -2620,6 +3024,13 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.STS)
     
     @property
+    def supplychain_client(self: "BotoSesManager") -> "mypy_boto3_supplychain.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/supplychain.html
+        """
+        return self.get_client(AwsServiceEnum.SupplyChain)
+    
+    @property
     def support_client(self: "BotoSesManager") -> "mypy_boto3_support.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/support.html
@@ -2648,11 +3059,25 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.Synthetics)
     
     @property
+    def taxsettings_client(self: "BotoSesManager") -> "mypy_boto3_taxsettings.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/taxsettings.html
+        """
+        return self.get_client(AwsServiceEnum.TaxSettings)
+    
+    @property
     def textract_client(self: "BotoSesManager") -> "mypy_boto3_textract.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/textract.html
         """
         return self.get_client(AwsServiceEnum.Textract)
+    
+    @property
+    def timestreaminfluxdb_client(self: "BotoSesManager") -> "mypy_boto3_timestream_influxdb.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/timestream-influxdb.html
+        """
+        return self.get_client(AwsServiceEnum.TimestreamInfluxDB)
     
     @property
     def timestreamquery_client(self: "BotoSesManager") -> "mypy_boto3_timestream_query.Client":
@@ -2695,6 +3120,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/translate.html
         """
         return self.get_client(AwsServiceEnum.Translate)
+    
+    @property
+    def trustedadvisorpublicapi_client(self: "BotoSesManager") -> "mypy_boto3_trustedadvisor.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/trustedadvisor.html
+        """
+        return self.get_client(AwsServiceEnum.TrustedAdvisorPublicAPI)
     
     @property
     def verifiedpermissions_client(self: "BotoSesManager") -> "mypy_boto3_verifiedpermissions.Client":
@@ -2760,13 +3192,6 @@ class ClientMixin:
         return self.get_client(AwsServiceEnum.WorkDocs)
     
     @property
-    def worklink_client(self: "BotoSesManager") -> "mypy_boto3_worklink.Client":
-        """
-        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/worklink.html
-        """
-        return self.get_client(AwsServiceEnum.WorkLink)
-    
-    @property
     def workmail_client(self: "BotoSesManager") -> "mypy_boto3_workmail.Client":
         """
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workmail.html
@@ -2786,6 +3211,13 @@ class ClientMixin:
         Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workspaces.html
         """
         return self.get_client(AwsServiceEnum.WorkSpaces)
+    
+    @property
+    def workspacesthinclient_client(self: "BotoSesManager") -> "mypy_boto3_workspaces_thin_client.Client":
+        """
+        Ref: https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workspaces-thin-client.html
+        """
+        return self.get_client(AwsServiceEnum.WorkSpacesThinClient)
     
     @property
     def workspacesweb_client(self: "BotoSesManager") -> "mypy_boto3_workspaces_web.Client":

@@ -15,6 +15,13 @@ Backlog
 **Miscellaneous**
 
 
+1.8.1 (2025-03-14)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**Features and Improvements**
+
+- Add support for a lot more AWS Service (primarily bedrock stuff).
+
+
 1.7.2 (2024-01-14)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Bugfixes**

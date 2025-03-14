@@ -24,12 +24,6 @@
         "service_id": "acm-pca"
     },
     {
-        "name": "AlexaForBusiness",
-        "href_name": "alexaforbusiness.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/alexaforbusiness.html",
-        "service_id": "alexaforbusiness"
-    },
-    {
         "name": "PrometheusService",
         "href_name": "amp.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/amp.html",
@@ -114,6 +108,12 @@
         "service_id": "application-insights"
     },
     {
+        "name": "CloudWatchApplicationSignals",
+        "href_name": "application-signals.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/application-signals.html",
+        "service_id": "application-signals"
+    },
+    {
         "name": "ApplicationCostProfiler",
         "href_name": "applicationcostprofiler.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/applicationcostprofiler.html",
@@ -144,10 +144,22 @@
         "service_id": "appsync"
     },
     {
+        "name": "MainframeModernizationApplicationTesting",
+        "href_name": "apptest.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apptest.html",
+        "service_id": "apptest"
+    },
+    {
         "name": "ARCZonalShift",
         "href_name": "arc-zonal-shift.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/arc-zonal-shift.html",
         "service_id": "arc-zonal-shift"
+    },
+    {
+        "name": "Artifact",
+        "href_name": "artifact.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/artifact.html",
+        "service_id": "artifact"
     },
     {
         "name": "Athena",
@@ -174,6 +186,12 @@
         "service_id": "autoscaling-plans"
     },
     {
+        "name": "B2BI",
+        "href_name": "b2bi.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/b2bi.html",
+        "service_id": "b2bi"
+    },
+    {
         "name": "Backup",
         "href_name": "backup.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/backup.html",
@@ -186,16 +204,70 @@
         "service_id": "backup-gateway"
     },
     {
-        "name": "BackupStorage",
-        "href_name": "backupstorage.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/backupstorage.html",
-        "service_id": "backupstorage"
+        "name": "BackupSearch",
+        "href_name": "backupsearch.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/backupsearch.html",
+        "service_id": "backupsearch"
     },
     {
         "name": "Batch",
         "href_name": "batch.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/batch.html",
         "service_id": "batch"
+    },
+    {
+        "name": "BillingandCostManagementDataExports",
+        "href_name": "bcm-data-exports.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-data-exports.html",
+        "service_id": "bcm-data-exports"
+    },
+    {
+        "name": "BillingandCostManagementPricingCalculator",
+        "href_name": "bcm-pricing-calculator.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-pricing-calculator.html",
+        "service_id": "bcm-pricing-calculator"
+    },
+    {
+        "name": "Bedrock",
+        "href_name": "bedrock.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock.html",
+        "service_id": "bedrock"
+    },
+    {
+        "name": "AgentsforBedrock",
+        "href_name": "bedrock-agent.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent.html",
+        "service_id": "bedrock-agent"
+    },
+    {
+        "name": "AgentsforBedrockRuntime",
+        "href_name": "bedrock-agent-runtime.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime.html",
+        "service_id": "bedrock-agent-runtime"
+    },
+    {
+        "name": "DataAutomationforBedrock",
+        "href_name": "bedrock-data-automation.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-data-automation.html",
+        "service_id": "bedrock-data-automation"
+    },
+    {
+        "name": "RuntimeforBedrockDataAutomation",
+        "href_name": "bedrock-data-automation-runtime.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-data-automation-runtime.html",
+        "service_id": "bedrock-data-automation-runtime"
+    },
+    {
+        "name": "BedrockRuntime",
+        "href_name": "bedrock-runtime.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-runtime.html",
+        "service_id": "bedrock-runtime"
+    },
+    {
+        "name": "Billing",
+        "href_name": "billing.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/billing.html",
+        "service_id": "billing"
     },
     {
         "name": "BillingConductor",
@@ -220,6 +292,12 @@
         "href_name": "ce.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ce.html",
         "service_id": "ce"
+    },
+    {
+        "name": "Chatbot",
+        "href_name": "chatbot.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/chatbot.html",
+        "service_id": "chatbot"
     },
     {
         "name": "Chime",
@@ -264,6 +342,12 @@
         "service_id": "cleanrooms"
     },
     {
+        "name": "CleanRoomsML",
+        "href_name": "cleanroomsml.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cleanroomsml.html",
+        "service_id": "cleanroomsml"
+    },
+    {
         "name": "Cloud9",
         "href_name": "cloud9.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloud9.html",
@@ -292,6 +376,12 @@
         "href_name": "cloudfront.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudfront.html",
         "service_id": "cloudfront"
+    },
+    {
+        "name": "CloudFrontKeyValueStore",
+        "href_name": "cloudfront-keyvaluestore.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cloudfront-keyvaluestore.html",
+        "service_id": "cloudfront-keyvaluestore"
     },
     {
         "name": "CloudHSM",
@@ -360,6 +450,12 @@
         "service_id": "codecommit"
     },
     {
+        "name": "CodeConnections",
+        "href_name": "codeconnections.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codeconnections.html",
+        "service_id": "codeconnections"
+    },
+    {
         "name": "CodeDeploy",
         "href_name": "codedeploy.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codedeploy.html",
@@ -388,12 +484,6 @@
         "href_name": "codepipeline.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codepipeline.html",
         "service_id": "codepipeline"
-    },
-    {
-        "name": "CodeStar",
-        "href_name": "codestar.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/codestar.html",
-        "service_id": "codestar"
     },
     {
         "name": "CodeStarconnections",
@@ -468,6 +558,12 @@
         "service_id": "connectcampaigns"
     },
     {
+        "name": "ConnectCampaignServiceV2",
+        "href_name": "connectcampaignsv2.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/connectcampaignsv2.html",
+        "service_id": "connectcampaignsv2"
+    },
+    {
         "name": "ConnectCases",
         "href_name": "connectcases.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/connectcases.html",
@@ -480,10 +576,22 @@
         "service_id": "connectparticipant"
     },
     {
+        "name": "ControlCatalog",
+        "href_name": "controlcatalog.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/controlcatalog.html",
+        "service_id": "controlcatalog"
+    },
+    {
         "name": "ControlTower",
         "href_name": "controltower.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/controltower.html",
         "service_id": "controltower"
+    },
+    {
+        "name": "CostOptimizationHub",
+        "href_name": "cost-optimization-hub.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/cost-optimization-hub.html",
+        "service_id": "cost-optimization-hub"
     },
     {
         "name": "CostandUsageReportService",
@@ -522,10 +630,22 @@
         "service_id": "datasync"
     },
     {
+        "name": "DataZone",
+        "href_name": "datazone.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/datazone.html",
+        "service_id": "datazone"
+    },
+    {
         "name": "DAX",
         "href_name": "dax.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dax.html",
         "service_id": "dax"
+    },
+    {
+        "name": "DeadlineCloud",
+        "href_name": "deadline.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/deadline.html",
+        "service_id": "deadline"
     },
     {
         "name": "Detective",
@@ -594,6 +714,18 @@
         "service_id": "ds"
     },
     {
+        "name": "DirectoryServiceData",
+        "href_name": "ds-data.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ds-data.html",
+        "service_id": "ds-data"
+    },
+    {
+        "name": "AuroraDSQL",
+        "href_name": "dsql.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dsql.html",
+        "service_id": "dsql"
+    },
+    {
         "name": "DynamoDB",
         "href_name": "dynamodb.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/dynamodb.html",
@@ -654,10 +786,10 @@
         "service_id": "eks"
     },
     {
-        "name": "ElasticInference",
-        "href_name": "elastic-inference.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elastic-inference.html",
-        "service_id": "elastic-inference"
+        "name": "EKSAuth",
+        "href_name": "eks-auth.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/eks-auth.html",
+        "service_id": "eks-auth"
     },
     {
         "name": "ElastiCache",
@@ -706,6 +838,12 @@
         "href_name": "emr-serverless.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/emr-serverless.html",
         "service_id": "emr-serverless"
+    },
+    {
+        "name": "EntityResolution",
+        "href_name": "entityresolution.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/entityresolution.html",
+        "service_id": "entityresolution"
     },
     {
         "name": "ElasticsearchService",
@@ -774,6 +912,12 @@
         "service_id": "frauddetector"
     },
     {
+        "name": "FreeTier",
+        "href_name": "freetier.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/freetier.html",
+        "service_id": "freetier"
+    },
+    {
         "name": "FSx",
         "href_name": "fsx.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/fsx.html",
@@ -786,10 +930,28 @@
         "service_id": "gamelift"
     },
     {
-        "name": "GameSparks",
-        "href_name": "gamesparks.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/gamesparks.html",
-        "service_id": "gamesparks"
+        "name": "GameLiftStreams",
+        "href_name": "gameliftstreams.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/gameliftstreams.html",
+        "service_id": "gameliftstreams"
+    },
+    {
+        "name": "LocationServiceMapsV2",
+        "href_name": "geo-maps.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/geo-maps.html",
+        "service_id": "geo-maps"
+    },
+    {
+        "name": "LocationServicePlacesV2",
+        "href_name": "geo-places.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/geo-places.html",
+        "service_id": "geo-places"
+    },
+    {
+        "name": "LocationServiceRoutesV2",
+        "href_name": "geo-routes.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/geo-routes.html",
+        "service_id": "geo-routes"
     },
     {
         "name": "Glacier",
@@ -852,12 +1014,6 @@
         "service_id": "healthlake"
     },
     {
-        "name": "Honeycode",
-        "href_name": "honeycode.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/honeycode.html",
-        "service_id": "honeycode"
-    },
-    {
         "name": "IAM",
         "href_name": "iam.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iam.html",
@@ -888,6 +1044,12 @@
         "service_id": "inspector"
     },
     {
+        "name": "inspectorscan",
+        "href_name": "inspector-scan.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/inspector-scan.html",
+        "service_id": "inspector-scan"
+    },
+    {
         "name": "Inspector2",
         "href_name": "inspector2.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/inspector2.html",
@@ -898,6 +1060,12 @@
         "href_name": "internetmonitor.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/internetmonitor.html",
         "service_id": "internetmonitor"
+    },
+    {
+        "name": "Invoicing",
+        "href_name": "invoicing.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/invoicing.html",
+        "service_id": "invoicing"
     },
     {
         "name": "IoT",
@@ -918,22 +1086,10 @@
         "service_id": "iot-jobs-data"
     },
     {
-        "name": "IoTRoboRunner",
-        "href_name": "iot-roborunner.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-roborunner.html",
-        "service_id": "iot-roborunner"
-    },
-    {
-        "name": "IoT1ClickDevicesService",
-        "href_name": "iot1click-devices.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot1click-devices.html",
-        "service_id": "iot1click-devices"
-    },
-    {
-        "name": "IoT1ClickProjects",
-        "href_name": "iot1click-projects.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot1click-projects.html",
-        "service_id": "iot1click-projects"
+        "name": "ManagedintegrationsforIoTDeviceManagement",
+        "href_name": "iot-managed-integrations.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iot-managed-integrations.html",
+        "service_id": "iot-managed-integrations"
     },
     {
         "name": "IoTAnalytics",
@@ -1116,6 +1272,12 @@
         "service_id": "lambda"
     },
     {
+        "name": "LaunchWizard",
+        "href_name": "launch-wizard.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/launch-wizard.html",
+        "service_id": "launch-wizard"
+    },
+    {
         "name": "LexModelBuildingService",
         "href_name": "lex-models.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lex-models.html",
@@ -1206,16 +1368,16 @@
         "service_id": "machinelearning"
     },
     {
-        "name": "Macie",
-        "href_name": "macie.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/macie.html",
-        "service_id": "macie"
-    },
-    {
         "name": "Macie2",
         "href_name": "macie2.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/macie2.html",
         "service_id": "macie2"
+    },
+    {
+        "name": "MailManager",
+        "href_name": "mailmanager.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mailmanager.html",
+        "service_id": "mailmanager"
     },
     {
         "name": "ManagedBlockchain",
@@ -1224,16 +1386,40 @@
         "service_id": "managedblockchain"
     },
     {
+        "name": "ManagedBlockchainQuery",
+        "href_name": "managedblockchain-query.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/managedblockchain-query.html",
+        "service_id": "managedblockchain-query"
+    },
+    {
+        "name": "AgreementService",
+        "href_name": "marketplace-agreement.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-agreement.html",
+        "service_id": "marketplace-agreement"
+    },
+    {
         "name": "MarketplaceCatalog",
         "href_name": "marketplace-catalog.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-catalog.html",
         "service_id": "marketplace-catalog"
     },
     {
+        "name": "MarketplaceDeploymentService",
+        "href_name": "marketplace-deployment.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-deployment.html",
+        "service_id": "marketplace-deployment"
+    },
+    {
         "name": "MarketplaceEntitlementService",
         "href_name": "marketplace-entitlement.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-entitlement.html",
         "service_id": "marketplace-entitlement"
+    },
+    {
+        "name": "MarketplaceReportingService",
+        "href_name": "marketplace-reporting.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-reporting.html",
+        "service_id": "marketplace-reporting"
     },
     {
         "name": "MarketplaceCommerceAnalytics",
@@ -1296,6 +1482,12 @@
         "service_id": "mediatailor"
     },
     {
+        "name": "HealthImaging",
+        "href_name": "medical-imaging.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/medical-imaging.html",
+        "service_id": "medical-imaging"
+    },
+    {
         "name": "MemoryDB",
         "href_name": "memorydb.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/memorydb.html",
@@ -1344,12 +1536,6 @@
         "service_id": "migrationhubstrategy"
     },
     {
-        "name": "Mobile",
-        "href_name": "mobile.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mobile.html",
-        "service_id": "mobile"
-    },
-    {
         "name": "MQ",
         "href_name": "mq.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mq.html",
@@ -1374,10 +1560,28 @@
         "service_id": "neptune"
     },
     {
+        "name": "NeptuneGraph",
+        "href_name": "neptune-graph.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/neptune-graph.html",
+        "service_id": "neptune-graph"
+    },
+    {
+        "name": "NeptuneData",
+        "href_name": "neptunedata.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/neptunedata.html",
+        "service_id": "neptunedata"
+    },
+    {
         "name": "NetworkFirewall",
         "href_name": "network-firewall.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/network-firewall.html",
         "service_id": "network-firewall"
+    },
+    {
+        "name": "NetworkFlowMonitor",
+        "href_name": "networkflowmonitor.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/networkflowmonitor.html",
+        "service_id": "networkflowmonitor"
     },
     {
         "name": "NetworkManager",
@@ -1386,16 +1590,34 @@
         "service_id": "networkmanager"
     },
     {
-        "name": "NimbleStudio",
-        "href_name": "nimble.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/nimble.html",
-        "service_id": "nimble"
+        "name": "CloudWatchNetworkMonitor",
+        "href_name": "networkmonitor.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/networkmonitor.html",
+        "service_id": "networkmonitor"
+    },
+    {
+        "name": "UserNotifications",
+        "href_name": "notifications.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/notifications.html",
+        "service_id": "notifications"
+    },
+    {
+        "name": "UserNotificationsContacts",
+        "href_name": "notificationscontacts.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/notificationscontacts.html",
+        "service_id": "notificationscontacts"
     },
     {
         "name": "CloudWatchObservabilityAccessManager",
         "href_name": "oam.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/oam.html",
         "service_id": "oam"
+    },
+    {
+        "name": "CloudWatchObservabilityAdminService",
+        "href_name": "observabilityadmin.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/observabilityadmin.html",
+        "service_id": "observabilityadmin"
     },
     {
         "name": "Omics",
@@ -1452,6 +1674,12 @@
         "service_id": "panorama"
     },
     {
+        "name": "PartnerCentralSellingAPI",
+        "href_name": "partnercentral-selling.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/partnercentral-selling.html",
+        "service_id": "partnercentral-selling"
+    },
+    {
         "name": "PaymentCryptographyControlPlane",
         "href_name": "payment-cryptography.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography.html",
@@ -1462,6 +1690,24 @@
         "href_name": "payment-cryptography-data.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/payment-cryptography-data.html",
         "service_id": "payment-cryptography-data"
+    },
+    {
+        "name": "PcaConnectorAd",
+        "href_name": "pca-connector-ad.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pca-connector-ad.html",
+        "service_id": "pca-connector-ad"
+    },
+    {
+        "name": "PrivateCAConnectorforSCEP",
+        "href_name": "pca-connector-scep.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pca-connector-scep.html",
+        "service_id": "pca-connector-scep"
+    },
+    {
+        "name": "ParallelComputingService",
+        "href_name": "pcs.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/pcs.html",
+        "service_id": "pcs"
     },
     {
         "name": "Personalize",
@@ -1542,6 +1788,24 @@
         "service_id": "proton"
     },
     {
+        "name": "QApps",
+        "href_name": "qapps.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qapps.html",
+        "service_id": "qapps"
+    },
+    {
+        "name": "QBusiness",
+        "href_name": "qbusiness.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qbusiness.html",
+        "service_id": "qbusiness"
+    },
+    {
+        "name": "QConnect",
+        "href_name": "qconnect.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qconnect.html",
+        "service_id": "qconnect"
+    },
+    {
         "name": "QLDB",
         "href_name": "qldb.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qldb.html",
@@ -1606,6 +1870,12 @@
         "href_name": "rekognition.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rekognition.html",
         "service_id": "rekognition"
+    },
+    {
+        "name": "rePostPrivate",
+        "href_name": "repostspace.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/repostspace.html",
+        "service_id": "repostspace"
     },
     {
         "name": "ResilienceHub",
@@ -1674,6 +1944,12 @@
         "service_id": "route53domains"
     },
     {
+        "name": "Route53Profiles",
+        "href_name": "route53profiles.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53profiles.html",
+        "service_id": "route53profiles"
+    },
+    {
         "name": "Route53Resolver",
         "href_name": "route53resolver.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53resolver.html",
@@ -1702,6 +1978,12 @@
         "href_name": "s3outposts.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3outposts.html",
         "service_id": "s3outposts"
+    },
+    {
+        "name": "S3Tables",
+        "href_name": "s3tables.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3tables.html",
+        "service_id": "s3tables"
     },
     {
         "name": "SageMaker",
@@ -1774,6 +2056,12 @@
         "href_name": "secretsmanager.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/secretsmanager.html",
         "service_id": "secretsmanager"
+    },
+    {
+        "name": "SecurityIncidentResponse",
+        "href_name": "security-ir.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/security-ir.html",
+        "service_id": "security-ir"
     },
     {
         "name": "SecurityHub",
@@ -1872,6 +2160,12 @@
         "service_id": "sns"
     },
     {
+        "name": "EndUserMessagingSocial",
+        "href_name": "socialmessaging.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/socialmessaging.html",
+        "service_id": "socialmessaging"
+    },
+    {
         "name": "SQS",
         "href_name": "sqs.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sqs.html",
@@ -1894,6 +2188,12 @@
         "href_name": "ssm-incidents.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm-incidents.html",
         "service_id": "ssm-incidents"
+    },
+    {
+        "name": "SystemsManagerQuickSetup",
+        "href_name": "ssm-quicksetup.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm-quicksetup.html",
+        "service_id": "ssm-quicksetup"
     },
     {
         "name": "SsmSap",
@@ -1938,6 +2238,12 @@
         "service_id": "sts"
     },
     {
+        "name": "SupplyChain",
+        "href_name": "supplychain.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/supplychain.html",
+        "service_id": "supplychain"
+    },
+    {
         "name": "Support",
         "href_name": "support.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/support.html",
@@ -1962,10 +2268,22 @@
         "service_id": "synthetics"
     },
     {
+        "name": "TaxSettings",
+        "href_name": "taxsettings.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/taxsettings.html",
+        "service_id": "taxsettings"
+    },
+    {
         "name": "Textract",
         "href_name": "textract.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/textract.html",
         "service_id": "textract"
+    },
+    {
+        "name": "TimestreamInfluxDB",
+        "href_name": "timestream-influxdb.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/timestream-influxdb.html",
+        "service_id": "timestream-influxdb"
     },
     {
         "name": "TimestreamQuery",
@@ -2002,6 +2320,12 @@
         "href_name": "translate.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/translate.html",
         "service_id": "translate"
+    },
+    {
+        "name": "TrustedAdvisorPublicAPI",
+        "href_name": "trustedadvisor.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/trustedadvisor.html",
+        "service_id": "trustedadvisor"
     },
     {
         "name": "VerifiedPermissions",
@@ -2058,12 +2382,6 @@
         "service_id": "workdocs"
     },
     {
-        "name": "WorkLink",
-        "href_name": "worklink.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/worklink.html",
-        "service_id": "worklink"
-    },
-    {
         "name": "WorkMail",
         "href_name": "workmail.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workmail.html",
@@ -2080,6 +2398,12 @@
         "href_name": "workspaces.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workspaces.html",
         "service_id": "workspaces"
+    },
+    {
+        "name": "WorkSpacesThinClient",
+        "href_name": "workspaces-thin-client.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workspaces-thin-client.html",
+        "service_id": "workspaces-thin-client"
     },
     {
         "name": "WorkSpacesWeb",
