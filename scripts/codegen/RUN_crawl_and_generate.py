@@ -15,6 +15,7 @@ import shutil
 import dataclasses
 from pathlib import Path
 
+import jinja2
 import httpx
 from selectolax.parser import HTMLParser
 from diskcache import Cache
@@ -143,5 +144,25 @@ def step1_crawl_spec_file_data(limit: T.Optional[int] = None):
     print(f"Wrote {path_spec_file_json}")
 
 
+def step2_generate_code():
+    """
+    Read spec-file.json and render services.py and clients.py
+    from Jinja2 templates.
+    """
+    spec_file_data = json.loads(path_spec_file_json.read_text())
+    aws_service_list = [AWSService(**dct) for dct in spec_file_data]
+
+    for path_template, path_output in [
+        (path_services_template, path_services_py),
+        (path_clients_template, path_clients_py),
+    ]:
+        rendered = jinja2.Template(path_template.read_text()).render(
+            aws_service_list=aws_service_list,
+        )
+        path_output.write_text(rendered)
+        print(f"Wrote {path_output}")
+
+
 if __name__ == "__main__":
     step1_crawl_spec_file_data()
+    step2_generate_code()
