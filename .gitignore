@@ -1,9 +1,8 @@
 # User Settings
-boto_session_manager_venv/
 boto_session_manager.egg-info/
-boto_session_manager-*/
+docs/source/**/index.md
+.claude/claude-code-message*
 tmp/
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

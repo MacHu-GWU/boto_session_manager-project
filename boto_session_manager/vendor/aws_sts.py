@@ -3,11 +3,10 @@
 import typing as T
 
 if T.TYPE_CHECKING:
-    import boto3
     from mypy_boto3_sts import STSClient
     from mypy_boto3_iam import IamClient
 
-__version__ = "0.2.1"
+__version__ = "0.2.2"
 
 
 def mask_user_id(user_id: str) -> str:
@@ -48,7 +47,7 @@ def mask_iam_principal_arn(arn: str) -> str:
 def get_caller_identity(
     sts_client: "STSClient",
     masked: bool = False,
-) -> T.Tuple[str, str, str]:
+) -> tuple[str, str, str]:
     res = sts_client.get_caller_identity()
     user_id = res["UserId"]
     account_id = res["Account"]
@@ -62,6 +61,6 @@ def get_caller_identity(
 
 def get_account_alias(
     iam_client: "IamClient",
-) -> T.Optional[str]:
+) -> str | None:
     res = iam_client.list_account_aliases()
     return res.get("AccountAliases", [None])[0]
