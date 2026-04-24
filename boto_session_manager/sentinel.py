@@ -1,76 +1,58 @@
 # -*- coding: utf-8 -*-
 
+"""
+Sentinel value for distinguishing "not provided" from ``None``.
+
+In many boto3 APIs, ``None`` is a meaningful value (e.g. ``region_name=None``
+means "let boto3 resolve the region from the environment"). A plain ``None``
+default therefore cannot tell whether the caller explicitly passed ``None`` or
+simply omitted the argument. The ``NOTHING`` sentinel fills that gap: any
+parameter whose default is ``NOTHING`` is treated as *not provided* and will be
+stripped out by :func:`resolve_kwargs` before forwarding to boto3.
+
+``NOTHING`` is also used as the "uninitialised" marker for lazy-loaded cached
+properties (e.g. ``_boto_ses_cache``, ``_aws_account_id_cache``), where the
+cached value itself could legitimately be ``None``.
+
+This module requires Python 3.10+. The previous implementation was borrowed from
+the *boltons* library circa 2014 and carried legacy Python 2 compatibility code
+(``__nonzero__``, ``sys._getframe`` for pickle support, dynamic inner classes).
+None of that machinery is needed in modern Python, so it has been replaced with
+the minimal implementation below.
+"""
+
 import typing as T
-import sys
 
 
-def make_sentinel(name="_MISSING", var_name=None):  # pragma: no cover
-    """Creates and returns a new **instance** of a new class, suitable for
-    usage as a "sentinel", a kind of singleton often used to indicate
-    a value is missing when ``None`` is a valid input.
-    Args:
-        name (str): Name of the Sentinel
-        var_name (str): Set this name to the name of the variable in
-            its respective module enable pickleability. Note:
-            pickleable sentinels should be global constants at the top
-            level of their module.
-    >>> make_sentinel(var_name='_MISSING')
-    _MISSING
-    The most common use cases here in boltons are as default values
-    for optional function arguments, partly because of its
-    less-confusing appearance in automatically generated
-    documentation. Sentinels also function well as placeholders in queues
-    and linked lists.
-    .. note::
-      By design, additional calls to ``make_sentinel`` with the same
-      values will not produce equivalent objects.
-      >>> make_sentinel('TEST') == make_sentinel('TEST')
-      False
-      >>> type(make_sentinel('TEST')) == type(make_sentinel('TEST'))
-      False
-    """
+class _Nothing:
+    """Sentinel singleton. Do **not** instantiate directly; use :data:`NOTHING`."""
 
-    class Sentinel(object):
-        def __init__(self):
-            self.name = name
-            self.var_name = var_name
+    __slots__ = ()
 
-        def __repr__(self):
-            if self.var_name:
-                return self.var_name
-            return "%s(%r)" % (self.__class__.__name__, self.name)
+    def __repr__(self) -> str:
+        return "NOTHING"
 
-        if var_name:
-
-            def __reduce__(self):
-                return self.var_name
-
-        def __nonzero__(self):
-            return False
-
-        __bool__ = __nonzero__
-
-    if var_name:
-        frame = sys._getframe(1)
-        module = frame.f_globals.get("__name__")
-        if not module or module not in sys.modules:
-            raise ValueError(
-                "Pickleable sentinel objects (with var_name) can only"
-                " be created from top-level module scopes"
-            )
-        Sentinel.__module__ = module
-
-    return Sentinel()
+    def __bool__(self) -> bool:
+        return False
 
 
-NOTHING = make_sentinel(name="NOTHING")
+NOTHING = _Nothing()
 
 
 def resolve_kwargs(
-    _mapper: T.Optional[T.Dict[str, str]] = None,
+    _mapper: T.Optional[dict[str, str]] = None,
     **kwargs,
-) -> dict:
-    if _mapper is None:  # pragma: no cover
+) -> dict[str, T.Any]:
+    """Return a dict of *kwargs* with all ``NOTHING`` values removed.
+
+    This lets callers write ``resolve_kwargs(region_name=self.region_name, ...)``
+    and get back only the keys that were explicitly provided.
+
+    :param _mapper: optional key-rename mapping, e.g.
+        ``{"role_arn": "RoleArn"}`` translates the Python-style key to the
+        AWS API name.
+    """
+    if _mapper is None:
         _mapper = dict()
     return {
         _mapper.get(key, key): value
