@@ -14,7 +14,10 @@ import contextlib
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
-# third party library
+# boto3 is NOT declared as a hard dependency in pyproject.toml on purpose.
+# It releases almost daily, so pinning a range here would frequently conflict
+# with whatever version the user (or their AWS runtime environment) already has.
+# Instead we treat it as an implicit peer dependency and import defensively.
 try:
     import boto3
     import boto3.session
@@ -75,10 +78,10 @@ class BotoSesManager(ClientMixin):
 
     def __init__(
         self,
-        aws_access_key_id: T.Optional[str] = NOTHING,
-        aws_secret_access_key: T.Optional[str] = NOTHING,
-        aws_session_token: T.Optional[str] = NOTHING,
-        region_name: T.Optional[str] = NOTHING,
+        aws_access_key_id: str | None = NOTHING,
+        aws_secret_access_key: str | None = NOTHING,
+        aws_session_token: str | None = NOTHING,
+        region_name: str | None = NOTHING,
         botocore_session: T.Optional["botocore.session.Session"] = NOTHING,
         profile_name: str = NOTHING,
         default_client_kwargs: dict = NOTHING,
@@ -95,9 +98,7 @@ class BotoSesManager(ClientMixin):
         self.profile_name = profile_name
         self.expiration_time: datetime
         if expiration_time is NOTHING:
-            self.expiration_time = datetime.utcnow().replace(
-                tzinfo=timezone.utc
-            ) + timedelta(days=365)
+            self.expiration_time = datetime.now(timezone.utc) + timedelta(days=365)
         else:
             self.expiration_time = expiration_time
         if default_client_kwargs is NOTHING:
@@ -105,13 +106,13 @@ class BotoSesManager(ClientMixin):
         self.default_client_kwargs = default_client_kwargs
 
         self._boto_ses_cache: T.Optional["boto3.session.Session"] = NOTHING
-        self._client_cache: T.Dict[str, "BaseClient"] = dict()
-        self._resource_cache: T.Dict[str, "ServiceResource"] = dict()
-        self._aws_user_id_cache: T.Optional[str] = NOTHING
-        self._aws_account_id_cache: T.Optional[str] = NOTHING
-        self._principal_arn_cache: T.Optional[str] = NOTHING
-        self._aws_account_alias_cache: T.Optional[str] = NOTHING
-        self._aws_region_cache: T.Optional[str] = NOTHING
+        self._client_cache: dict[str, "BaseClient"] = dict()
+        self._resource_cache: dict[str, "ServiceResource"] = dict()
+        self._aws_user_id_cache: str | None = NOTHING
+        self._aws_account_id_cache: str | None = NOTHING
+        self._principal_arn_cache: str | None = NOTHING
+        self._aws_account_alias_cache: str | None = NOTHING
+        self._aws_region_cache: str | None = NOTHING
 
     def create_boto_ses(self) -> "boto3.session.Session":
         """
@@ -255,7 +256,7 @@ class BotoSesManager(ClientMixin):
         region_name: str = NOTHING,
         api_version: str = NOTHING,
         use_ssl: bool = True,
-        verify: T.Union[bool, str] = NOTHING,
+        verify: bool | str = NOTHING,
         endpoint_url: str = NOTHING,
         aws_access_key_id: str = NOTHING,
         aws_secret_access_key: str = NOTHING,
@@ -299,7 +300,7 @@ class BotoSesManager(ClientMixin):
         region_name: str = NOTHING,
         api_version: str = NOTHING,
         use_ssl: bool = True,
-        verify: T.Union[bool, str] = NOTHING,
+        verify: bool | str = NOTHING,
         endpoint_url: str = NOTHING,
         aws_access_key_id: str = NOTHING,
         aws_secret_access_key: str = NOTHING,
@@ -342,8 +343,8 @@ class BotoSesManager(ClientMixin):
         role_arn: str,
         role_session_name: str = NOTHING,
         duration_seconds: int = 3600,
-        tags: T.Optional[T.List[T.Dict[str, str]]] = NOTHING,
-        transitive_tag_keys: T.Optional[T.List[str]] = NOTHING,
+        tags: T.Optional[list[dict[str, str]]] = NOTHING,
+        transitive_tag_keys: T.Optional[list[str]] = NOTHING,
         external_id: str = NOTHING,
         mfa_serial_number: str = NOTHING,
         mfa_token: str = NOTHING,
@@ -441,8 +442,9 @@ class BotoSesManager(ClientMixin):
         .. versionadded:: 0.0.1
         """
         return (
-            datetime.utcnow().replace(tzinfo=timezone.utc) + timedelta(seconds=delta)
-        ) >= self.expiration_time
+            datetime.now(timezone.utc) + timedelta(seconds=delta)
+            >= self.expiration_time
+        )
 
     @contextlib.contextmanager
     def awscli(
@@ -450,7 +452,7 @@ class BotoSesManager(ClientMixin):
         duration_seconds: int = 900,
         serial_number: T.Optional[str] = NOTHING,
         token_code: T.Optional[str] = NOTHING,
-    ) -> "BotoSesManager":
+    ):
         """
         Temporarily set up environment variable to pass the boto session
         credential to AWS CLI.
@@ -553,7 +555,7 @@ class BotoSesManager(ClientMixin):
     @classmethod
     def from_snapshot_file(
         cls,
-        path: T.Union[str, Path] = PATH_DEFAULT_SNAPSHOT,
+        path: str | Path | None = PATH_DEFAULT_SNAPSHOT,
     ):
         if path is None:  # pragma: no cover
             raise EnvironmentError("your system may not support $HOME directory")
@@ -565,8 +567,8 @@ class BotoSesManager(ClientMixin):
     @contextlib.contextmanager
     def temp_snapshot(
         self,
-        path: T.Union[str, Path] = PATH_DEFAULT_SNAPSHOT,
-    ) -> "BotoSesManager":
+        path: str | Path | None = PATH_DEFAULT_SNAPSHOT,
+    ):
         """
         Temporarily back up the current boto session credentials to a file and
         automatically delete the backup file after the context manager exits.
