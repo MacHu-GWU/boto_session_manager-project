@@ -25,18 +25,23 @@ except ImportError:
     print("Error: PyGithub not installed. Run: uv sync --extra mise")
     sys.exit(1)
 
+# fmt: off
+from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI
+from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI
+# fmt: on
+
 # reuse the project-level utility to discover owner/repo from git remote
 sys.path.insert(0, str(Path(__file__).parent.parent / ".mise" / "tasks"))
 from utils import get_github_repo_info
 
-ENV_FILE = Path(__file__).parent.parent.parent / ".env" # MAKE SURE THIS IS RIGHT
+ENV_FILE = Path(__file__).parent.parent.parent / ".env"  # MAKE SURE THIS IS RIGHT
 
 
 # mapping: .env key -> GitHub Actions secret name
 SECRET_MAPPING = {
     # this should match .github/workflows/main.yml
-    "AWS_ACCESS_KEY_ID": "AWS_ACCESS_KEY_ID_FOR_GITHUB_CI",
-    "AWS_SECRET_ACCESS_KEY": "AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI",
+    "AWS_ACCESS_KEY_ID": GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI,
+    "AWS_SECRET_ACCESS_KEY": GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI,
 }
 
 
@@ -89,5 +94,5 @@ def main():
     print("done")
 
 
-# if __name__ == "__main__":
-#     main()
+if __name__ == "__main__":
+    main()

@@ -1,22 +1,27 @@
 # -*- coding: utf-8 -*-
 
+from boto_session_manager.manager import BotoSesManager
+from boto_session_manager.manager import AwsServiceEnum
+from boto_session_manager.manager import PATH_DEFAULT_SNAPSHOT
+
 import pytest
 
 import typing as T
 import os
 import json
 import subprocess
-from boto_session_manager.manager import (
-    BotoSesManager,
-    AwsServiceEnum,
-    PATH_DEFAULT_SNAPSHOT,
-)
 
+# fmt: off
+from boto_session_manager.tests.settings import TEST_IAM_USER_NAME
+from boto_session_manager.tests.settings import TEST_IAM_ROLE_NAME
+from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI
+from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI
 
 if "CI" in os.environ:  # pragma: no cover
     is_ci = True
-    aws_access_key_id = os.environ["AWS_ACCESS_KEY_ID_FOR_GITHUB_CI"]
-    aws_secret_access_key = os.environ["AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI"]
+    aws_access_key_id = os.environ[GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI]
+    aws_secret_access_key = os.environ[GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI]
+    # fmt: on
     bsm = BotoSesManager(
         aws_access_key_id=aws_access_key_id,
         aws_secret_access_key=aws_secret_access_key,
@@ -25,13 +30,17 @@ if "CI" in os.environ:  # pragma: no cover
 # is NOT project_boto_session_manager
 # and also the aws account is NOT the same as project_boto_session_manager
 else:  # pragma: no cover
+    from dotenv import load_dotenv
+
+    load_dotenv()
+
     is_ci = False
     profile_name = "project_boto_session_manager"
-    bsm = BotoSesManager(profile_name=profile_name)
-
-
-iam_user_name = "project-boto_session_manager"
-iam_role_name = "project-boto_session_manager"
+    bsm = BotoSesManager(
+        aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
+        aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+        region_name="us-east-1",
+    )
 
 
 class TestBotoSesManager:
@@ -46,7 +55,7 @@ class TestBotoSesManager:
         _ = bsm.aws_account_alias
 
         bsm_assumed = bsm.assume_role(
-            role_arn=f"arn:aws:iam::{bsm.aws_account_id}:role/{iam_role_name}"
+            role_arn=f"arn:aws:iam::{bsm.aws_account_id}:role/{TEST_IAM_ROLE_NAME}"
         )
         _ = bsm_assumed.aws_account_user_id
         _ = bsm_assumed.masked_aws_account_user_id
@@ -87,12 +96,12 @@ class TestBotoSesManager:
 
         # Test IAM role and Assumed IAM Role
         bsm_assumed = bsm.assume_role(
-            role_arn=f"arn:aws:iam::{aws_account_id}:role/{iam_role_name}"
+            role_arn=f"arn:aws:iam::{aws_account_id}:role/{TEST_IAM_ROLE_NAME}"
         )
         sts_client_assumed = bsm_assumed.get_client(AwsServiceEnum.STS)
         res = sts_client_assumed.get_caller_identity()
         assert res["Arn"].startswith(
-            f"arn:aws:sts::{aws_account_id}:assumed-role/{iam_role_name}"
+            f"arn:aws:sts::{aws_account_id}:assumed-role/{TEST_IAM_ROLE_NAME}"
         )
         assert bsm_assumed.expiration_time <= bsm.expiration_time
 
@@ -113,7 +122,7 @@ class TestBotoSesManager:
             response["Arn"],
         )
         assert aws_account_id != bsm.aws_account_id
-        assert not arn.endswith(iam_user_name)
+        assert not arn.endswith(TEST_IAM_USER_NAME)
 
         assert "AWS_ACCESS_KEY_ID" not in os.environ
         assert "AWS_SECRET_ACCESS_KEY" not in os.environ
@@ -147,7 +156,7 @@ class TestBotoSesManager:
         with bsm.awscli():
             user_id, aws_account_id, arn = get_caller_identity()
             assert aws_account_id == bsm.aws_account_id
-            assert arn.endswith(f"user/{iam_user_name}")
+            assert arn.endswith(f"user/{TEST_IAM_USER_NAME}")
             assert "AWS_ACCESS_KEY_ID" not in os.environ
             assert "AWS_SECRET_ACCESS_KEY" not in os.environ
             assert "AWS_SESSION_TOKEN" not in os.environ
@@ -157,13 +166,13 @@ class TestBotoSesManager:
 
         # assume role
         bsm_assumed = bsm.assume_role(
-            role_arn=f"arn:aws:iam::{aws_account_id}:role/{iam_role_name}"
+            role_arn=f"arn:aws:iam::{aws_account_id}:role/{TEST_IAM_ROLE_NAME}"
         )
         # the aws cli uses the sts session token as the same as the assumed role
         with bsm_assumed.awscli():
             user_id, aws_account_id, arn = get_caller_identity()
             assert aws_account_id == bsm_assumed.aws_account_id
-            assert f"assumed-role/{iam_role_name}" in arn
+            assert f"assumed-role/{TEST_IAM_ROLE_NAME}" in arn
             assert "AWS_ACCESS_KEY_ID" in os.environ
             assert "AWS_SECRET_ACCESS_KEY" in os.environ
             assert "AWS_SESSION_TOKEN" in os.environ
