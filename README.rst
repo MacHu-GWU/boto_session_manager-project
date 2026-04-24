@@ -391,6 +391,17 @@ Clear Cache
     bsm.s3_client.list_buckets()
 
 
+AI Coding Agent Skill
+------------------------------------------------------------------------------
+
+``boto_session_manager`` ships with a Claude Code agent skill in ``.claude/skills/bsm``. Copy this directory into your project's ``.claude/skills/`` folder, and any Claude Code agent working in that project will know how to use ``boto_session_manager`` correctly — including import paths, common patterns, and best practices.
+
+.. code-block:: console
+
+    # From your project root
+    $ cp -r /path/to/boto_session_manager-project/.claude/skills/bsm .claude/skills/
+
+
 .. _install:
 
 Install

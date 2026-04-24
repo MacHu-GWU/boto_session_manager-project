@@ -15,6 +15,34 @@ Backlog
 **Miscellaneous**
 
 
+2.0.1 (2026-04-24)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**💥Breaking Changes**
+
+- Public API namespace changed: use ``from boto_session_manager.api import BotoSesManager`` instead of ``from boto_session_manager import BotoSesManager``. All public symbols are now exported through the ``boto_session_manager.api`` module.
+
+**Features and Improvements**
+
+- Updated all AWS service clients to include every service available as of 2026-04-24.
+- Added automated code-generation script (``scripts/codegen/RUN_crawl_and_generate.py``) to crawl official boto3 documentation and regenerate service client code, making future updates trivial.
+- Added ``.claude/skills/bsm`` — a portable Claude Code agent skill that teaches any coding agent how to use this library. Copy the skill directory into your project's ``.claude/skills/`` to enable AI-assisted development with ``boto_session_manager``.
+
+**Minor Improvements**
+
+- Updated type hints to use Python 3.10+ syntax (e.g., ``X | None`` instead of ``Optional[X]``).
+- Modernized sentinel implementation to use Python 3 style.
+- Migrated build system from ``setup.py`` / ``requirements*.txt`` to ``pyproject.toml`` with ``uv`` package manager.
+- Added ``mise.toml`` for development task management and tool version pinning.
+- Added comprehensive API reference documentation (Sphinx autodoc).
+
+**Miscellaneous**
+
+- Significantly expanded test coverage and improved test infrastructure.
+- Added CDK infrastructure for automated IAM test user provisioning.
+- Added CI workflow improvements.
+- Project is now considered fully stable.
+
+
 1.8.1 (2025-03-14)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 **Features and Improvements**
