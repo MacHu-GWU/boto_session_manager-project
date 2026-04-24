@@ -14,6 +14,8 @@ import boto3
 
 from boto_session_manager.tests.settings import TEST_IAM_USER_NAME
 from boto_session_manager.tests.settings import ENV_VAR_NAME_FOR_AWS_PROFILE_FOR_CDK
+from boto_session_manager.tests.settings import GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR
+from boto_session_manager.tests.settings import GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR
 
 ENV_FILE = Path(__file__).parent.parent / ".env"  # MAKE SURE THIS IS RIGHT
 
@@ -43,8 +45,8 @@ def create_access_key_and_write_env() -> None:
     ak = resp["AccessKey"]
 
     ENV_FILE.write_text(
-        f"AWS_ACCESS_KEY_ID={ak['AccessKeyId']}\n"
-        f"AWS_SECRET_ACCESS_KEY={ak['SecretAccessKey']}\n"
+        f"{GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR}={ak['AccessKeyId']}\n"
+        f"{GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR}={ak['SecretAccessKey']}\n"
     )
     print(f"wrote credentials to {ENV_FILE}")
 

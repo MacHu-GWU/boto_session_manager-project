@@ -17,7 +17,6 @@ Usage: python cdk/setup_github_action_secret.py
 
 import os
 import sys
-from pathlib import Path
 
 try:
     from github import Github, GithubException, Auth
@@ -25,39 +24,11 @@ except ImportError:
     print("Error: PyGithub not installed. Run: uv sync --extra mise")
     sys.exit(1)
 
-# fmt: off
+from dotenv import load_dotenv
 from boto_session_manager.tests.settings import GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR
 from boto_session_manager.tests.settings import GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR
-# fmt: on
 
-# reuse the project-level utility to discover owner/repo from git remote
-sys.path.insert(0, str(Path(__file__).parent.parent / ".mise" / "tasks"))
 from utils import get_github_repo_info
-
-ENV_FILE = Path(__file__).parent.parent.parent / ".env"  # MAKE SURE THIS IS RIGHT
-
-
-# mapping: .env key -> GitHub Actions secret name
-SECRET_MAPPING = {
-    # this should match .github/workflows/main.yml
-    "AWS_ACCESS_KEY_ID": GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR,
-    "AWS_SECRET_ACCESS_KEY": GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR,
-}
-
-
-def _read_env_file() -> dict[str, str]:
-    """Parse a simple KEY=VALUE .env file."""
-    if not ENV_FILE.exists():
-        print(f"Error: {ENV_FILE} not found. Run create_access_key.py first.")
-        sys.exit(1)
-    result = {}
-    for line in ENV_FILE.read_text().splitlines():
-        line = line.strip()
-        if not line or line.startswith("#"):
-            continue
-        key, _, value = line.partition("=")
-        result[key.strip()] = value.strip()
-    return result
 
 
 def main():
@@ -65,8 +36,6 @@ def main():
     if not github_token:
         print("Error: GITHUB_TOKEN environment variable not set")
         sys.exit(1)
-
-    env_vars = _read_env_file()
 
     owner, repo_name = get_github_repo_info()
     repo_fullname = f"{owner}/{repo_name}"
@@ -79,17 +48,18 @@ def main():
         print(f"Error: Could not access repository {repo_fullname}: {e}")
         sys.exit(1)
 
-    for env_key, secret_name in SECRET_MAPPING.items():
-        value = env_vars.get(env_key)
-        if not value:
-            print(f"Error: {env_key} not found in {ENV_FILE}")
-            sys.exit(1)
-        repo.create_secret(
-            secret_name=secret_name,
-            unencrypted_value=value,
-            secret_type="actions",
-        )
-        print(f"  set {secret_name}")
+    load_dotenv()
+
+    repo.create_secret(
+        secret_name=GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR,
+        unencrypted_value=os.environ[GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR],
+        secret_type="actions",
+    )
+    repo.create_secret(
+        secret_name=GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR,
+        unencrypted_value=os.environ[GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR],
+        secret_type="actions",
+    )
 
     print("done")
 
