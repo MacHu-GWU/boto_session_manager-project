@@ -13,11 +13,12 @@ from pathlib import Path
 import boto3
 
 from settings import IAM_USER_NAME
-ENV_FILE = Path(__file__).parent.parent / ".env"
+
+ENV_FILE = Path(__file__).parent.parent / ".env"  # MAKE SURE THIS IS RIGHT
 
 
 def _get_iam_client():
-    profile = os.environ.get("AWS_PROFILE_FOR_CDK")
+    profile = os.environ.get("AWS_PROFILE_FOR_CDK")  # THIS IS FROM mise.toml
     session = boto3.Session(profile_name=profile)
     return session.client("iam")
 

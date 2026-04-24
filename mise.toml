@@ -124,18 +124,19 @@ cdk deploy --all --require-approval never --profile $AWS_PROFILE_FOR_CDK
 """
 
 [tasks.cdk-up]
-description = "🟢 Deploy CDK stacks, create access key, write credentials to .env"
+description = "🟢 Deploy CDK stacks, create access key, write to .env and GitHub secrets"
 dir = "cdk"
 depends = ["inst"]
 run = """
 cdk deploy --all --require-approval never --profile $AWS_PROFILE_FOR_CDK
-python create_access_key.py
+../.venv/bin/python create_access_key.py
+../.venv/bin/python ../.mise/tasks/setup_github_action_secret.py
 """
 
 [tasks.cdk-down]
 description = "🔴 Delete access key and .env, then destroy CDK stacks"
 dir = "cdk"
 run = """
-python delete_access_key.py
+../.venv/bin/python delete_access_key.py
 cdk destroy --all --force --profile $AWS_PROFILE_FOR_CDK
 """

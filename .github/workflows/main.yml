@@ -76,6 +76,8 @@ jobs:
       # Run pytest with coverage reporting
       - name: "Run pytest"
         env:
+          # these two env var name should match the variable defined in
+          # .mise/tasks/setup_github_action_secret.py
           AWS_ACCESS_KEY_ID_FOR_GITHUB_CI: ${{ secrets.AWS_ACCESS_KEY_ID_FOR_GITHUB_CI }}
           AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI: ${{ secrets.AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI }}
         run: "uv run pytest tests --cov=${{ env.PACKAGE_NAME }} --cov-report=xml --cov-report term-missing"
