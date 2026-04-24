@@ -14,13 +14,13 @@ import subprocess
 # fmt: off
 from boto_session_manager.tests.settings import TEST_IAM_USER_NAME
 from boto_session_manager.tests.settings import TEST_IAM_ROLE_NAME
-from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI
-from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI
+from boto_session_manager.tests.settings import GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR
+from boto_session_manager.tests.settings import GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR
 
 if "CI" in os.environ:  # pragma: no cover
     is_ci = True
-    aws_access_key_id = os.environ[GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI]
-    aws_secret_access_key = os.environ[GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI]
+    aws_access_key_id = os.environ[GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR]
+    aws_secret_access_key = os.environ[GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR]
     # fmt: on
     bsm = BotoSesManager(
         aws_access_key_id=aws_access_key_id,

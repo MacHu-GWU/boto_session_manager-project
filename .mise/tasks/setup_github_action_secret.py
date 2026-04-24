@@ -26,8 +26,8 @@ except ImportError:
     sys.exit(1)
 
 # fmt: off
-from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI
-from boto_session_manager.tests.settings import GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI
+from boto_session_manager.tests.settings import GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR
+from boto_session_manager.tests.settings import GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR
 # fmt: on
 
 # reuse the project-level utility to discover owner/repo from git remote
@@ -40,8 +40,8 @@ ENV_FILE = Path(__file__).parent.parent.parent / ".env"  # MAKE SURE THIS IS RIG
 # mapping: .env key -> GitHub Actions secret name
 SECRET_MAPPING = {
     # this should match .github/workflows/main.yml
-    "AWS_ACCESS_KEY_ID": GITHUB_ENV_VAR_NAME_FOR_AWS_ACCESS_KEY_ID_FOR_GITHUB_CI,
-    "AWS_SECRET_ACCESS_KEY": GITHUB_ENV_VAR_NAME_FOR_AWS_SECRET_ACCESS_KEY_FOR_GITHUB_CI,
+    "AWS_ACCESS_KEY_ID": GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR,
+    "AWS_SECRET_ACCESS_KEY": GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR,
 }
 
 
