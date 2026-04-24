@@ -1,5 +1,8 @@
 # See claude code environment variables documents at https://code.claude.com/docs/en/settings
 [env]
+# This project uses real AWS IAM User/Role for integration testing.
+# This profile is used by CDK to create and manage those IAM resources.
+AWS_PROFILE_FOR_CDK = "bmt_app_dev_us_east_1"
 GITHUB_TOKEN = "{{ exec(command='uvx --from home-secret-toml hst get github.accounts.sh.users.sh.secrets.dev.value') }}"
 CODECOV_TOKEN = "{{ exec(command='uvx --from home-secret-toml hst get codecov_io.accounts.sh.users.sh.secrets.dev.value') }}"
 READTHEDOCS_TOKEN = "{{ exec(command='uvx --from home-secret-toml hst get readthedocs.accounts.sh.users.sh.secrets.dev.value') }}"
@@ -116,17 +119,23 @@ description = "🔵 Preview CDK changes then deploy (runs cdk diff followed by c
 dir = "cdk"
 depends = ["inst"]
 run = """
-cdk diff --all
-cdk deploy --all --require-approval never
+cdk diff --all --profile $AWS_PROFILE_FOR_CDK
+cdk deploy --all --require-approval never --profile $AWS_PROFILE_FOR_CDK
 """
 
 [tasks.cdk-up]
-description = "🟢 Deploy CDK stacks to AWS (runs cdk deploy, skip approval)"
+description = "🟢 Deploy CDK stacks, create access key, write credentials to .env"
 dir = "cdk"
 depends = ["inst"]
-run = "cdk deploy --all --require-approval never"
+run = """
+cdk deploy --all --require-approval never --profile $AWS_PROFILE_FOR_CDK
+python create_access_key.py
+"""
 
 [tasks.cdk-down]
-description = "🔴 Destroy CDK stacks from AWS (force, no confirmation)"
+description = "🔴 Delete access key and .env, then destroy CDK stacks"
 dir = "cdk"
-run = "cdk destroy --all --force"
+run = """
+python delete_access_key.py
+cdk destroy --all --force --profile $AWS_PROFILE_FOR_CDK
+"""
