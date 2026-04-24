@@ -8,6 +8,8 @@ description: >
 
 # boto_session_manager Usage Guide
 
+> **Requires `boto_session_manager >= 2.0.1`.** This guide is based on the 2.x API. Earlier versions may have different behavior or missing features.
+
 `boto_session_manager` is a high-level wrapper around `boto3` that manages AWS sessions, clients, and resources
 with caching, type hints, assume-role support, and credential management utilities.
 
