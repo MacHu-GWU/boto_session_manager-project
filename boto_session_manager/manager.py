@@ -9,7 +9,6 @@ import typing as T
 import os
 import json
 import uuid
-import warnings
 import contextlib
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
@@ -68,12 +67,6 @@ class BotoSesManager(ClientMixin):
         also session.client("s3") won't talk to AWS endpoint right away. The
         authentication only happen when a concrete API request called.
 
-    .. versionadded:: 0.0.1
-
-    .. versionchanged:: 0.0.4
-
-        add ``default_client_kwargs`` arguments that set default keyword
-        arguments for ``boto3.session.Session.client`` method.
     """
 
     def __init__(
@@ -117,8 +110,6 @@ class BotoSesManager(ClientMixin):
     def create_boto_ses(self) -> "boto3.session.Session":
         """
         Create a new boto3 session object from the :class:`BotoSesManager`.
-
-        .. versionadded:: 1.7.1
         """
         return boto3.session.Session(
             **resolve_kwargs(
@@ -135,8 +126,6 @@ class BotoSesManager(ClientMixin):
     def boto_ses(self) -> "boto3.session.Session":
         """
         Get boto3 session from metadata. This is a cached property.
-
-        .. versionadded:: 1.0.2
         """
         if self._boto_ses_cache is NOTHING:
             self._boto_ses_cache = self.create_boto_ses()
@@ -153,8 +142,6 @@ class BotoSesManager(ClientMixin):
     def aws_account_user_id(self) -> str:
         """
         Get current aws account user id of the boto session. This is a cached property.
-
-        .. versionadded:: 1.6.1
         """
         if self._aws_user_id_cache is NOTHING:  # pragma: no cover
             self._get_caller_identity()
@@ -164,8 +151,6 @@ class BotoSesManager(ClientMixin):
     def masked_aws_account_user_id(self) -> str:
         """
         Get the masked current aws account user id of the boto session.
-
-        .. versionadded:: 1.6.1
         """
         return mask_user_id(self.aws_account_user_id)
 
@@ -173,8 +158,6 @@ class BotoSesManager(ClientMixin):
     def aws_account_id(self) -> str:
         """
         Get current aws account id of the boto session. This is a cached property.
-
-        .. versionadded:: 1.0.1
         """
         if self._aws_account_id_cache is NOTHING:  # pragma: no cover
             self._get_caller_identity()
@@ -184,8 +167,6 @@ class BotoSesManager(ClientMixin):
     def masked_aws_account_id(self) -> str:
         """
         Get the masked current aws account id of the boto session.
-
-        .. versionadded:: 1.6.1
         """
         return mask_aws_account_id(self.aws_account_id)
 
@@ -193,8 +174,6 @@ class BotoSesManager(ClientMixin):
     def principal_arn(self) -> str:
         """
         Get current principal arn of the boto session. This is a cached property.
-
-        .. versionadded:: 1.0.1
         """
         if self._principal_arn_cache is NOTHING:  # pragma: no cover
             self._get_caller_identity()
@@ -204,8 +183,6 @@ class BotoSesManager(ClientMixin):
     def masked_principal_arn(self) -> str:
         """
         Get the masked principal arn of the boto session.
-
-        .. versionadded:: 1.6.1
         """
         return mask_iam_principal_arn(self.principal_arn)
 
@@ -213,8 +190,6 @@ class BotoSesManager(ClientMixin):
     def aws_region(self) -> str:
         """
         Get current aws region of the boto session. This is a cached property.
-
-        .. versionadded:: 0.0.1
         """
         if self._aws_region_cache is NOTHING:
             self._aws_region_cache = self.boto_ses.region_name
@@ -224,8 +199,6 @@ class BotoSesManager(ClientMixin):
     def aws_account_alias(self) -> T.Optional[str]:
         """
         Get the first aws account alias of the boto session. This is a cached property.
-
-        .. versionadded:: 1.6.1
         """
         if self._aws_account_alias_cache is NOTHING:
             self._aws_account_alias_cache = get_account_alias(
@@ -236,8 +209,6 @@ class BotoSesManager(ClientMixin):
     def print_who_am_i(self, masked: bool = True):  # pragma: no cover
         """
         Print the boto session AWS Account and IAM principal information.
-
-        .. versionadded:: 1.6.1
         """
         if masked:
             print(f"User Id = {self.masked_aws_account_user_id}")
@@ -261,17 +232,10 @@ class BotoSesManager(ClientMixin):
         aws_access_key_id: str = NOTHING,
         aws_secret_access_key: str = NOTHING,
         aws_session_token: str = NOTHING,
-        config=None,
+        config=NOTHING,
     ) -> "BaseClient":
         """
         Get aws boto client using cache.
-
-        .. versionadded:: 0.0.1
-
-        .. versionchanged:: 0.0.3
-
-            add additional keyword arguments pass to
-            ``boto3.session.Session.client()`` method.
         """
         try:
             return self._client_cache[service_name]
@@ -288,8 +252,7 @@ class BotoSesManager(ClientMixin):
                 config=config,
             )
             kwargs = dict(self.default_client_kwargs)
-            if self.default_client_kwargs:  # pragma: no cover
-                kwargs.update(client_kwargs)
+            kwargs.update(client_kwargs)
             client = self.boto_ses.client(service_name, **kwargs)
             self._client_cache[service_name] = client
             return client
@@ -308,14 +271,7 @@ class BotoSesManager(ClientMixin):
         config=NOTHING,
     ) -> "ServiceResource":
         """
-        Get aws boto service resource using cache
-
-        .. versionadded:: 0.0.2
-
-        .. versionchanged:: 0.0.3
-
-            add additional keyword arguments pass to
-            ``boto3.session.Session.resource()`` method.
+        Get aws boto service resource using cache.
         """
         try:
             return self._resource_cache[service_name]
@@ -332,8 +288,7 @@ class BotoSesManager(ClientMixin):
                 config=config,
             )
             kwargs = dict(self.default_client_kwargs)
-            if self.default_client_kwargs:
-                kwargs.update(resource_kwargs)
+            kwargs.update(resource_kwargs)
             resource = self.boto_ses.resource(service_name, **kwargs)
             self._resource_cache[service_name] = resource
             return resource
@@ -353,17 +308,12 @@ class BotoSesManager(ClientMixin):
         auto_refresh: bool = False,
     ) -> "BotoSesManager":
         """
-        Assume an IAM role, create another :class`BotoSessionManager` and return.
+        Assume an IAM role, create another :class:`BotoSesManager` and return.
 
-        :param auto_refresh: if True, the assumed role will be refreshed automatically.
-
-        .. versionadded:: 0.0.1
-
-        .. versionchanged:: 1.5.1
-
-            add ``auto_refresh`` argument. note that it is using
-            ``AssumeRoleCredentialFetcher`` and ``DeferredRefreshableCredentials``
-            from botocore, which is not public API officially supported by botocore.
+        :param auto_refresh: if True, the assumed role will be refreshed
+            automatically.  Note: this uses ``AssumeRoleCredentialFetcher`` and
+            ``DeferredRefreshableCredentials`` from botocore, which are not
+            public API officially supported by botocore.
         """
         if role_session_name is NOTHING:
             role_session_name = uuid.uuid4().hex
@@ -389,7 +339,7 @@ class BotoSesManager(ClientMixin):
                     DurationSeconds=duration_seconds,
                     Tags=tags,
                     TransitiveTagKeys=transitive_tag_keys,
-                    external_id=external_id,
+                    ExternalId=external_id,
                     SerialNumber=mfa_serial_number,
                     TokenCode=mfa_token,
                     SourceIdentity=source_identity,
@@ -438,8 +388,6 @@ class BotoSesManager(ClientMixin):
     def is_expired(self, delta: int = 0) -> bool:
         """
         Check if this boto session is expired.
-
-        .. versionadded:: 0.0.1
         """
         return (
             datetime.now(timezone.utc) + timedelta(seconds=delta)
@@ -447,15 +395,10 @@ class BotoSesManager(ClientMixin):
         )
 
     @contextlib.contextmanager
-    def awscli(
-        self,
-        duration_seconds: int = 900,
-        serial_number: T.Optional[str] = NOTHING,
-        token_code: T.Optional[str] = NOTHING,
-    ):
+    def awscli(self):
         """
-        Temporarily set up environment variable to pass the boto session
-        credential to AWS CLI.
+        Temporarily set up environment variables to pass the boto session
+        credential to AWS CLI.  On exit the original environment is restored.
 
         Example::
 
@@ -469,27 +412,7 @@ class BotoSesManager(ClientMixin):
         Reference:
 
         - https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
-
-        .. versionadded:: 1.2.1
-
-        .. versionchanged:: 1.7.1
-
-            duration_seconds, serial_number and token_code arguments should not
-            be used in this method, it should set the credential as it is,
-            it should not create a new session, these arguments will be removed
-            in 2024-03-31
         """
-        if (
-            serial_number is not NOTHING or token_code is not NOTHING
-        ):  # pragma: no cover
-            warnings.warn(
-                "duration_seconds, serial_number and token_code arguments "
-                "should not be used in this method, it should set the credential "
-                "as it is, it should not create a new session, "
-                "these arguments will be removed in 2024-03-31",
-                DeprecationWarning,
-            )
-
         # save the existing env var state, and disable the existing env var
         mapper = {
             "AWS_ACCESS_KEY_ID": None,
@@ -538,6 +461,12 @@ class BotoSesManager(ClientMixin):
                     os.environ[k] = v
 
     def to_snapshot(self) -> dict:
+        """
+        Serialize the current session credentials (access key, secret key,
+        optional session token, region) into a plain dict that can be persisted
+        to disk with :meth:`temp_snapshot` and later restored with
+        :meth:`from_snapshot` or :meth:`from_snapshot_file`.
+        """
         cred = self.boto_ses.get_credentials()
         snapshot = dict(
             region_name=self.aws_region,
@@ -550,6 +479,10 @@ class BotoSesManager(ClientMixin):
 
     @classmethod
     def from_snapshot(cls, snapshot: dict):
+        """
+        Create a :class:`BotoSesManager` from a snapshot dict previously
+        produced by :meth:`to_snapshot`.
+        """
         return cls(**snapshot)
 
     @classmethod
@@ -557,6 +490,11 @@ class BotoSesManager(ClientMixin):
         cls,
         path: str | Path | None = PATH_DEFAULT_SNAPSHOT,
     ):
+        """
+        Read a JSON snapshot file from *path* (default ``~/.bsm-snapshot.json``)
+        and reconstruct a :class:`BotoSesManager`.  Pair this with
+        :meth:`temp_snapshot` to hand credentials across process boundaries.
+        """
         if path is None:  # pragma: no cover
             raise EnvironmentError("your system may not support $HOME directory")
         path = Path(path)
@@ -570,35 +508,27 @@ class BotoSesManager(ClientMixin):
         path: str | Path | None = PATH_DEFAULT_SNAPSHOT,
     ):
         """
-        Temporarily back up the current boto session credentials to a file and
-        automatically delete the backup file after the context manager exits.
+        Context manager that writes the current credentials to a JSON file
+        (default ``~/.bsm-snapshot.json``) and deletes it on exit.
 
-        This is useful when you need to temporarily override environment variables
-        for the default boto session but still want to access the original default
-        boto session while those environment variables are missing.
+        **Why this exists:** when you use :meth:`awscli` to switch the
+        environment to a *different* AWS account, child processes (scripts,
+        CLI tools) lose access to the *original* session.  By saving a
+        snapshot first, those child processes can call
+        :meth:`from_snapshot_file` to recover the original credentials.
 
-        For example, if you use the :meth:`BotoSesManager.awscli` method to set
-        the default boto session to an AWS account other than the default AWS CLI profile,
-        and then you want to run some CLI commands. Now that the default boto session
-        is set to the other AWS account, but you still want to access the original boto session,
-        you can use this method to temporarily back up the original session and
-        use the :meth:`BotoSesManager.from_snapshot_file` method to restore the original session.
+        Example::
 
-        Example:
-
-        .. code-block:: python
-
-            # let's say the default profile is account A (acc_a)
             import subprocess
 
             bsm_default = BotoSesManager()
             bsm_acc_b = BotoSesManager(profile_name="acc_b")
             with bsm_default.temp_snapshot():
                 with bsm_acc_b.awscli():
-                    # now the default profile is account B (acc_b)
+                    # env now points to account B
                     subprocess.run(["aws", "sts", "get-caller-identity"])
-                    # you can use the ``from_snapshot_file`` method in ``my_script.py``
-                    # to restore the default profile to account A (acc_a)
+                    # my_script.py can call BotoSesManager.from_snapshot_file()
+                    # to get the original (account A) session back
                     subprocess.run(["python", "my_script.py"])
         """
         if path is None:  # pragma: no cover
