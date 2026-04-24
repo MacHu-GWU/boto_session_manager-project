@@ -35,7 +35,7 @@ else:  # pragma: no cover
     load_dotenv()
 
     is_ci = False
-    profile_name = "project_boto_session_manager"
+
     bsm = BotoSesManager(
         aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
         aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
@@ -199,7 +199,7 @@ class TestBotoSesManager:
     )
     def test_temp_snapshot(self):
         bsm_default = BotoSesManager()
-        bsm_project = BotoSesManager(profile_name=profile_name)
+        bsm_project = bsm
         assert bsm_default.aws_account_id != bsm_project.aws_account_id
 
         with bsm_default.temp_snapshot():
