@@ -4,9 +4,11 @@ This document guides AI assistants on how to navigate and work with this project
 
 ## Project Overview
 
-**What this project does:** Read `README.rst` for project description and purpose.
+`boto_session_manager` is a high-level wrapper around boto3. The core class `BotoSesManager` manages the creation and caching of AWS Sessions, Clients, and Resources, and provides common session management features such as assume role (with optional auto-refreshing credentials), AWS CLI environment variable injection via context manager, and credential snapshot serialization. This saves users from repeatedly wiring up boto3 session and credential logic in multi-account, multi-role scenarios.
 
-**Project type:** Python package
+The project maintains all 400+ AWS service client IDs as class attributes in `AwsServiceEnum`, and generates a typed lazy property for each service in `ClientMixin` (e.g. `bsm.s3_client`, `bsm.ec2_client`). These properties leverage `mypy-boto3-*` stub packages for IDE autocomplete and static type checking with zero runtime overhead. None of this code is hand-written — a code-generation script crawls the official boto3 documentation to collect every service name and ID into a spec file, then renders `services.py` and `clients.py` through Jinja2 templates. Whenever AWS releases new services, re-running the script brings everything up to date.
+
+The project is currently being upgraded from 1.x to 2.0 (a major version bump). Tests run against real AWS accounts (integration tests), not mocks.
 
 ## Core Configuration Files
 
