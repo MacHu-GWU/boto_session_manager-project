@@ -24,6 +24,12 @@
         "service_id": "acm-pca"
     },
     {
+        "name": "AIOps",
+        "href_name": "aiops.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/aiops.html",
+        "service_id": "aiops"
+    },
+    {
         "name": "PrometheusService",
         "href_name": "amp.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/amp.html",
@@ -144,10 +150,10 @@
         "service_id": "appsync"
     },
     {
-        "name": "MainframeModernizationApplicationTesting",
-        "href_name": "apptest.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/apptest.html",
-        "service_id": "apptest"
+        "name": "ARCRegionswitch",
+        "href_name": "arc-region-switch.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/arc-region-switch.html",
+        "service_id": "arc-region-switch"
     },
     {
         "name": "ARCZonalShift",
@@ -216,6 +222,12 @@
         "service_id": "batch"
     },
     {
+        "name": "BillingandCostManagementDashboards",
+        "href_name": "bcm-dashboards.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-dashboards.html",
+        "service_id": "bcm-dashboards"
+    },
+    {
         "name": "BillingandCostManagementDataExports",
         "href_name": "bcm-data-exports.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-data-exports.html",
@@ -226,6 +238,12 @@
         "href_name": "bcm-pricing-calculator.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-pricing-calculator.html",
         "service_id": "bcm-pricing-calculator"
+    },
+    {
+        "name": "BillingandCostManagementRecommendedActions",
+        "href_name": "bcm-recommended-actions.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bcm-recommended-actions.html",
+        "service_id": "bcm-recommended-actions"
     },
     {
         "name": "Bedrock",
@@ -244,6 +262,18 @@
         "href_name": "bedrock-agent-runtime.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agent-runtime.html",
         "service_id": "bedrock-agent-runtime"
+    },
+    {
+        "name": "BedrockAgentCore",
+        "href_name": "bedrock-agentcore.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore.html",
+        "service_id": "bedrock-agentcore"
+    },
+    {
+        "name": "BedrockAgentCoreControl",
+        "href_name": "bedrock-agentcore-control.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/bedrock-agentcore-control.html",
+        "service_id": "bedrock-agentcore-control"
     },
     {
         "name": "DataAutomationforBedrock",
@@ -534,6 +564,12 @@
         "service_id": "compute-optimizer"
     },
     {
+        "name": "ComputeOptimizerAutomation",
+        "href_name": "compute-optimizer-automation.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/compute-optimizer-automation.html",
+        "service_id": "compute-optimizer-automation"
+    },
+    {
         "name": "ConfigService",
         "href_name": "config.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/config.html",
@@ -568,6 +604,12 @@
         "href_name": "connectcases.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/connectcases.html",
         "service_id": "connectcases"
+    },
+    {
+        "name": "ConnectHealth",
+        "href_name": "connecthealth.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/connecthealth.html",
+        "service_id": "connecthealth"
     },
     {
         "name": "ConnectParticipant",
@@ -658,6 +700,12 @@
         "href_name": "devicefarm.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/devicefarm.html",
         "service_id": "devicefarm"
+    },
+    {
+        "name": "DevOpsAgentService",
+        "href_name": "devops-agent.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/devops-agent.html",
+        "service_id": "devops-agent"
     },
     {
         "name": "DevOpsGuru",
@@ -804,12 +852,6 @@
         "service_id": "elasticbeanstalk"
     },
     {
-        "name": "ElasticTranscoder",
-        "href_name": "elastictranscoder.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elastictranscoder.html",
-        "service_id": "elastictranscoder"
-    },
-    {
         "name": "ElasticLoadBalancing",
         "href_name": "elb.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elb.html",
@@ -820,6 +862,12 @@
         "href_name": "elbv2.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elbv2.html",
         "service_id": "elbv2"
+    },
+    {
+        "name": "ElementalInference",
+        "href_name": "elementalinference.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/elementalinference.html",
+        "service_id": "elementalinference"
     },
     {
         "name": "EMR",
@@ -858,10 +906,10 @@
         "service_id": "events"
     },
     {
-        "name": "CloudWatchEvidently",
-        "href_name": "evidently.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/evidently.html",
-        "service_id": "evidently"
+        "name": "EVS",
+        "href_name": "evs.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/evs.html",
+        "service_id": "evs"
     },
     {
         "name": "finspace",
@@ -1056,6 +1104,12 @@
         "service_id": "inspector2"
     },
     {
+        "name": "Interconnect",
+        "href_name": "interconnect.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/interconnect.html",
+        "service_id": "interconnect"
+    },
+    {
         "name": "CloudWatchInternetMonitor",
         "href_name": "internetmonitor.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/internetmonitor.html",
@@ -1092,12 +1146,6 @@
         "service_id": "iot-managed-integrations"
     },
     {
-        "name": "IoTAnalytics",
-        "href_name": "iotanalytics.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotanalytics.html",
-        "service_id": "iotanalytics"
-    },
-    {
         "name": "IoTDeviceAdvisor",
         "href_name": "iotdeviceadvisor.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotdeviceadvisor.html",
@@ -1114,12 +1162,6 @@
         "href_name": "iotevents-data.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotevents-data.html",
         "service_id": "iotevents-data"
-    },
-    {
-        "name": "IoTFleetHub",
-        "href_name": "iotfleethub.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/iotfleethub.html",
-        "service_id": "iotfleethub"
     },
     {
         "name": "IoTFleetWise",
@@ -1204,6 +1246,12 @@
         "href_name": "keyspaces.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/keyspaces.html",
         "service_id": "keyspaces"
+    },
+    {
+        "name": "KeyspacesStreams",
+        "href_name": "keyspacesstreams.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/keyspacesstreams.html",
+        "service_id": "keyspacesstreams"
     },
     {
         "name": "Kinesis",
@@ -1344,18 +1392,6 @@
         "service_id": "lookoutequipment"
     },
     {
-        "name": "LookoutMetrics",
-        "href_name": "lookoutmetrics.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lookoutmetrics.html",
-        "service_id": "lookoutmetrics"
-    },
-    {
-        "name": "LookoutforVision",
-        "href_name": "lookoutvision.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lookoutvision.html",
-        "service_id": "lookoutvision"
-    },
-    {
         "name": "MainframeModernization",
         "href_name": "m2.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/m2.html",
@@ -1408,6 +1444,12 @@
         "href_name": "marketplace-deployment.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-deployment.html",
         "service_id": "marketplace-deployment"
+    },
+    {
+        "name": "MarketplaceDiscovery",
+        "href_name": "marketplace-discovery.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/marketplace-discovery.html",
+        "service_id": "marketplace-discovery"
     },
     {
         "name": "MarketplaceEntitlementService",
@@ -1536,6 +1578,12 @@
         "service_id": "migrationhubstrategy"
     },
     {
+        "name": "MultipartyApproval",
+        "href_name": "mpa.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mpa.html",
+        "service_id": "mpa"
+    },
+    {
         "name": "MQ",
         "href_name": "mq.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mq.html",
@@ -1552,6 +1600,12 @@
         "href_name": "mwaa.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mwaa.html",
         "service_id": "mwaa"
+    },
+    {
+        "name": "MWAAServerless",
+        "href_name": "mwaa-serverless.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/mwaa-serverless.html",
+        "service_id": "mwaa-serverless"
     },
     {
         "name": "Neptune",
@@ -1608,6 +1662,12 @@
         "service_id": "notificationscontacts"
     },
     {
+        "name": "NovaActService",
+        "href_name": "nova-act.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/nova-act.html",
+        "service_id": "nova-act"
+    },
+    {
         "name": "CloudWatchObservabilityAccessManager",
         "href_name": "oam.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/oam.html",
@@ -1618,6 +1678,12 @@
         "href_name": "observabilityadmin.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/observabilityadmin.html",
         "service_id": "observabilityadmin"
+    },
+    {
+        "name": "odb",
+        "href_name": "odb.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/odb.html",
+        "service_id": "odb"
     },
     {
         "name": "Omics",
@@ -1636,18 +1702,6 @@
         "href_name": "opensearchserverless.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/opensearchserverless.html",
         "service_id": "opensearchserverless"
-    },
-    {
-        "name": "OpsWorks",
-        "href_name": "opsworks.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/opsworks.html",
-        "service_id": "opsworks"
-    },
-    {
-        "name": "OpsWorksCM",
-        "href_name": "opsworkscm.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/opsworkscm.html",
-        "service_id": "opsworkscm"
     },
     {
         "name": "Organizations",
@@ -1672,6 +1726,24 @@
         "href_name": "panorama.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/panorama.html",
         "service_id": "panorama"
+    },
+    {
+        "name": "PartnerCentralAccountAPI",
+        "href_name": "partnercentral-account.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/partnercentral-account.html",
+        "service_id": "partnercentral-account"
+    },
+    {
+        "name": "PartnerCentralBenefits",
+        "href_name": "partnercentral-benefits.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/partnercentral-benefits.html",
+        "service_id": "partnercentral-benefits"
+    },
+    {
+        "name": "PartnerCentralChannelAPI",
+        "href_name": "partnercentral-channel.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/partnercentral-channel.html",
+        "service_id": "partnercentral-channel"
     },
     {
         "name": "PartnerCentralSellingAPI",
@@ -1776,12 +1848,6 @@
         "service_id": "pricing"
     },
     {
-        "name": "Private5G",
-        "href_name": "privatenetworks.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/privatenetworks.html",
-        "service_id": "privatenetworks"
-    },
-    {
         "name": "Proton",
         "href_name": "proton.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/proton.html",
@@ -1804,18 +1870,6 @@
         "href_name": "qconnect.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qconnect.html",
         "service_id": "qconnect"
-    },
-    {
-        "name": "QLDB",
-        "href_name": "qldb.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qldb.html",
-        "service_id": "qldb"
-    },
-    {
-        "name": "QLDBSession",
-        "href_name": "qldb-session.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/qldb-session.html",
-        "service_id": "qldb-session"
     },
     {
         "name": "QuickSight",
@@ -1902,12 +1956,6 @@
         "service_id": "resourcegroupstaggingapi"
     },
     {
-        "name": "RoboMaker",
-        "href_name": "robomaker.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/robomaker.html",
-        "service_id": "robomaker"
-    },
-    {
         "name": "IAMRolesAnywhere",
         "href_name": "rolesanywhere.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rolesanywhere.html",
@@ -1944,6 +1992,12 @@
         "service_id": "route53domains"
     },
     {
+        "name": "Route53GlobalResolver",
+        "href_name": "route53globalresolver.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53globalresolver.html",
+        "service_id": "route53globalresolver"
+    },
+    {
         "name": "Route53Profiles",
         "href_name": "route53profiles.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53profiles.html",
@@ -1954,6 +2008,12 @@
         "href_name": "route53resolver.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/route53resolver.html",
         "service_id": "route53resolver"
+    },
+    {
+        "name": "RTBFabric",
+        "href_name": "rtbfabric.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/rtbfabric.html",
+        "service_id": "rtbfabric"
     },
     {
         "name": "CloudWatchRUM",
@@ -1974,6 +2034,12 @@
         "service_id": "s3control"
     },
     {
+        "name": "S3Files",
+        "href_name": "s3files.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3files.html",
+        "service_id": "s3files"
+    },
+    {
         "name": "S3Outposts",
         "href_name": "s3outposts.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3outposts.html",
@@ -1984,6 +2050,12 @@
         "href_name": "s3tables.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3tables.html",
         "service_id": "s3tables"
+    },
+    {
+        "name": "S3Vectors",
+        "href_name": "s3vectors.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/s3vectors.html",
+        "service_id": "s3vectors"
     },
     {
         "name": "SageMaker",
@@ -2064,6 +2136,12 @@
         "service_id": "security-ir"
     },
     {
+        "name": "SecurityAgent",
+        "href_name": "securityagent.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/securityagent.html",
+        "service_id": "securityagent"
+    },
+    {
         "name": "SecurityHub",
         "href_name": "securityhub.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/securityhub.html",
@@ -2130,16 +2208,28 @@
         "service_id": "signer"
     },
     {
+        "name": "SignerDataPlane",
+        "href_name": "signer-data.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/signer-data.html",
+        "service_id": "signer-data"
+    },
+    {
+        "name": "SignInService",
+        "href_name": "signin.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/signin.html",
+        "service_id": "signin"
+    },
+    {
+        "name": "SimpleDBv2",
+        "href_name": "simpledbv2.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/simpledbv2.html",
+        "service_id": "simpledbv2"
+    },
+    {
         "name": "SimSpaceWeaver",
         "href_name": "simspaceweaver.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/simspaceweaver.html",
         "service_id": "simspaceweaver"
-    },
-    {
-        "name": "SMS",
-        "href_name": "sms.html",
-        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sms.html",
-        "service_id": "sms"
     },
     {
         "name": "SnowDeviceManagement",
@@ -2182,6 +2272,12 @@
         "href_name": "ssm-contacts.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm-contacts.html",
         "service_id": "ssm-contacts"
+    },
+    {
+        "name": "SSMGUIConnect",
+        "href_name": "ssm-guiconnect.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/ssm-guiconnect.html",
+        "service_id": "ssm-guiconnect"
     },
     {
         "name": "SSMIncidents",
@@ -2256,6 +2352,12 @@
         "service_id": "support-app"
     },
     {
+        "name": "Sustainability",
+        "href_name": "sustainability.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/sustainability.html",
+        "service_id": "sustainability"
+    },
+    {
         "name": "SWF",
         "href_name": "swf.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/swf.html",
@@ -2328,6 +2430,12 @@
         "service_id": "trustedadvisor"
     },
     {
+        "name": "UserExperienceCustomization",
+        "href_name": "uxc.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/uxc.html",
+        "service_id": "uxc"
+    },
+    {
         "name": "VerifiedPermissions",
         "href_name": "verifiedpermissions.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/verifiedpermissions.html",
@@ -2370,6 +2478,12 @@
         "service_id": "wellarchitected"
     },
     {
+        "name": "WickrAdminAPI",
+        "href_name": "wickr.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/wickr.html",
+        "service_id": "wickr"
+    },
+    {
         "name": "ConnectWisdomService",
         "href_name": "wisdom.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/wisdom.html",
@@ -2398,6 +2512,12 @@
         "href_name": "workspaces.html",
         "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workspaces.html",
         "service_id": "workspaces"
+    },
+    {
+        "name": "WorkspacesInstances",
+        "href_name": "workspaces-instances.html",
+        "doc_url": "https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/workspaces-instances.html",
+        "service_id": "workspaces-instances"
     },
     {
         "name": "WorkSpacesThinClient",
