@@ -55,7 +55,7 @@ def get_html_with_cache(url: str) -> str:
     """
     if url in cache:
         return cache.get(url)
-    html = httpx.get(url).text
+    html = httpx.get(url, follow_redirects=True).text
     cache.set(url, html, expire=CACHE_EXPIRE)
     return html
 
