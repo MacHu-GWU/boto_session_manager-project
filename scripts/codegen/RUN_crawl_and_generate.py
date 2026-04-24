@@ -10,7 +10,6 @@ Usage::
 """
 
 import typing as T
-import re
 import json
 import shutil
 import dataclasses
@@ -93,8 +92,11 @@ class AWSService:
 
 def parse_home_page(html: str) -> T.List[AWSService]:
     """
-    Parse the boto3 services index page and return a list of AWSService
-    (with service_id left empty — that requires crawling each service page).
+    Parse the boto3 services index page and return all AWS services.
+
+    The service_id is derived from href_name by stripping the ``.html`` suffix,
+    which matches the value used in ``boto3.client(service_id)``.
+    This avoids crawling each individual service page.
     """
     aws_service_list: T.List[AWSService] = []
     tree = HTMLParser(html)
@@ -103,11 +105,13 @@ def parse_home_page(html: str) -> T.List[AWSService]:
         href = a.attributes.get("href", "")
         if "#" in href:
             continue
+        service_id = href.removesuffix(".html")
         aws_service_list.append(
             AWSService(
                 name=a.text(),
                 href_name=href,
                 doc_url=f"https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/{href}",
+                service_id=service_id,
             )
         )
     return aws_service_list
@@ -116,16 +120,28 @@ def parse_home_page(html: str) -> T.List[AWSService]:
 def get_all_aws_service() -> T.List[AWSService]:
     """
     Fetch the boto3 services index page and return all AWS services
-    (service_id not yet populated).
+    with name, href_name, doc_url, and service_id fully populated.
     """
     html = get_html_with_cache(URL_SERVICES_INDEX)
     return parse_home_page(html)
 
 
+def step1_crawl_spec_file_data(limit: T.Optional[int] = None):
+    """
+    Crawl the boto3 docs index page, collect all service metadata,
+    and write to spec-file.json.
+
+    :param limit: if set, only process the first N services (for testing).
+    """
+    aws_service_list = get_all_aws_service()
+    if limit is not None:
+        aws_service_list = aws_service_list[:limit]
+    print(f"Found {len(aws_service_list)} AWS services")
+
+    spec_file_data = [dataclasses.asdict(svc) for svc in aws_service_list]
+    path_spec_file_json.write_text(json.dumps(spec_file_data, indent=4))
+    print(f"Wrote {path_spec_file_json}")
+
+
 if __name__ == "__main__":
-    services = get_all_aws_service()
-    print(f"Found {len(services)} AWS services")
-    for svc in services[:5]:
-        print(f"  {svc.name:30s} {svc.href_name}")
-    if len(services) > 5:
-        print(f"  ... and {len(services) - 5} more")
+    step1_crawl_spec_file_data()
