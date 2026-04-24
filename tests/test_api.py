@@ -6,6 +6,7 @@ from boto_session_manager import api
 def test():
     _ = api
 
+    _ = api.NoBotocoreCredentialError
     _ = api.BotoSesManager
     _ = api.PATH_DEFAULT_SNAPSHOT
     _ = api.AwsServiceEnum
