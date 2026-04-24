@@ -6,7 +6,6 @@ from boto_session_manager.manager import PATH_DEFAULT_SNAPSHOT
 
 import pytest
 
-import typing as T
 import os
 import json
 import subprocess
@@ -199,6 +198,8 @@ class TestBotoSesManager:
         reason="we don't want to expose real AWS credentials in CI",
     )
     def test_temp_snapshot(self):
+        self._ensure_default_aws_account_is_not_project_aws_account()
+
         bsm_default = BotoSesManager()
         assert bsm_default.aws_account_id != bsm_project.aws_account_id
 

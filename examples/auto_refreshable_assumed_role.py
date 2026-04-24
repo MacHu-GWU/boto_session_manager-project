@@ -3,7 +3,7 @@
 import time
 from boto_session_manager import BotoSesManager
 
-bsm = BotoSesManager(profile_name="aws_data_lab_open_source_boto_session_manager")
+bsm = BotoSesManager(profile_name="project-boto_session_manager")
 role_name = "project-boto_session_manager"
 role_arn = f"arn:aws:iam::{bsm.aws_account_id}:role/{role_name}"
 
