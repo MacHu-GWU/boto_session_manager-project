@@ -13,8 +13,7 @@ import subprocess
 # fmt: off
 from boto_session_manager.tests.settings import TEST_IAM_USER_NAME
 from boto_session_manager.tests.settings import TEST_IAM_ROLE_NAME
-from boto_session_manager.tests.settings import GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR
-from boto_session_manager.tests.settings import GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR
+from boto_session_manager.tests.settings import load_bsm_project
 
 if "CI" in os.environ:  # pragma: no cover
     IS_CI = True
@@ -24,15 +23,7 @@ if "CI" in os.environ:  # pragma: no cover
 else:  # pragma: no cover
     IS_CI = False
 
-    from dotenv import load_dotenv
-
-    load_dotenv()
-
-bsm_project = BotoSesManager(
-    aws_access_key_id=os.environ[GH_CI_AWS_ACCESS_KEY_ID_ENV_VAR],
-    aws_secret_access_key=os.environ[GH_CI_AWS_SECRET_ACCESS_KEY_ENV_VAR],
-    region_name="us-east-1",
-)
+bsm_project = load_bsm_project()
 
 class TestBotoSesManager:
     def test_aws_account_id_and_region(self):
