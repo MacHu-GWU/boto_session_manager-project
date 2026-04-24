@@ -10,6 +10,9 @@ python = "3.12"
 uv = "latest"
 claude = "latest"
 pandoc = "3.9" # Use pandoc 3.9 - latest stable major version as of 2026-04
+node = "24"
+awscli = "2.34.24"
+"npm:aws-cdk" = "2.1119.0"
 
 # === Tasks ===
 # Python Environment Management
@@ -106,3 +109,24 @@ depends = ["inst"]
 description = "🔧 Update GitHub repository description and homepage using PyGithub"
 run = ".venv/bin/python .mise/tasks/update-github-metadata.py"
 depends = ["inst"]
+
+# CDK
+[tasks.cdk-plan]
+description = "🔵 Preview CDK changes then deploy (runs cdk diff followed by cdk deploy)"
+dir = "cdk"
+depends = ["inst"]
+run = """
+cdk diff --all
+cdk deploy --all --require-approval never
+"""
+
+[tasks.cdk-up]
+description = "🟢 Deploy CDK stacks to AWS (runs cdk deploy, skip approval)"
+dir = "cdk"
+depends = ["inst"]
+run = "cdk deploy --all --require-approval never"
+
+[tasks.cdk-down]
+description = "🔴 Destroy CDK stacks from AWS (force, no confirmation)"
+dir = "cdk"
+run = "cdk destroy --all --force"
